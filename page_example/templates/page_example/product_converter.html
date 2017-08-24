@@ -1,0 +1,196 @@
+{% extends "page_example/product_base.html" %}
+{% load static %}
+{% block page-title %}
+<title>产品查询-转接器</title>
+<meta name="keywords" content="">
+<meta name="description" content="产品查询-转接器">
+{% endblock %}
+
+{% block product-private %}
+<div style="width: 100%" class="container ui-sortable">
+            <div class="panel panel-default">
+                <div class="panel-header">转接器查询</div>
+                <div class="panel-body">
+                    <table id="zjqSameTypeConvert" class="table table-border table-bordered table-bg">
+                        <thead>
+                        <tr>
+                            <th>类型</th>
+                            <th>系列</th>
+                            <th>极性</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><span class="select-box size-MINI">
+                                <select  nullmsg="类型" datatype="*" name="" size="1" class="select"
+                                        onchange="ljqTypeChange(this)">
+                                    <option selected="" value="">同类互转</option>
+                                    <option value="2">异类互转</option>
+                                    </select>
+                            </span></td>
+                            <td><span class="select-box size-MINI">
+                                <select  nullmsg="请选择系列！" datatype="*" name="" size="1"
+                                        class="select"
+                                        onchange="ljqTypeChange(this)">
+                                    <option selected="" value="">系列</option>
+                                    <option value="1">2.4</option>
+                                    <option value="2">x.x</option>
+                                    <option value="3">y.x</option>
+                                    <option value="3">我会动态从数据库拿过来</option>
+                                </select>
+                            </span></td>
+                            <td><span class="select-box size-MINI">
+                                <select nullmsg="极性" datatype="*" name="" size="1" class="select">
+                                    <option selected="" value="">请选择极性</option>
+                                    <option value="1">公</option>
+                                    <option value="2">母</option>
+                                </select>
+                            </span></td>
+                            <!--<td><span class="select-box size-MINI">-->
+                                <!--<select nullmsg="安装类型" datatype="*" name="" size="1" class="select">-->
+                                    <!--<option selected="" value="">请选择安装类型</option>-->
+                                    <!--<option value="1">1</option>-->
+                                    <!--<option value="2">2</option>-->
+                                    <!--<option value="3">3</option>-->
+                                <!--</select>-->
+                            <!--</span></td>-->
+                            <!--<td><input type="text" value="" placeholder="" class="input-text size-MINI"></td>-->
+                            <!--<td><input type="text" value="" placeholder="" class="input-text size-MINI"></td>-->
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    <table id="zjqDiffTypeConvert" style="display: none" class="table table-border table-bordered table-bg">
+                        <thead>
+                        <tr>
+                            <th>类型</th>
+                            <th>系列1</th>
+                            <th>极性1</th>
+                            <th>系列2</th>
+                            <th>极性2</th>
+                            <!--<th>安装类型</th>-->
+                            <!--<th>电缆外导体直径</th>-->
+                            <!--<th>电缆内导体直径</th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><span class="select-box size-MINI">
+                                <select nullmsg="类型！" datatype="*" name="" size="1" class="select"
+                                        onchange="ljqTypeChange(this)">
+                                    <option selected="" value="">异类互转</option>
+                                    <option value="1">同类互转</option>
+                                </select>
+                            </span></td>
+                            <td><span class="select-box size-MINI">
+                                <select nullmsg="请选择系列1！" datatype="*" name="" size="1" class="select">
+                                    <option selected="" value="">系列1</option>
+                                    <option value="1">2.4</option>
+                                    <option value="2">x.x</option>
+                                    <option value="3">y.x</option>
+                                    <option value="3">我会动态从数据库拿过来</option>
+                                </select>
+                            </span></td>
+
+                            <td><span class="select-box size-MINI">
+                                <select nullmsg="极性" datatype="*" name="" size="1" class="select">
+                                    <option selected="" value="">请选择极性1</option>
+                                    <option value="1">公</option>
+                                    <option value="2">母</option>
+                                </select>
+                            </span></td>
+                            <td><span class="select-box size-MINI">
+                                <select nullmsg="请选择系列1！" datatype="*" name="" size="1" class="select">
+                                    <option selected="" value="">系列2</option>
+                                    <option value="1">2.4</option>
+                                    <option value="2">x.x</option>
+                                    <option value="3">y.x</option>
+                                    <option value="3">我会动态从数据库拿过来</option>
+                                </select>
+                            </span></td>
+                            <td><span class="select-box size-MINI">
+                                <select nullmsg="极性" datatype="*" name="" size="1" class="select">
+                                    <option selected="" value="">请选择极性2</option>
+                                    <option value="1">公</option>
+                                    <option value="2">母</option>
+                                </select>
+                            </span></td>
+                            <!--<td><span class="select-box size-MINI">-->
+                                <!--<select nullmsg="安装类型" datatype="*" name="" size="1" class="select">-->
+                                    <!--<option selected="" value="">请选择安装类型</option>-->
+                                    <!--<option value="1">1</option>-->
+                                    <!--<option value="2">2</option>-->
+                                    <!--<option value="3">3</option>-->
+                                <!--</select>-->
+                            <!--</span></td>-->
+                            <!--<td><input type="text" value="" placeholder="" class="input-text size-MINI"></td>-->
+                            <!--<td><input type="text" value="" placeholder="" class="input-text size-MINI"></td>-->
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    <input class="btn btn-primary radius mt-10" type="button" value="查询">
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-header">查询结果</div>
+                <table class="table table-border table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th width="5%">序号</th>
+                            <th width="10%">系列</th>
+                            <th width="10%">极性</th>
+                            <th width="10%">外形</th>
+                            <th width="10%">安装类型</th>
+                            <th width="10%">材料</th>
+                            <th width="10%">特性</th>
+                            <th width="10%">规格书</th>
+                            <th width="10%">WITC编号</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><code>1</code></td>
+                            <td><code>系列</code></td>
+                            <td><code>display</code></td>
+                            <td><code>display</code></td>
+                            <td><code>display</code></td>
+                            <td><code>display</code></td>
+                            <td><code>display</code></td>
+                            <td><code>下载</code></td>
+                            <td><code>display</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>2</code></td>
+                            <td><code>display</code></td>
+                            <td><code>display</code></td>
+                            <td><code>display</code></td>
+                            <td><code>display</code></td>
+                            <td><code>display</code></td>
+                            <td><code>display</code></td>
+                            <td><code>下载</code></td>
+                            <td><code>display</code></td>
+                        </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+{% endblock %}
+
+{% block private-script %}
+<script>
+function ljqTypeChange(obj){
+    var currObj = obj;
+    if (currObj.options[currObj.selectedIndex].value == 1){
+        document.getElementById("zjqDiffTypeConvert").style.display="none";
+        document.getElementById("zjqSameTypeConvert").style.display="table";
+    }else{
+        document.getElementById("zjqSameTypeConvert").style.display="none";
+        document.getElementById("zjqDiffTypeConvert").style.display="table";
+    }
+}
+$(function(){
+	$('#nav-product').addClass("current")
+});
+</script>
+{% endblock %}

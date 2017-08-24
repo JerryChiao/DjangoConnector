@@ -1,0 +1,45 @@
+{% extends 'page_example/base.html' %}
+{% load static %}
+
+{% block page-title %}
+<title>管理员登录</title>
+<meta name="keywords" content="管理员登录">
+<meta name="description" content="管理员登录">
+{% endblock %}
+
+{% block display-content %}
+<div style="width: 50%" class="container ui-sortable mt-20 ">
+	<div style="width: 80%" class="panel panel-default">
+		<div class="panel-header">管理员登录</div>
+                <div class="panel-body">
+                    <form action="" method="post" class="form form-horizontal responsive" id="demoform">
+                        <div class="row cl">
+                            <label class="form-label col-xs-3">用户名</label>
+                            <div class="formControls col-xs-8">
+                                <input type="text" class="input-text" placeholder="@" name="email" id="email" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <label class="form-label col-xs-3">密码</label>
+                            <div class="formControls col-xs-8">
+                                <input type="password" class="input-text" autocomplete="off" placeholder="密码" name="password" id="password">
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <div class="col-xs-8 col-xs-offset-3">
+                                <input class="btn btn-primary" type="submit" value="&nbsp;&nbsp;登录&nbsp;&nbsp;">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+	</div>
+{% endblock %}
+
+{% block private-script %}
+<script>
+$(function(){
+	$('#nav-admin-login').addClass("current");
+});
+</script>
+{% endblock %}

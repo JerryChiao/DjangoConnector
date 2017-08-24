@@ -1,0 +1,9 @@
+{% extends "page_example/product_base.html" %}
+{% load staticfiles %}
+{% block private-script %}
+<script>
+$(function(){
+	$('#nav-homepage').addClass("current");
+});
+</script>
+{% endblock %}

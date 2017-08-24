@@ -1,0 +1,93 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-24 13:17+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .\page_example\templates\page_example\base.html:28
+msgid "Welcome to Website"
+msgstr ""
+
+#: .\page_example\templates\page_example\base.html:38
+msgid "北京创维时空科技"
+msgstr "Beijing Chuangwei Tech"
+
+#: .\page_example\templates\page_example\base.html:43
+msgid "首页"
+msgstr "HomePage"
+
+#: .\page_example\templates\page_example\base.html:46
+msgid "公司简介"
+msgstr "Company Introduction"
+
+#: .\page_example\templates\page_example\base.html:49
+msgid "产品分类"
+msgstr "Product Categories"
+
+#: .\page_example\templates\page_example\base.html:52
+msgid "连接器"
+msgstr "Connectors"
+
+#: .\page_example\templates\page_example\base.html:55
+msgid "转接器"
+msgstr "Converters"
+
+#: .\page_example\templates\page_example\base.html:58
+msgid "电缆"
+msgstr "Cable"
+
+#: .\page_example\templates\page_example\base.html:61
+msgid "电缆组件"
+msgstr "Cable Combos"
+
+#: .\page_example\templates\page_example\base.html:64
+msgid "VNA电缆测试组件"
+msgstr "Cable Combos"
+
+#: .\page_example\templates\page_example\base.html:67
+msgid "定制电缆组件"
+msgstr "Customized Cable"
+
+#: .\page_example\templates\page_example\base.html:70
+msgid "定制成型半钢电缆组件"
+msgstr "Customized Cable"
+
+#: .\page_example\templates\page_example\base.html:75
+msgid "器件"
+msgstr "Device"
+
+#: .\page_example\templates\page_example\base.html:78
+msgid "工具设备"
+msgstr "Tool"
+
+#: .\page_example\templates\page_example\base.html:83
+msgid "管理员登录"
+msgstr "Admin"
+
+#: .\page_example\templates\page_example\base.html:97
+msgid "关于公司"
+msgstr "About Company"
+
+#: .\page_example\templates\page_example\base.html:99
+msgid "软件著作权"
+msgstr "Copyright"
+
+#: .\page_example\templates\page_example\product_tool.html:6
+msgid "Tool query"
+msgstr "查询"
+
+#: .\page_example\views.py:50
+msgid "i know"
+msgstr ""
