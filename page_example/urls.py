@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from . import views
+import admin_user_login
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -12,6 +13,6 @@ urlpatterns = [
     url(r'^instrument_product/', views.instrument_product, name="instrument"),
     url(r'^tool_product/', views.tool_product, name='tool'),
     url(r'^admin_login/', views.admin_login, name='admin_login'),
-    url(r'^notifytest/', views.notify_test, name='notify')
-
+    url(r'^notifytest/', views.notify_test, name='notify'),
+    url(r'^try_to_login/', admin_user_login.user_login, name='try_login')
 ]

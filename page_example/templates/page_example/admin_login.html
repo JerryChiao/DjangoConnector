@@ -12,7 +12,7 @@
 	<div style="width: 80%" class="panel panel-default">
 		<div class="panel-header">管理员登录</div>
                 <div class="panel-body">
-                    <form action="" method="post" class="form form-horizontal responsive" id="demoform">
+                    <form action="" method="post" class="form form-horizontal responsive" id="loginform">
                         <div class="row cl">
                             <label class="form-label col-xs-3">用户名</label>
                             <div class="formControls col-xs-8">
@@ -27,7 +27,7 @@
                         </div>
                         <div class="row cl">
                             <div class="col-xs-8 col-xs-offset-3">
-                                <input class="btn btn-primary" type="submit" value="&nbsp;&nbsp;登录&nbsp;&nbsp;">
+                                <input id="login" class="btn btn-primary" type="submit" value="&nbsp;&nbsp;登录&nbsp;&nbsp;">
                             </div>
                         </div>
                     </form>
@@ -40,6 +40,46 @@
 <script>
 $(function(){
 	$('#nav-admin-login').addClass("current");
+});
+
+$('#loginform').submit(
+    function(){
+        var username = $('#email').val();
+        var password = $('#password').val();
+        if(!username){
+            $('.loginError').html('用户名不符合规范').show();
+            return false;
+        }
+        if(!password){
+            $('.loginError').html('密码不符合规范').show();
+            return false;
+        }
+
+        $.ajaxSetup({
+         data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+        });
+
+        $.ajax({
+        type:"POST",
+        url: "{% url 'try_login' %}",
+        data: {username:username, password:password},
+        dataType:'json',
+        cache:false,
+        success: function(data) {
+            if(data == 1 ){
+                alert("success")
+                $('.loginError').html('登录成功').show();
+            }
+            if(data == -1 || data == 0 ){
+                alert("未发现该用户")
+            $('.loginError').html('用户名不存在或者用户名密码不匹配').show();
+            }
+        },
+        error: function() {
+            $('.loginError').html('请求失败，请刷新页面后重试').show();
+        }
+    });
+    return false;
 });
 </script>
 {% endblock %}

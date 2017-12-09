@@ -11,7 +11,7 @@
             <div class="panel panel-default">
                 <div class="panel-header">连接器查询条件</div>
                 <div class="panel-body">
-                    <table id="ljqSameTypeConvert" class="table table-border table-bordered table-bg">
+                    <table id="ljqShipeidianlan" class="table table-border table-bordered table-bg">
                         <thead>
                         <tr>
                             <th>类型</th>
@@ -27,7 +27,7 @@
                             <td><span class="select-box size-MINI">
                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select"
                                         onchange="ljqTypeChange(this)">
-                                    <option selected="" value="">适配电缆</option>
+                                    <option selected="" value="1">适配电缆</option>
                                     <option value="2">面板安装</option>
                                     </select>
                             </span></td>
@@ -76,7 +76,7 @@
 
                         </tbody>
                     </table>
-                    <table id="ljqDiffTypeConvert" style="display: none" class="table table-border table-bordered table-bg">
+                    <table id="ljqMianbananzhuang" style="display: none" class="table table-border table-bordered table-bg">
                         <thead>
                         <tr>
                             <th>类型</th>
@@ -90,8 +90,8 @@
                             <td><span class="select-box size-MINI">
                                 <select nullmsg="" datatype="*" name="" size="1" class="select"
                                         onchange="ljqTypeChange(this)">
-                                    <option selected="" value="">适配电缆</option>
-                                    <option value="1">面板安装</option>
+                                    <option selected="" value="2">面板安装</option>
+                                    <option value="1">适配电缆</option>
                                 </select>
                             </span></td>
                             <td><span class="select-box size-MINI">
@@ -146,13 +146,13 @@
                         <tbody>
                         <tr>
                             <td><code>1</code></td>
-                            <td><code>绯诲垪</code></td>
+                            <td><code>显示</code></td>
                             <td><code>display</code></td>
                             <td><code>display</code></td>
                             <td><code>display</code></td>
                             <td><code>display</code></td>
                             <td><code>display</code></td>
-                            <td><code>涓嬭浇</code></td>
+                            <td><code>显示</code></td>
                             <td><code>display</code></td>
                         </tr>
                         <tr>
@@ -163,7 +163,7 @@
                             <td><code>display</code></td>
                             <td><code>display</code></td>
                             <td><code>display</code></td>
-                            <td><code>涓嬭浇</code></td>
+                            <td><code>显示</code></td>
                             <td><code>display</code></td>
                         </tr>
                         </tbody>
@@ -176,12 +176,13 @@
 <script>
 function ljqTypeChange(obj){
         var currObj = obj;
+
         if (currObj.options[currObj.selectedIndex].value == 1){
-            document.getElementById("ljqDiffTypeConvert").style.display="none";
-            document.getElementById("ljqSameTypeConvert").style.display="table";
-        }else{
-            document.getElementById("ljqSameTypeConvert").style.display="none";
-            document.getElementById("ljqDiffTypeConvert").style.display="table";
+            document.getElementById("ljqMianbananzhuang").style.display="none";
+            document.getElementById("ljqShipeidianlan").style.display="table";
+        }else if (currObj.options[currObj.selectedIndex].value == 2){
+            document.getElementById("ljqShipeidianlan").style.display="none";
+            document.getElementById("ljqMianbananzhuang").style.display="table";
         }
     }
 
