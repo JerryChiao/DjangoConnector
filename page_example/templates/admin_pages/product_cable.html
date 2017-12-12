@@ -1,0 +1,122 @@
+{% extends "admin_pages/product_base.html" %}
+{% load static %}
+{% block page-title %}
+<title>产品查询-电缆</title>
+<meta name="keywords" content="电缆">
+<meta name="description" content="电缆">
+{% endblock %}
+
+{% block product-private %}
+<div style="width: 100%" class="container ui-sortable">
+            <div class="panel panel-default">
+                <div class="panel-header">电缆查询</div>
+                <div class="panel-body">
+                    <table class="table table-border table-bordered table-bg">
+                        <thead>
+                        <tr>
+                            <th>类型</th>
+                            <th>最大使用频率</th>
+                            <th>电缆外径小于(mm)</th>
+                            <th>阻抗特性(Ω)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><span class="select-box size-MINI">
+                                <select nullmsg="类型" datatype="*" name="" size="1" class="select"
+                                        onchange="ljqTypeChange(this)">
+                                    <option selected="" value="">柔性电缆</option>
+                                    <option value="2">半柔电缆</option>
+                                    <option value="2">半刚电缆</option>
+                                    </select>
+                            </span></td>
+                             <td>
+                                <input type="text" class="input-text" placeholder="填写具体数值">
+                            </td>
+                             <td>
+                                <input type="text" class="input-text" placeholder="填写具体数值">
+                            </td>
+                            <td><span class="select-box size-MINI">
+                                <select  nullmsg="阻抗" datatype="*" name="" size="1"
+                                        class="select"
+                                        onchange="ljqTypeChange(this)">
+                                    <option selected="" value="">阻抗特性</option>
+                                    <option value="1">2.4</option>
+                                    <option value="2">x.x</option>
+                                    <option value="3">y.x</option>
+                                    <option value="3">来自数据库</option>
+                                </select>
+                            </span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <input id="start-query" class="btn btn-primary radius mt-10" type="button" value="查询" >
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div id='result' class="panel-header">查询结果</div>
+                <table class="table table-border table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th width="5%">序号</th>
+                            <th width="10%">类型</th>
+                            <th width="10%">频率范围</th>
+                            <th width="10%">电缆外径</th>
+                            <th width="10%">阻抗特性</th>
+                            <th width="10%">特性</th>
+                            <th width="10%">规格书</th>
+                            <th width="10%">WITC编码</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><code>1</code></td>
+                            <td><code>电缆</code></td>
+                            <td><code>display</code></td>
+                            <td><code>display</code></td>
+                            <td><code>display</code></td>
+                            <td><code>display</code></td>
+                            <td><code>display</code></td>
+                            <td><code>都来自数据库</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>2</code></td>
+                            <td><code>display</code></td>
+                            <td><code>display</code></td>
+                            <td><code>display</code></td>
+                            <td><code>display</code></td>
+                            <td><code>display</code></td>
+                            <td><code>display</code></td>
+                            <td><code>都来自数据库</code></td>
+                        </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+{% endblock %}
+
+{% block private-script %}
+<script>
+function ljqTypeChange(obj){
+        var currObj = obj;
+        if (currObj.options[currObj.selectedIndex].value == 1){
+            document.getElementById("ljqDiffTypeConvert").style.display="none";
+            document.getElementById("ljqSameTypeConvert").style.display="table";
+        }else{
+            document.getElementById("ljqSameTypeConvert").style.display="none";
+            document.getElementById("ljqDiffTypeConvert").style.display="table";
+        }
+    }
+$(document).ready(function(){
+	$('#nav-product').addClass("current")
+	$('#start-query').click(function(){
+	    alert('query');
+	    $.get("{% url 'notify' %}", function(data){
+	        alert("get " + data.result);
+	    });
+	    });
+});
+
+
+</script>
+{% endblock %}

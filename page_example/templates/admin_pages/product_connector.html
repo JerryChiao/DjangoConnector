@@ -1,0 +1,201 @@
+{% extends "admin_pages/product_base.html" %}
+{% load static %}
+{% block page-title %}
+<title>连接器</title>
+<meta name="keywords" content="连接器查询">
+<meta name="description" content="杩炴帴鍣ㄩ?夋嫨">
+{% endblock %}
+
+{% block product-private %}
+<div style="width: 100%" class="container ui-sortable">
+            <div class="panel panel-default">
+                <div class="panel-header">连接器查询条件</div>
+                <div class="panel-body">
+                    <table id="ljqShipeidianlan" class="table table-border table-bordered table-bg">
+                        <thead>
+                        <tr>
+                            <th>类型</th>
+                            <th>系列</th>
+                            <th>极性</th>
+                            <th>安装类型</th>
+                            <th>电缆外导体直径</th>
+                            <th>电缆内导体直径</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><span class="select-box size-MINI">
+                                <select  nullmsg="类型" datatype="*" name="" size="1" class="select"
+                                        onchange="ljqTypeChange(this)">
+                                    <option selected="" value="1">适配电缆</option>
+                                    <option value="2">面板安装</option>
+                                    </select>
+                            </span></td>
+                            <td><span class="select-box size-MINI">
+                                <select  nullmsg="系列" datatype="*" name="" size="1"
+                                        class="select"
+                                        onchange="ljqTypeChange(this)">
+                                    <option selected="" value="">系列</option>
+                                    <option value="1">2.4</option>
+                                    <option value="2">x.x</option>
+                                    <option value="3">y.x</option>
+                                    <option value="3">来自数据库</option>
+                                </select>
+                            </span></td>
+                            <td><span class="select-box size-MINI">
+                                <select nullmsg="极性" datatype="*" name="" size="1" class="select">
+                                    <option selected="" value="">极性</option>
+                                    <option value="1">公</option>
+                                    <option value="2">母</option>
+                                </select>
+                            </span></td>
+                            <td><span class="select-box size-MINI">
+                                <select nullmsg="" datatype="*" name="" size="1" class="select">
+                                    <option selected="" value="">安装类型</option>
+                                    <option value="1">无</option>
+                                    <option value="2">法兰</option>
+                                </select>
+                            </span></td>
+                            <td>
+                                <input type="text" class="input-text" placeholder="输入数值">
+                            </td>
+                            <td>
+                                <input type="text" class="input-text" placeholder="输入数值">
+                            </td>
+                            <!--<td><span class="select-box size-MINI">-->
+                                <!--<select nullmsg="瀹夎绫诲瀷" datatype="*" name="" size="1" class="select">-->
+                                    <!--<option selected="" value="">璇烽?夋嫨瀹夎绫诲瀷</option>-->
+                                    <!--<option value="1">1</option>-->
+                                    <!--<option value="2">2</option>-->
+                                    <!--<option value="3">3</option>-->
+                                <!--</select>-->
+                            <!--</span></td>-->
+                            <!--<td><input type="text" value="" placeholder="" class="input-text size-MINI"></td>-->
+                            <!--<td><input type="text" value="" placeholder="" class="input-text size-MINI"></td>-->
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    <table id="ljqMianbananzhuang" style="display: none" class="table table-border table-bordered table-bg">
+                        <thead>
+                        <tr>
+                            <th>类型</th>
+                            <th>系列</th>
+                            <th>极性</th>
+                            <th>安装类型</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><span class="select-box size-MINI">
+                                <select nullmsg="" datatype="*" name="" size="1" class="select"
+                                        onchange="ljqTypeChange(this)">
+                                    <option selected="" value="2">面板安装</option>
+                                    <option value="1">适配电缆</option>
+                                </select>
+                            </span></td>
+                            <td><span class="select-box size-MINI">
+                                <select nullmsg="“ datatype="*" name="" size="1" class="select">
+                                    <option selected="" value="">系列</option>
+                                    <option value="1">2.4</option>
+                                    <option value="2">x.x</option>
+                                    <option value="3">y.x</option>
+                                    <option value="3">数据库</option>
+                                </select>
+                            </span></td>
+
+                            <td><span class="select-box size-MINI">
+                                <select nullmsg="" datatype="*" name="" size="1" class="select">
+                                    <option selected="" value="">极性</option>
+                                    <option value="1">公</option>
+                                    <option value="2">母</option>
+                                </select>
+                            </span></td>
+                            <td><span class="select-box size-MINI">
+                                <select nullmsg="安装类型?" datatype="*" name="" size="1" class="select">
+                                    <option selected="" value="">安装类型</option>
+                                    <option value="1">2.4</option>
+                                    <option value="2">x.x</option>
+                                    <option value="3">y.x</option>
+                                    <option value="3">数据库</option>
+                                </select>
+                            </span></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    <input id="start-query" class="btn btn-primary radius mt-10" type="button" value="查询" >
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div id='result' class="panel-header">查询结果</div>
+                <table class="table table-border table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th width="5%">序号</th>
+                            <th width="10%">系列</th>
+                            <th width="10%">极性</th>
+                            <th width="10%">外形</th>
+                            <th width="10%">安装类型</th>
+                            <th width="10%">材料</th>
+                            <th width="10%">特性</th>
+                            <th width="10%">规格书?</th>
+                            <th width="10%">WITC编码</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><code>1</code></td>
+                            <td><code>显示</code></td>
+                            <td><code>display</code></td>
+                            <td><code>display</code></td>
+                            <td><code>display</code></td>
+                            <td><code>display</code></td>
+                            <td><code>display</code></td>
+                            <td><code>显示</code></td>
+                            <td><code>display</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>2</code></td>
+                            <td><code>display</code></td>
+                            <td><code>display</code></td>
+                            <td><code>display</code></td>
+                            <td><code>display</code></td>
+                            <td><code>display</code></td>
+                            <td><code>display</code></td>
+                            <td><code>显示</code></td>
+                            <td><code>display</code></td>
+                        </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+{% endblock %}
+
+{% block private-script %}
+<script>
+function ljqTypeChange(obj){
+        var currObj = obj;
+
+        if (currObj.options[currObj.selectedIndex].value == 1){
+            document.getElementById("ljqMianbananzhuang").style.display="none";
+            document.getElementById("ljqShipeidianlan").style.display="table";
+        }else if (currObj.options[currObj.selectedIndex].value == 2){
+            document.getElementById("ljqShipeidianlan").style.display="none";
+            document.getElementById("ljqMianbananzhuang").style.display="table";
+        }
+    }
+
+$(document).ready(function(){
+	$('#nav-product').addClass("current")
+	$('#start-query').click(function(){
+	    alert('query');
+	    $.get("{% url 'notify' %}", function(data){
+	        alert("get " + data.result);
+	    });
+	    });
+});
+
+
+</script>
+{% endblock %}

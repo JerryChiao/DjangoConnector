@@ -14,5 +14,15 @@ urlpatterns = [
     url(r'^tool_product/', views.tool_product, name='tool'),
     url(r'^admin_login/', views.admin_login, name='admin_login'),
     url(r'^notifytest/', views.notify_test, name='notify'),
-    url(r'^try_to_login/', admin_user_login.user_login, name='try_login')
+    url(r'^try_to_login/', admin_user_login.user_login, name='try_login'),
+    url(r'^try_to_logout/', admin_user_login.user_logout, name='try_logout'),
+    url(r'^admin/home/', views.admin_home, name="admin_home"),
+    url(r'^admin/connector_product/', views.admin_connector_product, name='admin_connector'),
+    url(r'^admin/converter_product/', views.admin_converter_product, name='admin_converter'),
+    url(r'^admin/cable_product/', views.admin_cable_product, name="admin_cable"),
+    url(r'^admin/cable_combo_product_vna/', views.admin_cable_combo_product_vna, name="admin_cable_combo_vna"),
+    url(r'^admin/cable_combo_product_normal/', views.admin_cable_combo_product_normal, name="admin_cable_combo_normal"),
+    url(r'^admin/cable_combo_product_bg/', views.admin_cable_combo_product_gb, name="admin_cable_combo_bg"),
+    url(r'^admin/instrument_product/', views.admin_instrument_product, name="admin_instrument"),
+    url(r'^admin/tool_product/', views.admin_tool_product, name='admin_tool'),
 ]
