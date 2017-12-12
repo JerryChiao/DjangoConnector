@@ -31,6 +31,7 @@ def user_logout(request):
     :return:
     """
     logout(request)
+    print "logout"
     # redirect to another page
     return render(request, 'page_example/admin_login.html')
 
