@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
+from django.shortcuts import render
 from django.utils.translation import ugettext as _
 
 def user_login(request):
@@ -30,5 +31,7 @@ def user_logout(request):
     :return:
     """
     logout(request)
+    print "logout"
     # redirect to another page
+    return render(request, 'page_example/admin_login.html')
 

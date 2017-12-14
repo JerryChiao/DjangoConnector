@@ -30,10 +30,14 @@
                                 <input id="login" class="btn btn-primary" type="submit" value="&nbsp;&nbsp;登录&nbsp;&nbsp;">
                             </div>
                         </div>
+                        <div class="loginError c-error text-c">
+
+                        </div>
                     </form>
                 </div>
             </div>
 	</div>
+
 {% endblock %}
 
 {% block private-script %}
@@ -68,6 +72,7 @@ $('#loginform').submit(
         success: function(data) {
             if(data == 1 ){
                 alert("success")
+                window.location.href="{% url 'index' %}";
                 $('.loginError').html('登录成功').show();
             }
             if(data == -1 || data == 0 ){

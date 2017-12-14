@@ -1,0 +1,202 @@
+<!DOCTYPE HTML>
+{% load static %}
+{% load i18n %}
+
+<html>
+{% get_current_language as LANGUAGE_CODE %}
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="{% static 'lib/html5shiv.js' %}"></script>
+<script type="text/javascript" src="{% static 'lib/respond.min.js' %}"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="{% static 'static/h-ui/css/H-ui.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'lib/Hui-iconfont/1.0.8/iconfont.min.css' %}" />
+<!--[if lt IE 9]>
+<link href="{% static '/h-ui/css/H-ui.ie.css' %}" rel="stylesheet" type="text/css" />
+<![endif]-->
+<!--[if IE 6]>
+<script type="text/javascript" src="{% static 'lib/DD_belatedPNG_0.0.8a-min.js' %}" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<style type="text/css">
+.ui-sortable .panel-header{ cursor:move}
+</style>
+{% block page-title %}
+<title>{% trans 'Welcome to Website' %} LANGUAGE_CODE </title>
+<meta name="keywords" content="关键词,5个左右,单个8汉字以内">
+<meta name="description" content="网站描述，字数尽量空制在80个汉字，160个字符以内！">
+{% endblock %}
+
+</head>
+<body ontouchstart>
+<div class="containBox">
+	<header class="navbar-wrapper">
+		<div class="navbar navbar-black navbar-fixed-top">
+			<div class="container cl">
+				<a class="logo navbar-logo hidden-xs" href="#">{% trans '产品管理系统' %}</a>
+
+				<a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs JS-nav-toggle" href="javascript:;">&#xe667;</a>
+				<a class="" href="#">display user</a>
+				<nav class="navbar-userbar f-r hidden-xs hidden-sm">
+					<a class="logo navbar-logo hidden-xs text-c" href="#">{{ user }} |</a>
+					<a class="logo navbar-logo hidden-xs text-c" href="{% url 'try_logout' %}"> 登出</a>
+				</nav>
+			</div>
+		</div>
+	</header>
+	<div class="wap-container">
+	{% block display-content %}
+	
+    {% endblock %}
+		<footer class="footer mt-20 f-l">
+			<div class="container">
+				<nav class="footer-nav">
+					<a target="_blank" href="#">{% trans '关于公司' %}</a>
+					<span class="pipe">|</span>
+					<a target="_blank" href="#">{% trans '软件著作权' %}</a>
+					<span class="pipe">|</span>
+				</nav>
+			</div>
+		</footer>
+	</div>
+</div>
+<!--普通弹出层-->
+<script type="text/javascript" src="{% static 'lib/jquery/1.9.1/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'lib/jquery-ui/1.9.1/jquery-ui.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'static/h-ui/js/H-ui.js' %}"></script>
+<script type="text/javascript" src="{% static 'lib/jquery.SuperSlide/2.1.1/jquery.SuperSlide.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'lib/jquery.validation/1.14.0/jquery.validate.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'lib/jquery.validation/1.14.0/validate-methods.js' %}"></script>
+<script type="text/javascript" src="{% static 'lib/jquery.validation/1.14.0/messages_zh.min.js' %}"></script>
+{% block private-script %}
+{% endblock %}
+<script>
+
+$(function(){
+	$(".input-text,.textarea").Huifocusblur();
+	
+	//幻灯片
+	jQuery("#slider-3 .slider").slide({mainCell:".bd ul",titCell:".hd li",trigger:"click",effect:"leftLoop",autoPlay:true,delayTime:700,interTime:3000,pnLoop:false,titOnClassName:"active"});
+	
+	$(".panel").Huifold({
+		titCell:'.panel-header',
+		mainCell:'.panel-body',
+		type:1,
+		trigger:'click',
+		className:"selected",
+		speed:"first",
+	});
+	
+	//邮箱提示	
+	$("#email").emailsuggest();
+	
+	//checkbox 美化
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+
+	$(".textarea").Huitextarealength({
+		minlength:10,
+		maxlength:200.
+	});
+	
+	$("#demoform").validate({
+		rules:{
+			email:{
+				required:true,
+				email:true,
+			},
+			username:{
+				required:true,
+				minlength:4,
+				maxlength:16
+			},
+			telephone:{
+				required:true,
+				isMobile:true,
+			},
+			password:{
+				required:true,
+				isPwd:true,
+			},
+			password2:{
+				required:true,
+				equalTo: "#password"
+			},
+			sex:{
+				required:true,
+			},
+			datetimepicker:{
+				required:true,	
+			},
+			checkbox2:{
+				required:true,
+			},
+			city:{
+				required:true,
+			},
+			website:{
+				required:true,
+				url:true,
+			},
+			beizhu:{
+				maxlength:500,
+			}
+		},
+		onkeyup:false,
+		focusCleanup:true,
+		success:"valid",
+		submitHandler:function(form){
+			$("#modal-shenqing-success").modal("show");
+			$(form).ajaxSubmit();
+		}
+	});
+
+	//返回顶部
+	$.Huitotop();
+
+	$('.Huifold').Huifold({titCell:'.item h4',
+			mainCell:'.item .info',
+			type:1,
+			trigger:'click',
+			className:"selected",
+			speed:"first"});
+	//hover效果
+	$('.maskWraper').Huihover();
+
+	$( ".ui-sortable" ).sortable({
+		//connectWith: ".panel",
+		items:".panel",
+		handle: ".panel-header",
+		//delay: 300, //时间延迟
+		//distance: 15, //距离延迟
+		placeholder: "ui-state-highlight", //占位符样式
+		update: function(event, ui){
+			
+		}
+	}).disableSelection();
+
+ 	var _bodyHeight = $(window).height();
+	var _doch = $(document).height();
+	$(".containBox").height(_bodyHeight);
+
+	/*左右滑动菜单*/
+    $(".JS-nav-toggle").click(function() {
+		$("body").addClass('sideBox-open');
+        $(".containBox-bg").height(_bodyHeight).show();
+    });
+    $(".containBox-bg").click(function() {
+		$(this).hide();
+		$("body").removeClass('sideBox-open');
+    });
+});
+</script>
+</body>
+</html>
