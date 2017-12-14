@@ -120,6 +120,8 @@ LOCALE_PATHS = [
     os.path.join(os.path.dirname(__file__), "locale"),
 ]
 
+ALLOWED_HOSTS = ['*']
+
 LANGUAGE_CODE = 'zh-hans'
 
 TIME_ZONE = 'UTC'
