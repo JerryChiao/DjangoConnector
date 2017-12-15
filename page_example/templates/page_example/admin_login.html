@@ -71,8 +71,7 @@ $('#loginform').submit(
         cache:false,
         success: function(data) {
             if(data == 1 ){
-                alert("success")
-                window.location.href="{% url 'index' %}";
+                window.location.href="{% url 'admin_home' %}";
                 $('.loginError').html('登录成功').show();
             }
             if(data == -1 || data == 0 ){

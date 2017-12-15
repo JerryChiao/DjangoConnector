@@ -57,22 +57,22 @@
                         </td>
                         <td>电缆内导体直径（mm）</td>
                         <td>
-                            <input type="text" class="input-text" placeholder="" name="" id="lossratio" autocomplete="off">
+                            <input type="text" class="input-text" placeholder="" name="" id="inner_diameter" autocomplete="off">
                         </td>
                         <td>电缆内导体直径(mm)</td>
                         <td>
-                            <input type="text" class="input-text" placeholder="" name="" id="lossratio" autocomplete="off">
+                            <input type="text" class="input-text" placeholder="" name="" id="outer_diameter" autocomplete="off">
                         </td>
 
                     </tr>
                         <tr>
                               <td>适配电缆型号</td>
                         <td>
-                            <input type="text" class="input-text" placeholder="" name="" id="lossratio" autocomplete="off">
+                            <input type="text" class="input-text" placeholder="" name="" id="cable_type" autocomplete="off">
                         </td>
                              <td>截止频率（GHz）</td>
                         <td>
-                            <input type="text" class="input-text" placeholder="" name="" id="lossratio" autocomplete="off">
+                            <input type="text" class="input-text" placeholder="" name="" id="upper_freq" autocomplete="off">
                         </td>
 
                              <td>外形</td>
@@ -103,11 +103,11 @@
                         <tr>
                               <td>WITC编号</td>
                             <td>
-                                <input type="text" class="input-text" placeholder="" name="" id="lossratio" autocomplete="off">
+                                <input type="text" class="input-text" placeholder="" name="" id="witc_no" autocomplete="off">
                             </td>
                                  <td>组件中WITC编号（GHz）</td>
                             <td>
-                                <input type="text" class="input-text" placeholder="" name="" id="lossratio" autocomplete="off">
+                                <input type="text" class="input-text" placeholder="" name="" id="combo_witc_no" autocomplete="off">
                             </td>
                         </tr>
 
@@ -141,11 +141,11 @@
                         <tr>
                         <td>驻波</td>
                         <td>
-                            <input type="text" class="input-text" placeholder="" name="" id="lossratio" autocomplete="off">
+                            <input type="text" class="input-text" placeholder="" name="" id="stand_wave" autocomplete="off">
                         </td>
                         <td>截止频率(GHz）</td>
                         <td>
-                            <input type="text" class="input-text" placeholder="" name="" id="lossratio" autocomplete="off">
+                            <input type="text" class="input-text" placeholder="" name="" id="upper_freq2" autocomplete="off">
                         </td>
                         <td>外形</td>
                             <td><span class="select-box size-M">
@@ -165,11 +165,11 @@
                         <tr>
                               <td>WITC编号</td>
                             <td>
-                                <input type="text" class="input-text" placeholder="" name="" id="lossratio" autocomplete="off">
+                                <input type="text" class="input-text" placeholder="" name="" id="witc_no2" autocomplete="off">
                             </td>
                                  <td>组件中WITC编号（GHz）</td>
                             <td>
-                                <input type="text" class="input-text" placeholder="" name="" id="lossratio" autocomplete="off">
+                                <input type="text" class="input-text" placeholder="" name="" id="combo_witc_no2" autocomplete="off">
                             </td>
                         </tr>
 
@@ -299,12 +299,12 @@
                         </tbody>
                     </table>
 
-                    <input id="start-query" class="btn btn-primary radius mt-10" type="button" value="查询" >
+                    <input id="admin_start_query" class="btn btn-primary radius mt-10" type="button" value="查询" >
                 </div>
             </div>
 
             <div class="panel panel-default">
-                <div id='result' class="panel-header">产品列表</div>
+                <div id='admin_result' class="panel-header">产品列表</div>
                 <table class="table table-border table-bordered table-striped">
                         <thead>
                         <tr>
@@ -322,18 +322,22 @@
                             <td><code>我是图片</code></td>
                             <td><code>SMA，母</code></td>
                             <td><code>display</code></td>
-                            <td><code>40-0102-AA4021<br>
+                            <td><code>60-0102-AA4021<br>
                                         规格书链接</code></td>
-                            <td><a>修改</a> <a>删除</a></td>
+                            <td><a href="javascript:void(0)" onclick="goto_modify(this)">修改</a>
+                                <a href="javascript:void(0)" onclick="goto_delete(this)">删除</a>
+                            </td>
                         </tr>
                         <tr>
                             <td><code>2</code></td>
                             <td><code>我是图片</code></td>
                             <td><code>SMA，母</code></td>
                             <td><code>display</code></td>
-                            <td><code>40-0102-AA4021<br>
+                            <td><code>60-0102-AA4021<br>
                                         规格书链接</code></td>
-                            <td><a>修改</a> <a>删除</a></td>
+                            <td><a href="javascript:void(0)" onclick="goto_modify(this)">修改</a>
+                                <a href="javascript:void(0)" onclick="goto_delete(this)">删除</a>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -343,6 +347,24 @@
 
             </div>
         </div>
+<div id="modal-demo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content radius">
+			<div class="modal-header">
+				<h3 class="modal-title">注意</h3>
+				<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+			</div>
+			<div class="modal-body">
+				<p>确认删除产品</p>
+                <p id="delete_witc"></p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" onclick="do_delete()" aria-hidden="true">确定</button>
+				<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock %}
 
 {% block private-script %}
@@ -350,6 +372,27 @@
 $("#tab_demo").Huitab({
 	index:0
 });
+
+function goto_modify(obj){
+    var row = obj.parentNode.parentNode;
+    alert(row);
+    var td = $(row).find("td");
+    var witc = td.eq(4).text();
+
+}
+
+function goto_delete(obj){
+    var row = obj.parentNode.parentNode;
+    var td = $(row).find("td");
+    var witc = td.eq(4).text();
+    document.getElementById("delete_witc").innerHTML=witc;
+    $("#modal-demo").modal("show");
+}
+
+function do_delete(){
+    var witc = document.getElementById("delete_witc").innerHTML;
+    $("#modal-demo").modal("hide");
+}
 
 function ljqTypeChange(obj){
         var currObj = obj;
