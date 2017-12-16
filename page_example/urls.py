@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^try_to_logout/', admin_user_login.user_logout, name='try_logout'),
     url(r'^admin/home/', views.admin_home, name="admin_home"),
     url(r'^admin/connector_product/', views.admin_connector_product, name='admin_connector'),
+    url(r'^goto_modify_connector/', views.admin_modify_connector, name='goto_modify_connector'),
     url(r'^admin/converter_product/', views.admin_converter_product, name='admin_converter'),
     url(r'^admin/cable_product/', views.admin_cable_product, name="admin_cable"),
     url(r'^admin/cable_combo_product_vna/', views.admin_cable_combo_product_vna, name="admin_cable_combo_vna"),
@@ -25,4 +26,7 @@ urlpatterns = [
     url(r'^admin/cable_combo_product_bg/', views.admin_cable_combo_product_gb, name="admin_cable_combo_bg"),
     url(r'^admin/instrument_product/', views.admin_instrument_product, name="admin_instrument"),
     url(r'^admin/tool_product/', views.admin_tool_product, name='admin_tool'),
+    url(r'^admin/product_others_install_type/', views.admin_others_install_type, name='admin_others_install_type'),
+    url(r'^admin/add_install_type/', views.admin_add_install_type, name="admin_add_install_type"),
+    url('^admin/mod_install_type/', views.admin_modify_install_type, name='admin_modify_install_type')
 ]

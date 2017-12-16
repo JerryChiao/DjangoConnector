@@ -1,205 +1,228 @@
 {% extends "admin_pages/product_base.html" %}
 {% load static %}
 {% block page-title %}
-<title>连接器</title>
-<meta name="keywords" content="连接器">
-<meta name="description" content="连接器录入">
+    <title>连接器</title>
+    <meta name="keywords" content="连接器">
+    <meta name="description" content="连接器录入">
 {% endblock %}
 
 {% block product-private %}
 
-<div style="width: 100%" class="container ui-sortable">
-            <div id="tab_demo" class="HuiTab">
-              <div class="tabBar clearfix"><span>添加产品</span><span>查看管理</span></div>
-              <div class="tabCon">
-                  <div class="panel panel-default">
-                <div class="panel-header">连接器</div>
-                <br>
-                      <div class="radio-box">
-                    <input type="radio" id="radio_cable" name="demo-radio1" onclick="ljqTypeChange(this)" checked>
-                    <label for="radio-2">适配电缆</label>
-                  </div>
-                      <div class="radio-box">
-                    <input type="radio" id="radio_pcb" name="demo-radio1" onclick="ljqTypeChange(this)">
-                    <label for="radio-disabled">适配PCB</label>
-                  </div>
-                <div class="panel-body">
-                    <table  id="cable" class="table table-border table-bordered">
-                         <tr>
-                             <td>类型</td>
-                             <td><span class="select-box size-M">
-                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" >
-                                    <option selected="" value="1">SMA</option>
-                                    <option value="2">N</option>
-                                 </select>
-                            </span></td>
-
-                             <td>极性</td>
-                             <td><span class="select-box size-M">
-                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" >
-                                    <option selected="" value="1">公</option>
-                                    <option value="2">母</option>
-                                 </select>
-                            </span></td>
-
-                             <td>安装类型</td>
-                             <td><span class="select-box size-M">
-                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" >
-                                    <option selected="" value="1">无</option>
-                                    <option value="2">四孔法兰</option>
-                                 </select>
-                            </span></td>
-
-                        <tr>
-                        <td>差损系数</td>
-                        <td>
-                            <input type="text" class="input-text" placeholder="" name="" id="lossratio" autocomplete="off">
-                        </td>
-                        <td>电缆内导体直径（mm）</td>
-                        <td>
-                            <input type="text" class="input-text" placeholder="" name="" id="inner_diameter" autocomplete="off">
-                        </td>
-                        <td>电缆内导体直径(mm)</td>
-                        <td>
-                            <input type="text" class="input-text" placeholder="" name="" id="outer_diameter" autocomplete="off">
-                        </td>
-
-                    </tr>
-                        <tr>
-                              <td>适配电缆型号</td>
-                        <td>
-                            <input type="text" class="input-text" placeholder="" name="" id="cable_type" autocomplete="off">
-                        </td>
-                             <td>截止频率（GHz）</td>
-                        <td>
-                            <input type="text" class="input-text" placeholder="" name="" id="upper_freq" autocomplete="off">
-                        </td>
-
-                             <td>外形</td>
-                            <td><span class="select-box size-M">
-                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" >
-                                    <option selected="" value="1">直</option>
-                                    <option value="2">弯</option>
-                                 </select>
-                            </span></td>
-
-                        </tr>
-                        <tr>
-                            <td>特性</td>
-                            <td><span class="select-box size-M">
-                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" >
-                                    <option selected="" value="1">无</option>
-                                    <option value="2">气密</option>
-                                 </select>
-                            </span></td>
-                            <td>装配形式</td>
-                            <td><span class="select-box size-M">
-                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" >
-                                    <option selected="" value="1">焊接</option>
-                                    <option value="2"></option>
-                                 </select>
-                            </span></td>
-                        </tr>
-                        <tr>
-                              <td>WITC编号</td>
-                            <td>
-                                <input type="text" class="input-text" placeholder="" name="" id="witc_no" autocomplete="off">
-                            </td>
-                                 <td>组件中WITC编号（GHz）</td>
-                            <td>
-                                <input type="text" class="input-text" placeholder="" name="" id="combo_witc_no" autocomplete="off">
-                            </td>
-                        </tr>
-
-                    </table>
-                    <table  id="pcb" class="table table-border table-bordered" style="display: none">
-                         <tr>
-                             <td>类型</td>
-                             <td><span class="select-box size-M">
-                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" >
-                                    <option selected="" value="1">SMA</option>
-                                    <option value="2">N</option>
-                                 </select>
-                            </span></td>
-
-                             <td>极性</td>
-                             <td><span class="select-box size-M">
-                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" >
-                                    <option selected="" value="1">公</option>
-                                    <option value="2">母</option>
-                                 </select>
-                            </span></td>
-
-                             <td>安装类型</td>
-                             <td><span class="select-box size-M">
-                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" >
-                                    <option selected="" value="1">无</option>
-                                    <option value="2">四孔法兰</option>
-                                 </select>
-                            </span></td>
-
-                        <tr>
-                        <td>驻波</td>
-                        <td>
-                            <input type="text" class="input-text" placeholder="" name="" id="stand_wave" autocomplete="off">
-                        </td>
-                        <td>截止频率(GHz）</td>
-                        <td>
-                            <input type="text" class="input-text" placeholder="" name="" id="upper_freq2" autocomplete="off">
-                        </td>
-                        <td>外形</td>
-                            <td><span class="select-box size-M">
-                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" >
-                                    <option selected="" value="1">直</option>
-                                    <option value="2">弯</option>
-                                 </select>
-                            </span></td>
-                        <td>特性</td>
-                            <td><span class="select-box size-M">
-                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" >
-                                    <option selected="" value="1">无</option>
-                                    <option value="2">气密</option>
-                                 </select>
-                            </span></td>
-                    </tr>
-                        <tr>
-                              <td>WITC编号</td>
-                            <td>
-                                <input type="text" class="input-text" placeholder="" name="" id="witc_no2" autocomplete="off">
-                            </td>
-                                 <td>组件中WITC编号（GHz）</td>
-                            <td>
-                                <input type="text" class="input-text" placeholder="" name="" id="combo_witc_no2" autocomplete="off">
-                            </td>
-                        </tr>
-
-                    </table>
-                    <div>
-                        <h5>规格书上传</h5>
-                        <form name="uploadForm" method="POST"
-                                enctype="multipart/form-data"
-                                action="/ProcessServer/FileOperate/fileUpServlet">
-                                <input  class="input-text upload-url" type="file" name="file1" size="30"/>
-                                <input class="btn btn-primary upload-btn" type="submit" name="submit" value="提交">
-                                <input class= "btn btn-primary upload-btn" type="reset" name="reset" value="重置">
-                        </form>
-                         <h5>产品图片上传</h5>
-                        <form name="uploadForm" method="POST"
-                                enctype="multipart/form-data"
-                                action="/ProcessServer/FileOperate/fileUpServlet">
-                                <input  class="input-text upload-url" type="file" name="file1" size="30"/>
-                                <input class="btn btn-primary upload-btn" type="submit" name="submit" value="提交">
-                                <input class= "btn btn-primary upload-btn" type="reset" name="reset" value="重置">
-                             </form>
+    <div style="width: 100%" class="container ui-sortable">
+        <div id="tab_demo" class="HuiTab">
+            <div class="tabBar clearfix"><span>添加产品</span><span>查看管理</span></div>
+            <div class="tabCon">
+                <div class="panel panel-default">
+                    <div class="panel-header">连接器</div>
+                    <br>
+                    <div class="radio-box">
+                        <input type="radio" id="radio_cable" name="demo-radio1" onclick="ljqTypeChange(this)" checked>
+                        <label for="radio-2">适配电缆</label>
                     </div>
+                    <div class="radio-box">
+                        <input type="radio" id="radio_pcb" name="demo-radio1" onclick="ljqTypeChange(this)">
+                        <label for="radio-disabled">适配PCB</label>
+                    </div>
+                    <div class="panel-body">
+                        <table id="cable" class="table table-border table-bordered">
+                            <tr>
+                                <td>类型</td>
+                                <td><span class="select-box size-M">
+                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" id="connector_cable_type">
+                                     <option value ="">空</option>
+                                    {% for obj in category %}
+                                        <option value ="{{ forloop.counter }}">{{ obj.content }}</option>
+                                    {% endfor %}
+                                 </select>
+                            </span></td>
 
-                    <input id="start-query" class="btn btn-primary radius mt-10" type="button" value="添加产品" >
+                                <td>极性</td>
+                                <td><span class="select-box size-M">
+                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" id="connector_cable_jx">
+                                    <option value ="">空</option>
+                                    {% for obj in polar %}
+                                        <option value ="{{ forloop.counter }}">{{ obj.content }}</option>
+                                    {% endfor %}
+
+                                 </select>
+                            </span></td>
+
+                                <td>安装类型</td>
+                                <td><span class="select-box size-M">
+                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" id="connector_cable_install">
+                                     <option value ="">空</option>
+                                    {% for obj in install_type %}
+                                        <option value ="{{ forloop.counter }}">{{ obj.content }}</option>
+                                    {% endfor %}
+                                 </select>
+                            </span></td>
+                            <tr>
+                                <td>差损系数</td>
+                                <td>
+                                    <input type="text" class="input-text" placeholder="" name="" id="connector_cable_lossratio" autocomplete="off">
+                                </td>
+                                <td>电缆内导体直径（mm）</td>
+                                <td>
+                                    <input type="text" class="input-text" placeholder="" name="" id="connector_cable_inner_diameter" autocomplete="off">
+                                </td>
+                                <td>电缆内导体直径(mm)</td>
+                                <td>
+                                    <input type="text" class="input-text" placeholder="" name="" id="connector_cable_outer_diameter" autocomplete="off">
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>适配电缆型号</td>
+                                <td>
+                                    <input type="text" class="input-text" placeholder="" name="" id="cable_type" autocomplete="off">
+                                </td>
+                                <td>截止频率（GHz）</td>
+                                <td>
+                                    <input type="text" class="input-text" placeholder="" name="" id="connector_cable_upper_freq" autocomplete="off">
+                                </td>
+
+                                <td>外形</td>
+                                <td><span class="select-box size-M">
+                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" id="connector_cable_outlook">
+                                     <option value ="">空</option>
+                                    {% for obj in out_look %}
+                                        <option value ="{{ forloop.counter }}">{{ obj.content }}</option>
+                                    {% endfor %}
+                                 </select>
+                            </span></td>
+
+                            </tr>
+                            <tr>
+                                <td>特性</td>
+                                <td><span class="select-box size-M">
+                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" id="connector_cable_property">
+                                     <option value ="">空</option>
+                                    {% for obj in polar %}
+                                        <option value ="{{ forloop.counter }}">{{ obj.content }}</option>
+                                    {% endfor %}
+                                 </select>
+                            </span></td>
+                                <td>装配形式</td>
+                                <td><span class="select-box size-M">
+                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" id="connector_cable_zpxs">
+                                     <option value ="">空</option>
+                                    {% for obj in combine_type %}
+                                        <option value ="{{ forloop.counter }}">{{ obj.content }}</option>
+                                    {% endfor %}
+                                 </select>
+                            </span></td>
+                            </tr>
+                            <tr>
+                                <td>WITC编号</td>
+                                <td>
+                                    <input type="text" class="input-text" placeholder="" name="" id="connector_cable_witc_no" autocomplete="off">
+                                </td>
+                                <td>组件中WITC编号（GHz）</td>
+                                <td>
+                                    <input type="text" class="input-text" placeholder="" name="" id="connector_cable_combo_witc_no" autocomplete="off">
+                                </td>
+                            </tr>
+
+                        </table>
+
+                        <table  id="pcb" class="table table-border table-bordered" style="display: none">
+                            <tr>
+                                <td>类型</td>
+                                <td><span class="select-box size-M">
+                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" id="connector_pcb_type">
+                                     <option value ="">空</option>
+                                    {% for obj in category %}
+                                        <option value ="{{ forloop.counter }}">{{ obj.content }}</option>
+                                    {% endfor %}
+                                 </select>
+                            </span></td>
+
+                                <td>极性</td>
+                                <td><span class="select-box size-M">
+                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" id="connector_pcb_jx">
+                                     <option value ="">空</option>
+                                    {% for obj in polar %}
+                                        <option value ="{{ forloop.counter }}">{{ obj.content }}</option>
+                                    {% endfor %}
+                                 </select>
+                            </span></td>
+
+                                <td>安装类型</td>
+                                <td><span class="select-box size-M">
+                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" id="connector_pcb_install">
+                                     <option value ="">空</option>
+                                    {% for obj in install_type %}
+                                        <option value ="{{ forloop.counter }}">{{ obj.content }}</option>
+                                    {% endfor %}
+                                 </select>
+                            </span></td>
+
+                            <tr>
+                                <td>驻波</td>
+                                <td>
+                                    <input type="text" class="input-text" placeholder="" name="" id="connector_pcb_stand_wave" autocomplete="off">
+                                </td>
+                                <td>截止频率(GHz）</td>
+                                <td>
+                                    <input type="text" class="input-text" placeholder="" name="" id="connector_pcb_upper_freq" autocomplete="off">
+                                </td>
+                                <td>外形</td>
+                                <td><span class="select-box size-M">
+                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" id="connector_pcb_outlook">
+                                     <option value ="">空</option>
+                                    {% for obj in out_look %}
+                                        <option value ="{{ forloop.counter }}">{{ obj.content }}</option>
+                                    {% endfor %}
+                                 </select>
+                            </span></td>
+                                <td>特性</td>
+                                <td><span class="select-box size-M">
+                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" id="connector_pcb_property">
+                                     <option value ="">空</option>
+                                    {% for obj in polar %}
+                                        <option value ="{{ forloop.counter }}">{{ obj.content }}</option>
+                                    {% endfor %}
+                                 </select>
+                            </span></td>
+                            </tr>
+                            <tr>
+                                <td>WITC编号</td>
+                                <td>
+                                    <input type="text" class="input-text" placeholder="" name="" id="connector_pcb_witc_no" autocomplete="off">
+                                </td>
+                                <td>组件中WITC编号（GHz）</td>
+                                <td>
+                                    <input type="text" class="input-text" placeholder="" name="" id="connector_pcb_combo_witc" autocomplete="off">
+                                </td>
+                            </tr>
+
+                        </table>
+
+                        <div>
+                            <h5>规格书上传</h5>
+                            <form name="uploadForm" method="POST"
+                                  enctype="multipart/form-data"
+                                  action="/ProcessServer/FileOperate/fileUpServlet">
+                                <input  class="input-text upload-url" type="file" name="file1" size="30"/>
+                                <input class="btn btn-primary upload-btn" type="submit" name="submit" value="提交">
+                                <input class= "btn btn-primary upload-btn" type="reset" name="reset" value="重置">
+                            </form>
+                            <h5>产品图片上传</h5>
+                            <form name="uploadForm" method="POST"
+                                  enctype="multipart/form-data"
+                                  action="/ProcessServer/FileOperate/fileUpServlet">
+                                <input  class="input-text upload-url" type="file" name="file1" size="30"/>
+                                <input class="btn btn-primary upload-btn" type="submit" name="submit" value="提交">
+                                <input class= "btn btn-primary upload-btn" type="reset" name="reset" value="重置">
+                            </form>
+                        </div>
+                        <input id="start-query" class="btn btn-primary radius mt-10" type="button" value="添加产品" >
+                    </div>
                 </div>
-            </div>
-    <br>
-            <div class="panel panel-default">
-                <div id='result' class="panel-header">添加结果</div>
-                <table class="table table-border table-bordered table-striped">
+                <br>
+                <div class="panel panel-default">
+                    <div id='result' class="panel-header">添加结果</div>
+                    <table class="table table-border table-bordered table-striped">
                         <thead>
                         <tr>
                             <th width="5%">序号</th>
@@ -224,33 +247,31 @@
                             <td><code>规格书链接</code></td>
                             <td><code><a>修改</a> <a>删除</a></code></td>
                         </tr>
-
                         </tbody>
                     </table>
+                </div>
+
             </div>
-
-
-              </div>
-              <div class="tabCon">
-                              <div class="panel panel-default">
-                <div class="panel-header">连接器查询条件</div>
-                <div class="panel-body">
-                    <table id="ljqShipeidianlan" class="table table-border table-bordered table-bg">
-                        <thead>
-                        <tr>
-                            <th>类型</th>
-                            <th>极性</th>
-                            <th>用途</th>
-                            <th>安装类型</th>
-                            <th>外形</th>
-                            <th>电缆型号</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                             <td><span class="select-box size-MINI">
+            <div class="tabCon">
+                <div class="panel panel-default">
+                    <div class="panel-header">连接器查询条件</div>
+                    <div class="panel-body">
+                        <table id="ljqShipeidianlan" class="table table-border table-bordered table-bg">
+                            <thead>
+                            <tr>
+                                <th>类型</th>
+                                <th>极性</th>
+                                <th>用途</th>
+                                <th>安装类型</th>
+                                <th>外形</th>
+                                <th>电缆型号</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><span class="select-box size-MINI">
                                 <select  nullmsg="系列" datatype="*" name="" size="1"
-                                        class="select">
+                                         class="select">
                                     <option selected="" value="">系列</option>
                                     <option value="1">2.4</option>
                                     <option value="2">x.x</option>
@@ -258,54 +279,54 @@
                                     <option value="3">来自数据库</option>
                                 </select>
                             </span></td>
-                            <td><span class="select-box size-MINI">
+                                <td><span class="select-box size-MINI">
                                 <select nullmsg="极性" datatype="*" name="" size="1" class="select">
                                     <option selected="" value="">极性</option>
                                     <option value="1">公</option>
                                     <option value="2">母</option>
                                 </select>
                             </span></td>
-                            <td><span class="select-box size-MINI">
+                                <td><span class="select-box size-MINI">
                                 <select  nullmsg="用途" datatype="*" name="" size="1" class="select"
-                                        onchange="ljqTypeChange(this)">
+                                         onchange="ljqTypeChange(this)">
                                     <option selected="" value="">用途</option>
                                     <option value="1">适配电缆</option>
                                     <option value="2">面板安装</option>
                                     </select>
                             </span></td>
-                            <td><span class="select-box size-MINI">
+                                <td><span class="select-box size-MINI">
                                 <select nullmsg="" datatype="*" name="" size="1" class="select">
                                     <option selected="" value="">安装类型</option>
                                     <option value="1">无</option>
                                     <option value="2">法兰</option>
                                 </select>
                             </span></td>
-                            <td><span class="select-box size-MINI">
+                                <td><span class="select-box size-MINI">
                                 <select nullmsg="" datatype="*" name="" size="1" class="select">
                                     <option selected="" value="">外形</option>
                                     <option value="1">无</option>
                                     <option value="2">直option>
                                 </select>
                             </span></td>
-                            <td><span class="select-box size-MINI">
+                                <td><span class="select-box size-MINI">
                                 <select id="matchedCable" nullmsg="" datatype="*" name="" size="1" class="select">
                                     <option selected="" value="">电缆型号</option>
                                     <option value="1">无</option>
                                     <option value="2">直option>
                                 </select>
                             </span></td>
-                        </tr>
+                            </tr>
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
 
-                    <input id="admin_start_query" class="btn btn-primary radius mt-10" type="button" value="查询" >
+                        <input id="admin_start_query" class="btn btn-primary radius mt-10" type="button" value="查询" >
+                    </div>
                 </div>
-            </div>
 
-            <div class="panel panel-default">
-                <div id='admin_result' class="panel-header">产品列表</div>
-                <table class="table table-border table-bordered table-striped">
+                <div class="panel panel-default">
+                    <div id='admin_result' class="panel-header">产品列表</div>
+                    <table class="table table-border table-bordered table-striped">
                         <thead>
                         <tr>
                             <th width="5%">序号</th>
@@ -323,7 +344,7 @@
                             <td><code>SMA，母</code></td>
                             <td><code>display</code></td>
                             <td><code>60-0102-AA4021<br>
-                                        规格书链接</code></td>
+                                规格书链接</code></td>
                             <td><a href="javascript:void(0)" onclick="goto_modify(this)">修改</a>
                                 <a href="javascript:void(0)" onclick="goto_delete(this)">删除</a>
                             </td>
@@ -334,87 +355,324 @@
                             <td><code>SMA，母</code></td>
                             <td><code>display</code></td>
                             <td><code>60-0102-AA4021<br>
-                                        规格书链接</code></td>
+                                规格书链接</code></td>
                             <td><a href="javascript:void(0)" onclick="goto_modify(this)">修改</a>
                                 <a href="javascript:void(0)" onclick="goto_delete(this)">删除</a>
                             </td>
                         </tr>
                         </tbody>
                     </table>
+                </div>
+
             </div>
 
-              </div>
+        </div>
+    </div>
 
+    <div id="modal-demo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content radius">
+                <div class="modal-header">
+                    <h3 class="modal-title">注意</h3>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+                </div>
+                <div class="modal-body">
+                    <p>确认删除产品</p>
+                    <p id="delete_witc"></p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="do_delete()" aria-hidden="true">确定</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                </div>
             </div>
         </div>
-<div id="modal-demo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content radius">
-			<div class="modal-header">
-				<h3 class="modal-title">注意</h3>
-				<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
-			</div>
-			<div class="modal-body">
-				<p>确认删除产品</p>
-                <p id="delete_witc"></p>
-			</div>
-			<div class="modal-footer">
-				<button class="btn btn-primary" onclick="do_delete()" aria-hidden="true">确定</button>
-				<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
-			</div>
-		</div>
-	</div>
-</div>
+    </div>
+
+    <div id="modify_connector_cable" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content radius">
+                <div class="modal-header">
+                    <h3 class="modal-title">修改产品</h3>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+                </div>
+                <div class="modal-body">
+                    <table id="connector_cable" class="table table-border table-bordered">
+                        <tr>
+                            <td>类型</td>
+                            <td><span class="select-box size-M">
+                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" id="m_connector_cable_type">
+                                    <option selected="" value="1">SMA</option>
+                                    <option value="2">N</option>
+                                 </select>
+                            </span></td>
+
+                            <td>极性</td>
+                            <td><span class="select-box size-M">
+                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" id="m_connector_cable_jx">
+                                         {% for obj in polar %}
+                                             <option value ="{{ forloop.counter }}">{{ obj }}</option>
+                                         {% endfor %}
+
+                                 </select>
+                            </span></td>
+
+                            <td>安装类型</td>
+                            <td><span class="select-box size-M">
+                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" id="m_connector_cable_install">
+                                    <option selected="" value="1">无</option>
+                                    <option value="2">四孔法兰</option>
+                                 </select>
+                            </span></td>
+                        <tr>
+                            <td>差损系数</td>
+                            <td>
+                                <input type="text" class="input-text" placeholder="" name="" id="m_connector_cable_lossratio" autocomplete="off">
+                            </td>
+                            <td>电缆内导体直径（mm）</td>
+                            <td>
+                                <input type="text" class="input-text" placeholder="" name="" id="m_connector_cable_inner_diameter" autocomplete="off">
+                            </td>
+                            <td>电缆内导体直径(mm)</td>
+                            <td>
+                                <input type="text" class="input-text" placeholder="" name="" id="m_connector_cable_outer_diameter" autocomplete="off">
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>适配电缆型号</td>
+                            <td>
+                                <input type="text" class="input-text" placeholder="" name="" id="m_cable_type" autocomplete="off">
+                            </td>
+                            <td>截止频率（GHz）</td>
+                            <td>
+                                <input type="text" class="input-text" placeholder="" name="" id="m_connector_cable_upper_freq" autocomplete="off">
+                            </td>
+
+                            <td>外形</td>
+                            <td><span class="select-box size-M">
+                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" id="m_connector_cable_outlook">
+                                    <option selected="" value="1">直</option>
+                                    <option value="2">弯</option>
+                                 </select>
+                            </span></td>
+
+                        </tr>
+                        <tr>
+                            <td>特性</td>
+                            <td><span class="select-box size-M">
+                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" id="m_connector_cable_property">
+                                    <option selected="" value="1">无</option>
+                                    <option value="2">气密</option>
+                                 </select>
+                            </span></td>
+                            <td>装配形式</td>
+                            <td><span class="select-box size-M">
+                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" id="m_connector_cable_zpxs">
+                                    <option selected="" value="1">焊接</option>
+                                    <option value="2"></option>
+                                 </select>
+                            </span></td>
+                        </tr>
+                        <tr>
+                            <td>WITC编号</td>
+                            <td>
+                                <input type="text" class="input-text" placeholder="" name="" id="m_connector_cable_witc_no" autocomplete="off">
+                            </td>
+                            <td>组件中WITC编号（GHz）</td>
+                            <td>
+                                <input type="text" class="input-text" placeholder="" name="" id="m_connector_cable_combo_witc_no" autocomplete="off">
+                            </td>
+                        </tr>
+
+                    </table>
+                    <div>
+                        <h5>规格书上传</h5>
+                        <form name="uploadForm" method="POST"
+                              enctype="multipart/form-data"
+                              action="/ProcessServer/FileOperate/fileUpServlet">
+                            <input  class="input-text upload-url" type="file" name="file1" size="30"/>
+                            <input class="btn btn-primary upload-btn" type="submit" name="submit" value="提交">
+                            <input class= "btn btn-primary upload-btn" type="reset" name="reset" value="重置">
+                        </form>
+                        <h5>产品图片上传</h5>
+                        <form name="uploadForm" method="POST"
+                              enctype="multipart/form-data"
+                              action="/ProcessServer/FileOperate/fileUpServlet">
+                            <input  class="input-text upload-url" type="file" name="file1" size="30"/>
+                            <input class="btn btn-primary upload-btn" type="submit" name="submit" value="提交">
+                            <input class= "btn btn-primary upload-btn" type="reset" name="reset" value="重置">
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="do_modify_cable()" aria-hidden="true">确定</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modify_connector_pcb" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content radius">
+                <div class="modal-header">
+                    <h3 class="modal-title">修改产品</h3>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+                </div>
+                <div class="modal-body">
+
+                    <table  id="pcb" class="table table-border table-bordered" style="display: none">
+                        <tr>
+                            <td>类型</td>
+                            <td><span class="select-box size-M">
+                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" id="m_connector_pcb_type">
+                                    <option selected="" value="1">SMA</option>
+                                    <option value="2">N</option>
+                                 </select>
+                            </span></td>
+
+                            <td>极性</td>
+                            <td><span class="select-box size-M">
+                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" id="m_connector_pcb_jx">
+                                    <option selected="" value="1">公</option>
+                                    <option value="2">母</option>
+                                 </select>
+                            </span></td>
+
+                            <td>安装类型</td>
+                            <td><span class="select-box size-M">
+                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" id="m_connector_pcb_install">
+                                    <option selected="" value="1">无</option>
+                                    <option value="2">四孔法兰</option>
+                                 </select>
+                            </span></td>
+
+                        <tr>
+                            <td>驻波</td>
+                            <td>
+                                <input type="text" class="input-text" placeholder="" name="" id="m_connector_pcb_stand_wave" autocomplete="off">
+                            </td>
+                            <td>截止频率(GHz）</td>
+                            <td>
+                                <input type="text" class="input-text" placeholder="" name="" id="m_connector_pcb_upper_freq" autocomplete="off">
+                            </td>
+                            <td>外形</td>
+                            <td><span class="select-box size-M">
+                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" id="m_connector_pcb_outlook">
+                                    <option selected="" value="1">直</option>
+                                    <option value="2">弯</option>
+                                 </select>
+                            </span></td>
+                            <td>特性</td>
+                            <td><span class="select-box size-M">
+                                 <select  nullmsg="类型" datatype="*" name="" size="1" class="select" id="m_connector_pcb_property">
+                                    <option selected="" value="1">无</option>
+                                    <option value="2">气密</option>
+                                 </select>
+                            </span></td>
+                        </tr>
+                        <tr>
+                            <td>WITC编号</td>
+                            <td>
+                                <input type="text" class="input-text" placeholder="" name="" id="m_connector_pcb_witc_no" autocomplete="off">
+                            </td>
+                            <td>组件中WITC编号（GHz）</td>
+                            <td>
+                                <input type="text" class="input-text" placeholder="" name="" id="m_connector_pcb_combo_witc" autocomplete="off">
+                            </td>
+                        </tr>
+
+                    </table>
+
+                    <div>
+                        <h5>规格书上传</h5>
+                        <form name="uploadForm" method="POST"
+                              enctype="multipart/form-data"
+                              action="/ProcessServer/FileOperate/fileUpServlet">
+                            <input  class="input-text upload-url" type="file" name="file1" size="30"/>
+                            <input class="btn btn-primary upload-btn" type="submit" name="submit" value="提交">
+                            <input class= "btn btn-primary upload-btn" type="reset" name="reset" value="重置">
+                        </form>
+                        <h5>产品图片上传</h5>
+                        <form name="uploadForm" method="POST"
+                              enctype="multipart/form-data"
+                              action="/ProcessServer/FileOperate/fileUpServlet">
+                            <input  class="input-text upload-url" type="file" name="file1" size="30"/>
+                            <input class="btn btn-primary upload-btn" type="submit" name="submit" value="提交">
+                            <input class= "btn btn-primary upload-btn" type="reset" name="reset" value="重置">
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="do_modify_pcb()" aria-hidden="true">确定</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
 
 {% block private-script %}
-<script>
-$("#tab_demo").Huitab({
-	index:0
-});
+    <script>
+        $("#tab_demo").Huitab({
+            index:0
+        });
 
-function goto_modify(obj){
-    var row = obj.parentNode.parentNode;
-    alert(row);
-    var td = $(row).find("td");
-    var witc = td.eq(4).text();
-
-}
-
-function goto_delete(obj){
-    var row = obj.parentNode.parentNode;
-    var td = $(row).find("td");
-    var witc = td.eq(4).text();
-    document.getElementById("delete_witc").innerHTML=witc;
-    $("#modal-demo").modal("show");
-}
-
-function do_delete(){
-    var witc = document.getElementById("delete_witc").innerHTML;
-    $("#modal-demo").modal("hide");
-}
-
-function ljqTypeChange(obj){
-        var currObj = obj;
-        if(currObj.id == "radio_cable") {
-            document.getElementById("cable").style.display = "table";
-            document.getElementById("pcb").style.display="none"
-        }else{
-            document.getElementById("cable").style.display = "none";
-            document.getElementById("pcb").style.display="table"
+        function goto_modify(obj){
+            var row = obj.parentNode.parentNode;
+            alert(row);
+            var td = $(row).find("td");
+            var witc = td.eq(4).text();
+            $("#modify_connector_cable").modal("show");
         }
 
-    }
+        function goto_delete(obj){
+            var row = obj.parentNode.parentNode;
+            var td = $(row).find("td");
+            var witc = td.eq(4).text();
+            document.getElementById("delete_witc").innerHTML=witc;
+            $("#modal-demo").modal("show");
+        }
 
-$(document).ready(function(){
-	$('#nav-product').addClass("current")
-	$('#start-query').click(function(){
-	    alert('query');
-	    $.get("{% url 'notify' %}", function(data){
-	        alert("get " + data.result);
-	    });
-	    });
-});
+        function do_delete(){
+            var witc = document.getElementById("delete_witc").innerHTML;
+            $("#modal-demo").modal("hide");
+        }
 
-</script>
+        function do_modify_pcb(){
+            var loss_ratio = document.getElementById("lossratio").value
+            alert(loss_ratio)
+            $("#modify_connector_pcb").modal("hide");
+        }
+
+        function do_modify_cable(){
+            var loss_ratio = document.getElementById("m_connector_cable_lossratio").value;
+            alert(loss_ratio)
+            $("#modify_connector_cable").modal("hide");
+        }
+
+        function ljqTypeChange(obj){
+            var currObj = obj;
+            if(currObj.id == "radio_cable") {
+                document.getElementById("cable").style.display = "table";
+                document.getElementById("pcb").style.display="none"
+            }else{
+                document.getElementById("cable").style.display = "none";
+                document.getElementById("pcb").style.display="table"
+            }
+
+        }
+
+        $(document).ready(function(){
+            $('#nav-product').addClass("current")
+            $('#start-query').click(function(){
+                alert('query');
+                $.get("{% url 'notify' %}", function(data){
+                    alert("get " + data.result);
+                });
+            });
+        });
+
+    </script>
 {% endblock %}
