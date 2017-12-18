@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from django.utils.translation import ugettext as _
@@ -70,12 +71,15 @@ def admin_connector_product(request):
     install_type = InstallType.objects.all()
     combine_type = CombineType.objects.all()
     out_look = OutLook.objects.all()
+    connector_pcb_form = ConnectorPcbForm()
     context = {'polar': polar,
                'category': category,
                'install_type': install_type,
                'combine_type': combine_type,
-               'out_look': out_look
+               'out_look': out_look,
+               'connector_pcb': connector_pcb_form
                }
+
     return render(request, 'admin_pages/product_connector.html', context)
 
 
@@ -115,7 +119,8 @@ def admin_tool_product(request):
 
 
 def admin_modify_connector(request):
-    return render(request, 'admin_pages/modify_product_connector.html')
+
+    return render(request, 'admin_pages/modify_product_connector.html', {'connector_pcb': connector_pcb_form})
 
 
 def admin_others_install_type(request):
@@ -315,7 +320,15 @@ def admin_add_connector(request):
     :param request:
     :return:
     """
-
-    type = request.POST['category']
-    print type
-    return HttpResponse('1')
+    print "called"
+    connector_form = ConnectorPcbForm(request.POST, request.FILES)
+    if connector_form.is_valid():
+        new_pcb = connector_form.save()
+        print "received"
+        return HttpResponse(1)
+    else:
+        print connector_form.errors
+    # return
+    # type = request.POST['category']
+    # print type
+        return HttpResponse(connector_form.errors)
