@@ -6,7 +6,6 @@ from django.contrib.auth.decorators import login_required
 from models import *
 # Create your views here.
 
-
 def index(request):
     """
     main page
@@ -128,12 +127,12 @@ def admin_others_install_type(request):
 def admin_add_install_type(request):
     install_type = request.POST['content']
     install_code = request.POST['code']
-    obj = InstallType.objects.get(content=install_type, code=install_code)
-    if not obj:
+    try:
+        InstallType.objects.get(content=install_type, code=install_code)
+        return HttpResponse('-1')
+    except Exception, e:
         InstallType.objects.create(content=install_type, code=install_code)
         return HttpResponse('1')
-    else:
-        return HttpResponse('-1')
 
 
 def admin_modify_install_type(request):
@@ -141,13 +140,182 @@ def admin_modify_install_type(request):
     old_code = request.POST['old_code']
     new_type = request.POST['new_content']
     new_code = request.POST['new_code']
-    obj = InstallType.objects.get(content=old_type, code=old_code)
-    if obj:
+
+    try:
+        obj = InstallType.objects.get(content=old_type, code=old_code)
         obj.content = new_type
         obj.code = new_code
         obj.save()
         return HttpResponse('1')
-    else:
+
+    except Exception, e:
         return HttpResponse('-1')
 
 
+def admin_delete_install_type(request):
+
+    install_type = request.POST['content']
+    install_code = request.POST['code']
+
+    try:
+        InstallType.objects.filter(content=install_type, code=install_code).delete()
+        return HttpResponse('1')
+    except Exception, e:
+        print str(e)
+        return HttpResponse('-1')
+
+
+def admin_others_outlook(request):
+    out_look_res = OutLook.objects.all()
+    content = {'out_look': out_look_res}
+    return render(request, 'admin_pages/product_others_outlook.html', content)
+
+
+def admin_add_outlook(request):
+
+    outlook_type = request.POST['content']
+    outlook_code = request.POST['code']
+    try:
+        OutLook.objects.get(content=outlook_type, code=outlook_code)
+        return HttpResponse('-1')
+    except Exception, e:
+        OutLook.objects.create(content=outlook_type, code=outlook_code)
+        return HttpResponse('1')
+
+
+def admin_modify_outlook(request):
+
+    old_type = request.POST['old_content']
+    old_code = request.POST['old_code']
+    new_type = request.POST['new_content']
+    new_code = request.POST['new_code']
+    try:
+        obj = OutLook.objects.get(content=old_type, code=old_code)
+        obj.content = new_type
+        obj.code = new_code
+        obj.save()
+        return HttpResponse('1')
+    except Exception, e:
+        print str(e)
+        return HttpResponse('-1')
+
+
+def admin_delete_outlook(request):
+
+    outlook_type = request.POST['content']
+    outlook_code = request.POST['code']
+
+    try:
+        OutLook.objects.filter(content=outlook_type, code=outlook_code).delete()
+        return HttpResponse('1')
+    except Exception, e:
+        print str(e)
+        return HttpResponse('-1')
+
+
+def admin_others_category(request):
+    category_res = Category.objects.all()
+    content = {'category': category_res}
+    return render(request, 'admin_pages/product_others_category.html', content)
+
+
+def admin_add_category(request):
+
+    outlook_type = request.POST['content']
+    outlook_code = request.POST['code']
+    try:
+        Category.objects.get(content=outlook_type, code=outlook_code)
+        return HttpResponse('-1')
+    except Exception, e:
+        Category.objects.create(content=outlook_type, code=outlook_code)
+        return HttpResponse('1')
+
+
+def admin_modify_category(request):
+
+    old_type = request.POST['old_content']
+    old_code = request.POST['old_code']
+    new_type = request.POST['new_content']
+    new_code = request.POST['new_code']
+    try:
+        obj = Category.objects.get(content=old_type, code=old_code)
+        obj.content = new_type
+        obj.code = new_code
+        obj.save()
+        return HttpResponse('1')
+    except Exception, e:
+        print str(e)
+        return HttpResponse('-1')
+
+
+def admin_delete_category(request):
+
+    outlook_type = request.POST['content']
+    outlook_code = request.POST['code']
+
+    try:
+        Category.objects.filter(content=outlook_type, code=outlook_code).delete()
+        return HttpResponse('1')
+    except Exception, e:
+        print str(e)
+        return HttpResponse('-1')
+
+
+def admin_others_combo_type(request):
+    install_type_res = CombineType.objects.all()
+    content = {'combo_types': install_type_res}
+    return render(request, 'admin_pages/product_others_combo_type.html', content)
+
+
+def admin_add_combo_type(request):
+    install_type = request.POST['content']
+    install_code = request.POST['code']
+    try:
+        CombineType.objects.get(content=install_type, code=install_code)
+        return HttpResponse('-1')
+    except Exception,e:
+
+        CombineType.objects.create(content=install_type, code=install_code)
+        return HttpResponse('1')
+
+
+def admin_modify_combo_type(request):
+    old_type = request.POST['old_content']
+    old_code = request.POST['old_code']
+    new_type = request.POST['new_content']
+    new_code = request.POST['new_code']
+
+    try:
+        obj = CombineType.objects.get(content=old_type, code=old_code)
+        obj.content = new_type
+        obj.code = new_code
+        obj.save()
+        return HttpResponse('1')
+
+    except Exception, e:
+        return HttpResponse('-1')
+
+
+def admin_delete_combo_type(request):
+
+    install_type = request.POST['content']
+    install_code = request.POST['code']
+
+    try:
+        CombineType.objects.filter(content=install_type, code=install_code).delete()
+        return HttpResponse('1')
+    except Exception, e:
+        print str(e)
+        return HttpResponse('-1')
+
+
+def admin_add_connector(request):
+    """
+
+    :param request:
+    :return:
+    """
+
+    type = request.POST['category']
+    print type
+    return HttpResponse('1')

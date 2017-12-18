@@ -1,27 +1,27 @@
 {% extends "admin_pages/product_base.html" %}
 {% load static %}
 {% block page-title %}
-    <title>其他属性编辑</title>
-    <meta name="keywords" content="其他属性">
-    <meta name="description" content="其他属性">
+    <title>其他属性编辑-外形</title>
+    <meta name="keywords" content="其他属性-外形">
+    <meta name="description" content="其他属性-外形">
 {% endblock %}
 
 {% block product-private %}
     <div style="width: 50%" class="container ui-sortable ">
 
     <div class="panel panel-default">
-        <div id='admin_result' class="panel-header">安装类型</div>
+        <div id='admin_result' class="panel-header">外形</div>
         <table class="table table-border table-bordered table-striped">
             <thead>
             <tr>
                 <th width="10%">序号</th>
-                <th width="40">安装类型</th>
-                <th width="30%">编号</th>
+                <th width="40">外形</th>
+                <th width="30%">编码</th>
                 <th width="20">操作</th>
             </tr>
             </thead>
             <tbody>
-            {% for obj in install_types %}
+            {% for obj in out_look %}
                 <tr>
                     <td><code>{{ forloop.counter }}</code></td>
                     <td><code>{{ obj.content }}</code></td>
@@ -36,7 +36,7 @@
     </div>
     <input class="btn btn-primary radius" type="button" value="添加" onclick="goto_add(this)">
 
-    <div id="modify_type" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="modify_outlook" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content radius">
                 <div class="modal-header">
@@ -44,7 +44,7 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th >安装类型：</th>
+                            <th >外形：</th>
                             <th id="raw_content"></th>
                             <th >编码：</th>
                             <th id="raw_code"></th>
@@ -58,7 +58,7 @@
                     <form method="post", action="" class="form form-horizontal responsive" id="mod_form">{%  csrf_token %}
 
                         <div class="row cl">
-                            <label class="form-label col-xs-3">安装类型</label>
+                            <label class="form-label col-xs-3">外形</label>
                             <div class="formControls col-xs-8">
                                 <input type="text" class="input-text" id="new_content">
                             </div>
@@ -82,7 +82,7 @@
             </div>
         </div>
     </div>
-    <div id="add_type" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="add_outlook" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content radius">
                 <div class="modal-header">
@@ -93,7 +93,7 @@
 
                     <form method="post", action="" class="form form-horizontal responsive" id="add_form">{%  csrf_token %}
                         <div class="row cl">
-                            <label class="form-label col-xs-3">安装类型</label>
+                            <label class="form-label col-xs-3">外形</label>
                             <div class="formControls col-xs-8">
                                 <input type="text" class="input-text" id="content">
                             </div>
@@ -117,7 +117,7 @@
             </div>
         </div>
     </div>
-        <div id="delete_install_type" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div id="delete_outlook" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content radius">
                 <div class="modal-header">
@@ -150,11 +150,11 @@
             document.getElementById("raw_code").innerHTML=code;
             document.getElementById("new_content").value=content;
             document.getElementById("new_code").value=code;
-            $("#modify_type").modal("show");
+            $("#modify_outlook").modal("show");
         }
 
         function goto_add(obj){
-            $("#add_type").modal("show");
+            $("#add_outlook").modal("show");
         }
 
 
@@ -166,10 +166,10 @@
 
             document.getElementById("delete_content").innerHTML=content;
             document.getElementById("delete_code").innerHTML=code;
-            $("#delete_install_type").modal("show");
+            $("#delete_outlook").modal("show");
         }
 
-         function do_delete(){
+        function do_delete(){
             var content = document.getElementById("delete_content").innerHTML;
             var code = document.getElementById("delete_code").innerHTML;
              $.ajaxSetup({
@@ -178,13 +178,13 @@
 
                     $.ajax({
                         type:"POST",
-                        url: "{% url 'admin_delete_install_type' %}",
+                        url: "{% url 'admin_delete_out_look' %}",
                         data: {content:content, code:code},
                         dataType:'json',
                         cache:false,
                         success: function(data) {
                             if(data == 1 ){
-                                window.location.href="{% url 'admin_others_install_type' %}";
+                                window.location.href="{% url 'admin_others_out_look' %}";
                             }
                             if(data == -1 ){
                                 alert("该记录不存在");
@@ -194,7 +194,7 @@
                             $('.loginError').html('请求失败，请刷新页面后重试').show();
                         }
                     });
-            $("#delete_install_type").modal("hide");
+            $("#delete_outlook").modal("hide");
         }
 
         $('#add_form').submit(
@@ -214,14 +214,13 @@
 
                     $.ajax({
                         type:"POST",
-                        url: "{% url 'admin_add_install_type' %}",
+                        url: "{% url 'admin_add_out_look' %}",
                         data: {content:content, code:code},
                         dataType:'json',
                         cache:false,
                         success: function(data) {
                             if(data == 1 ){
-                                window.location.href="{% url 'admin_others_install_type' %}";
-                                $('.loginError').html('登录成功').show();
+                                window.location.href="{% url 'admin_others_out_look' %}";
                             }
                             if(data == -1 ){
                                 alert("该记录已经存在");
@@ -245,14 +244,14 @@
 
                     $.ajax({
                         type:"POST",
-                        url: "{% url 'admin_modify_install_type' %}",
+                        url: "{% url 'admin_modify_out_look' %}",
                         data: {new_content: new_content, new_code: new_code,
                                 old_content:old_content, old_code: old_code},
                         dataType:'json',
                         cache:false,
                         success: function(data) {
                             if(data == 1 ){
-                                window.location.href="{% url 'admin_others_install_type' %}";
+                                window.location.href="{% url 'admin_others_out_look' %}";
                             }
                             if(data == -1 ){
                                 alert("修改失败，该记录不存在");
