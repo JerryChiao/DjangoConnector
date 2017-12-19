@@ -43,4 +43,5 @@ urlpatterns = [
     url('^admin/mod_combo_type/', views.admin_modify_combo_type, name='admin_modify_combo_type'),
     url('^admin/delete_combo_type/', views.admin_delete_combo_type, name='admin_delete_combo_type'),
     url('^admin/add_connector/', views.admin_add_connector, name='admin_add_connector'),
+    url('^admin/admin_filter_connector', views.admin_filter_connector, name="admin_filter_connector")
 ]

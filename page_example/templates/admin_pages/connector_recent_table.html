@@ -1,0 +1,15 @@
+{% for obj in recent_connector_pcb %}
+
+<tr>
+    <td><code>{{ forloop.counter }}</code></td>
+    <td><code>{{ obj.full_witc }}</code></td>
+    <td><code>{{ obj.content_type.content }}</code></td>
+    <td><code>{{ obj.polar_type }}</code></td>
+    <td><code>{{obj.outlook_type }}</code></td>
+    <td><code><a href="{{ obj.image.url }}">图片链接</a></code></td>
+    <td><code><a href="{{ obj.document.url }}"> 规格书链接</a></code></td>
+    <td><a href="javascript:void(0)" onclick="goto_modify(this)">修改</a>
+        <a href="javascript:void(0)" onclick="goto_delete(this)">删除</a>
+    </td>
+</tr>
+{% endfor%}

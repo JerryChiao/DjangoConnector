@@ -1,0 +1,59 @@
+{% csrf_token %}
+<table class="table table-border table-bordered">
+    <tr>
+        <td>类型</td>
+        <td>
+            {{ connector_pcb.content_type }}
+        </td>
+
+        <td>极性</td>
+        <td>
+            {{ connector_pcb.polar_type }}
+        </td>
+
+        <td>安装类型</td>
+        <td>
+            {{ connector_pcb.install_type}}
+        </td>
+
+    <tr>
+        <td>驻波</td>
+        <td>
+            <input type="text" class="input-text" placeholder="" name="standing_wave" id="connector_pcb_stand_wave" autocomplete="off">
+        </td>
+        <td>截止频率(GHz）</td>
+        <td>
+            <input type="text" class="input-text" placeholder="" name="upper_frequency" id="connector_pcb_upper_freq" autocomplete="off">
+        </td>
+        <td>外形</td>
+        <td>
+            {{ connector_pcb.outlook_type}}
+        </td>
+    </tr>
+    <tr>
+        <td>特性</td>
+        <td>
+            {{ connector_pcb.property}}
+        </td>
+        <td>WITC编号</td>
+        <td>
+            <input type="text" class="input-text" placeholder="" name="full_witc" id="connector_pcb_witc_no" autocomplete="off">
+        </td>
+        <td>组件中WITC编号（GHz）</td>
+        <td>
+            <input type="text" class="input-text" placeholder="" name="combo_short_witc" id="connector_pcb_combo_witc" autocomplete="off">
+        </td>
+    </tr>
+</table>
+
+<div>
+    <h5>规格书上传</h5>
+    <input  class="input-text upload-url" type="file" name="document" size="30"/>
+    <input class= "btn btn-primary upload-btn" type="reset" name="reset" value="重置">
+
+    <h5>产品图片上传</h5>
+
+    <input  class="input-text upload-url" type="file" name="image" size="30"/>
+    <input class= "btn btn-primary upload-btn" type="reset" name="reset" value="重置">
+
+</div>

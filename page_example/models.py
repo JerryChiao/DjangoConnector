@@ -67,6 +67,21 @@ class PolarForm(ModelForm):
         fields = [ u'content', 'code']
 
 
+class Property(models.Model):
+    title = "特性"
+    content = models.CharField(max_length=30, verbose_name="描述")
+    code = models.CharField(max_length=10, verbose_name="编号")
+
+    def __unicode__(self):
+        return self.content
+
+
+class PropertyForm(ModelForm):
+    class Meta:
+        model = Property
+        fields = ['content', 'code']
+
+
 class OutLook(models.Model):
     title = "外形"
     content = models.CharField(max_length=30, verbose_name="描述")
@@ -82,6 +97,8 @@ class OutLookForm(ModelForm):
         fields = ['content', 'code']
 
 
+
+
 class ConnectorCable(models.Model):
     title = "Cable"
     content_type = models.ForeignKey(Category)
@@ -94,7 +111,7 @@ class ConnectorCable(models.Model):
     cable_type = models.CharField(max_length=30)
     upper_frequency = models.FloatField()
     outlook_type = models.ForeignKey(OutLook)
-    property = models.CharField(max_length=30)
+    property = models.ForeignKey(Property)
     combine_type = models.ForeignKey(CombineType)
     document = models.FileField(upload_to="connectorCable/")
     full_witc = models.CharField(max_length=30)
@@ -113,7 +130,7 @@ class ConnectorPcb(models.Model):
     standing_wave = models.FloatField()
     upper_frequency = models.FloatField()
     outlook_type = models.ForeignKey(OutLook)
-    property = models.CharField(max_length=30)
+    property = models.ForeignKey(Property)
     full_witc = models.CharField(max_length=30)
     combo_short_witc = models.CharField(max_length=10)
     document = models.FileField(upload_to="connectorCable/")
@@ -126,6 +143,12 @@ class ConnectorPcb(models.Model):
 class ConnectorPcbForm(ModelForm):
     class Meta:
         model = ConnectorPcb
+        exclude = ['comments', 'reserved1', 'reserved2']
+
+
+class ConnectorCableForm(ModelForm):
+    class Meta:
+        model = ConnectorCable
         exclude = ['comments', 'reserved1', 'reserved2']
 
 

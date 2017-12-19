@@ -18,10 +18,12 @@ Including another URLconf
 
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.conf.urls.static import static
+import settings
 
 
 # Note: the admin's user name is admin/root1234
 urlpatterns = [
     url(r'^page_example/', include('page_example.urls')),
     url(r'^admin/', admin.site.urls),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

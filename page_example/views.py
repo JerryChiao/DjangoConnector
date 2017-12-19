@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.http import JsonResponse, HttpResponse
 from django.utils.translation import ugettext as _
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
+from django.template import RequestContext
 
 from models import *
 # Create your views here.
@@ -71,13 +73,17 @@ def admin_connector_product(request):
     install_type = InstallType.objects.all()
     combine_type = CombineType.objects.all()
     out_look = OutLook.objects.all()
+    connector_pcb_res = ConnectorPcb.objects.all()
     connector_pcb_form = ConnectorPcbForm()
+    connector_cable_form = ConnectorCableForm()
     context = {'polar': polar,
                'category': category,
                'install_type': install_type,
                'combine_type': combine_type,
                'out_look': out_look,
-               'connector_pcb': connector_pcb_form
+               'connector_pcb': connector_pcb_form,
+               'connector_cable_form': connector_cable_form,
+               'connector_pcb_res': connector_pcb_res
                }
 
     return render(request, 'admin_pages/product_connector.html', context)
@@ -320,15 +326,27 @@ def admin_add_connector(request):
     :param request:
     :return:
     """
-    print "called"
     connector_form = ConnectorPcbForm(request.POST, request.FILES)
     if connector_form.is_valid():
         new_pcb = connector_form.save()
-        print "received"
-        return HttpResponse(1)
+        recent_connector_pcb = ConnectorPcb.objects.all()[0:3]
+
+        return render_to_response("admin_pages/connector_recent_table.html", locals())
     else:
         print connector_form.errors
     # return
     # type = request.POST['category']
     # print type
-        return HttpResponse(connector_form.errors)
+        return JsonResponse(connector_form.errors)
+
+@csrf_exempt
+def admin_filter_connector(request):
+    """
+
+    :param request:
+    :return:
+    """
+    print "filter"
+    connector_pcb_res = ConnectorPcb.objects.all()
+    # return HttpResponse(all_connector)
+    return render_to_response("admin_pages/connector_table.html", locals())
