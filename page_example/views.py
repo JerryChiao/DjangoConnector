@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, get_object_or_404
 from django.http import JsonResponse, HttpResponse
 from django.utils.translation import ugettext as _
 from django.contrib.auth.decorators import login_required
@@ -124,9 +124,21 @@ def admin_tool_product(request):
     return render(request, 'admin_pages/product_tool.html')
 
 
-def admin_modify_connector(request):
+def admin_modify_connector_pcb(request):
+    """
 
-    return render(request, 'admin_pages/modify_product_connector.html', {'connector_pcb': connector_pcb_form})
+    :param request:
+    :return:
+    """
+    witc = request.POST['raw_witc']
+    raw_obj = ConnectorPcb.objects.get(full_witc=str(witc))
+    connector_form = ConnectorPcbForm(request.POST, request.FILES, instance=raw_obj)
+    if connector_form.is_valid():
+        connector_form.save()
+        return HttpResponse(1)
+    else:
+        print connector_form.errors
+        return HttpResponse(-1)
 
 
 def admin_others_install_type(request):
@@ -339,6 +351,7 @@ def admin_add_connector(request):
     # print type
         return JsonResponse(connector_form.errors)
 
+
 @csrf_exempt
 def admin_filter_connector(request):
     """
@@ -346,7 +359,26 @@ def admin_filter_connector(request):
     :param request:
     :return:
     """
-    print "filter"
-    connector_pcb_res = ConnectorPcb.objects.all()
+    if 'witc' in request.POST:
+        witc = request.POST['witc']
+
+        try:
+            connector_cable = ConnectorCable.objects.filter(full_witc=witc)
+            connector_cable_form = ConnectorCableForm(instance=connector_cable).first()
+            return render_to_response("admin_pages/connector_cable_form_tbl.html", locals())
+        except Exception, e:
+
+            try:
+                connector_pcb_obj = ConnectorPcb.objects.filter(full_witc=witc).first()
+                connector_pcb = ConnectorPcbForm(instance=connector_pcb_obj)
+                return render_to_response("admin_pages/connector_pcb_form_tbl.html", locals())
+
+            except Exception, e:
+                print str(e)
+                return HttpResponse(-1)
+    try:
+        connector_pcb_res = ConnectorPcb.objects.all()
+    except Exception,e:
+        print str(e)
     # return HttpResponse(all_connector)
     return render_to_response("admin_pages/connector_table.html", locals())

@@ -97,10 +97,7 @@ class OutLookForm(ModelForm):
         fields = ['content', 'code']
 
 
-
-
 class ConnectorCable(models.Model):
-    title = "Cable"
     content_type = models.ForeignKey(Category)
     polar_type = models.ForeignKey(Polar)
     install_type = models.ForeignKey(InstallType)
@@ -114,16 +111,16 @@ class ConnectorCable(models.Model):
     property = models.ForeignKey(Property)
     combine_type = models.ForeignKey(CombineType)
     document = models.FileField(upload_to="connectorCable/")
-    full_witc = models.CharField(max_length=30)
+    full_witc = models.CharField(max_length=30, primary_key=True)
     combo_short_witc = models.CharField(max_length=10)
     image = models.ImageField(upload_to="connectorCable/")
     comments = models.CharField(max_length=100)
     reserved1 = models.CharField(max_length=100)
     reserved2 = models.CharField(max_length=100)
+    time = models.DateTimeField(auto_now_add=True)
 
 
 class ConnectorPcb(models.Model):
-    title = "connector_pcb"
     content_type = models.ForeignKey(Category)
     polar_type = models.ForeignKey(Polar)
     install_type = models.ForeignKey(InstallType)
@@ -138,18 +135,22 @@ class ConnectorPcb(models.Model):
     comments = models.CharField(max_length=100)
     reserved1 = models.CharField(max_length=100)
     reserved2 = models.CharField(max_length=100)
+    time = models.DateTimeField(auto_now_add=True)
 
 
 class ConnectorPcbForm(ModelForm):
     class Meta:
         model = ConnectorPcb
-        exclude = ['comments', 'reserved1', 'reserved2']
+        exclude = ['comments', 'reserved1', 'reserved2', 'time']
+
+    def __init__(self, *args, **kwargs):
+        super(ConnectorPcbForm, self).__init__(*args, **kwargs)
 
 
 class ConnectorCableForm(ModelForm):
     class Meta:
         model = ConnectorCable
-        exclude = ['comments', 'reserved1', 'reserved2']
+        exclude = ['comments', 'reserved1', 'reserved2', 'time']
 
 
 

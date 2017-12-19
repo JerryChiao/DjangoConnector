@@ -1,14 +1,17 @@
 {% for obj in connector_pcb_res %}
 <tr>
-    <td><code>{{ forloop.counter}}</code></td>
+    <td><code>{{ obj.full_witc}}</code></td>
     <td>
-        <img src='{{ obj.image.url }}' width="105" height="60"/>
+        <img src='{{ obj.image.url }}' width="80" height="80"/>
     </td>
-    <td><code>{{ obj.content_type.content }}, {{obj.polar_type.content}}</code></td>
-    <td><code>{{ obj.install_type }}, {{ obj.standing_wave }}, {{ obj.upper_frequency}}
-        {{ obj.outlook_type}}, {{ obj.property}}</code></td>
-    <td><code>{{ obj.full_witc}}<br>
-        <a href="{{ obj.document.url }}">规格书链接</a></code></td>
+    <td>系列：{{ obj.content_type.content }}<br>极性：{{obj.polar_type.content}}</td>
+    <td>安装类型：{{ obj.install_type }}<br>
+        驻波：{{ obj.standing_wave }}<br>
+        截止频率：{{ obj.upper_frequency}}<br>
+        外形：{{ obj.outlook_type}},
+        属性：{{ obj.property}}</td>
+    <td>WITC编号：{{ obj.full_witc}}<br>
+        <a href="{{ obj.document.url }}">规格书链接</a></td>
     <td><a href="javascript:void(0)" onclick="goto_modify(this)">修改</a>
         <a href="javascript:void(0)" onclick="goto_delete(this)">删除</a>
     </td>
