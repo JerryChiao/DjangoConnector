@@ -2,80 +2,86 @@
 <table id="cable" class="table table-border table-bordered">
     <tr>
         <td>类型</td>
-        <td><span class="select-box size-M">
+        <td><span class="select-box size-S">
             {{ connector_cable_form.content_type|addcls:"select" }}
         </span></td>
 
         <td>极性</td>
-        <td><span class="select-box size-M">
+        <td><span class="select-box size-S">
             {{ connector_cable_form.polar_type|addcls:"select" }}
         </span></td>
 
         <td>安装类型</td>
-        <td><span class="select-box size-M">
+        <td><span class="select-box size-S">
             {{ connector_cable_form.install_type|addcls:"select"}}
         </span></td>
     <tr>
         <td>差损系数</td>
-        <td>
+        <td><span class="size-S">
             {{ connector_cable_form.loss_rate }}
+            </span>
         </td>
         <td>电缆内导体直径（mm）</td>
-        <td>
+        <td><span class="size-S">
             {{ connector_cable_form.inner_diameter }}
+            </span>
         </td>
         <td>电缆内导体直径(mm)</td>
-        <td>
+        <td><span class="size-S">
             {{ connector_cable_form.outer_diameter }}
+            </span>
         </td>
 
     </tr>
     <tr>
         <td>适配电缆型号</td>
-        <td>
+        <td><span class="size-S">
             {{ connector_cable_form.cable_type }}
+            </span>
         </td>
         <td>截止频率（GHz）</td>
-        <td>
+        <td><span class="size-S">
             {{ connector_cable_form.upper_frequency }}
+            </span>
         </td>
 
         <td>外形</td>
-        <td><span class="select-box size-M">
+        <td><span class="select-box size-S">
             {{ connector_cable_form.outlook_type|addcls:"select" }}
         </span></td>
 
     </tr>
     <tr>
         <td>特性</td>
-        <td><span class="select-box size-M">
+        <td><span class="select-box size-S">
             {{ connector_cable_form.property|addcls:"select" }}
         </span></td>
         <td>装配形式</td>
-        <td><span class="select-box size-M">
+        <td><span class="select-box size-S">
             {{ connector_cable_form.combine_type|addcls:"select" }}
         </span></td>
     </tr>
     <tr>
         <td>WITC编号</td>
-        <td>
+        <td><span class="size-S">
             {{ connector_cable_form.full_witc }}
+            </span>
         </td>
         <td>组件中WITC编号</td>
-        <td>
+        <td><span class="size-S">
             {{ connector_cable_form.combo_short_witc }}
+            </span>
         </td>
+        <td></td>
     </tr>
 </table>
 <div>
     <h5>规格书上传</h5>
     {{ connector_cable_form.document|addcls:"input-text upload-url" }}
-{#    <input  class="input-text upload-url" type="file" name="document" size="30"/>#}
-{#    <input class= "btn btn-primary upload-btn" type="reset" name="reset" value="重置">#}
+
 
     <h5>产品图片上传</h5>
-    {{ connector_cable_form.document|addcls:"input-text upload-url" }}
-{#    <input  class="input-text upload-url" type="file" name="image" size="30"/>#}
-{#    <input class= "btn btn-primary upload-btn" type="reset" name="reset" value="重置">#}
+    {{ connector_cable_form.image|addcls:"input-text upload-url" }}
+
 
 </div>

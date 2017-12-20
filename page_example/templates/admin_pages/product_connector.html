@@ -2,305 +2,332 @@
 {% extends "admin_pages/product_base.html" %}
 {% load static %}
 {% block page-title %}
-    <title>连接器</title>
-    <meta name="keywords" content="连接器">
-    <meta name="description" content="连接器录入">
+<title>连接器</title>
+<meta name="keywords" content="连接器">
+<meta name="description" content="连接器录入">
 {% endblock %}
 
 {% block product-private %}
-
-    <div style="width: 100%" class="container ui-sortable">
-        <div id="tab_demo" class="HuiTab">
-            <div class="tabBar clearfix"><span>添加产品</span><span onclick="freshRecords()">查看管理</span></div>
-            <div class="tabCon">
-                <div class="panel panel-default">
-                    <div class="panel-header">连接器</div>
-                    <br>
-                    <div class="radio-box">
-                        <input type="radio" id="radio_cable" name="type-radio" value="for_cable" onclick="ljqTypeChange(this)" checked>
-                        <label for="radio-2">适配电缆</label>
-                    </div>
-                    <div class="radio-box">
-                        <input type="radio" id="radio_pcb" name="type-radio" value="for_pcb" onclick="ljqTypeChange(this)">
-                        <label for="radio-disabled">适配PCB</label>
-                    </div>
-                    <div class="panel-body">
-                        <form id="connector_cable_form" name="connector_cable_form" method="post"
-                              enctype="multipart/form-data"
-                              action="">
-                            {% csrf_token %}
-                            {% include 'admin_pages/connector_cable_form_tbl.html' %}}
-                            <input id="add_connector_cable" class="btn btn-primary radius mt-10" type="submit" value="添加产品" >
-                        </form>
-
-                        <form id="connector_pcb_form" name="uploadForm" method="post"
-                              enctype="multipart/form-data"
-                              action="" style="display: none">
-                            {% csrf_token %}
-                            {% include 'admin_pages/connector_pcb_form_tbl.html' %}
-                            <input id="add_connector" class="btn btn-primary radius mt-10" type="submit" value="添加产品" >
-                        </form>
-                    </div>
-                </div>
+<div style="width: 100%" class="container ui-sortable">
+    <div id="tab_demo" class="HuiTab">
+        <div class="tabBar clearfix"><span>添加产品</span><span onclick="freshCableRecords()">适配电缆连接器</span>
+            <span onclick="freshPcbRecords()">适配PCB连接器</span></div>
+        <div class="tabCon">
+            <div class="panel panel-default">
+                <div class="panel-header">连接器</div>
                 <br>
-                <div class="panel panel-default">
-                    <div id='result' class="panel-header">添加结果</div>
-                    <table class="table table-border table-bordered table-striped">
-                        <thead>
-                        <tr>
-                            <th width="5%">序号</th>
-                            <th width="10%">WITC编号</th>
-                            <th width="10%">类型</th>
-                            <th width="10%">极性</th>
-                            <th width="10%">外形</th>
-                            <th width="10%">图片</th>
-                            <th width="10%">规格书</th>
-                            <th width="10%">操作</th>
-
-                        </tr>
-                        </thead>
-                        <tbody id="result_display">
-                        {% include 'admin_pages/connector_recent_table.html' %}
-                        </tbody>
-                    </table>
+                <div class="radio-box">
+                    <input type="radio" id="radio_cable" name="type-radio" value="for_cable" onclick="ljqTypeChange(this)" checked>
+                    <label for="radio-2">适配电缆</label>
                 </div>
+                <div class="radio-box">
+                    <input type="radio" id="radio_pcb" name="type-radio" value="for_pcb" onclick="ljqTypeChange(this)">
+                    <label for="radio-disabled">适配PCB</label>
+                </div>
+                <div class="panel-body">
+                    <form id="connector_cable_form" name="connector_cable_form" method="post"
+                          enctype="multipart/form-data"
+                          action="">
+                        {% csrf_token %}
+                        {% include 'admin_pages/connector_cable_form_tbl.html' %}
+                        <input id="add_connector_cable" class="btn btn-primary radius mt-10" type="submit" value="添加产品" >
+                        <input type="reset" id="connector_cable_form_reset" style="display:none;" value="重置" >
+                    </form>
 
+                    <form id="connector_pcb_form" name="uploadForm" method="post"
+                          enctype="multipart/form-data"
+                          action="" style="display: none">
+                        {% csrf_token %}
+                        {% include 'admin_pages/connector_pcb_form_tbl.html' %}
+                        <input id="add_connector" class="btn btn-primary radius mt-10" type="submit" value="添加产品" >
+                        <input type="reset" id="connector_pcb_form_reset" style="display:none;" value="重置" >
+                    </form>
+                </div>
             </div>
-            <div class="tabCon">
-                <div class="panel panel-default">
-                    <div class="panel-header">连接器查询条件</div>
-                    <div class="panel-body">
-                        <table id="ljqShipeidianlan" class="table table-border table-bordered table-bg">
+            <br>
+            <div class="panel panel-default">
+                <div id='result' class="panel-header">添加结果</div>
+                <table class="table table-border table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th width="5%">序号</th>
+                        <th width="10%">WITC编号</th>
+                        <th width="10%">类型</th>
+                        <th width="10%">极性</th>
+                        <th width="10%">外形</th>
+                        <th width="10%">图片</th>
+                        <th width="10%">规格书</th>
+                        <th width="10%">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="result_display">
+                    {% include 'admin_pages/connector_recent_table.html' %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="tabCon">
+            <div class="panel panel-default">
+                <div class="panel-header">查询条件</div>
+                <div class="panel-body">
+                    <form id="connector_cable_form_filter" name="connector_cable_form" method="post"
+                          enctype="multipart/form-data"
+                          action="">
+                        {% csrf_token %}
+                        <table class="table table-border table-bordered table-bg">
                             <thead>
                             <tr>
                                 <th>类型</th>
                                 <th>极性</th>
-                                <th>用途</th>
                                 <th>安装类型</th>
                                 <th>外形</th>
+                                <th>电缆外径</th>
+                                <th>电缆内径</th>
                                 <th>电缆型号</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
                                 <td><span class="select-box size-MINI">
-                                <select  nullmsg="系列" datatype="*" name="" size="1"
+                                <select  datatype="*" name="category" size="1"
                                          class="select">
                                      <option value ="">空</option>
                                     {% for obj in category %}
-                                        <option value ="{{ forloop.counter }}">{{ obj.content }}</option>
+                                        <option value ="{{ obj.content }}">{{ obj.content }}</option>
                                     {% endfor %}
                                 </select>
                             </span></td>
                                 <td><span class="select-box size-MINI">
-                                <select nullmsg="极性" datatype="*" name="" size="1" class="select">
+                                <select datatype="*" name="polar" size="1" class="select">
                                     <option value ="">空</option>
                                     {% for obj in polar %}
-                                        <option value ="{{ forloop.counter }}">{{ obj.content }}</option>
+                                        <option value ="{{ obj.content }}">{{ obj.content }}</option>
                                     {% endfor %}
                                 </select>
                             </span></td>
                                 <td><span class="select-box size-MINI">
-                                <select  nullmsg="用途" datatype="*" name="" size="1" class="select"
-                                         onchange="ljqTypeChange(this)">
-                                     <option value ="">空</option>
-                                    <option value="1">适配电缆</option>
-                                    <option value="2">面板安装</option>
-                                    </select>
-                            </span></td>
-                                <td><span class="select-box size-MINI">
-                                <select nullmsg="" datatype="*" name="" size="1" class="select">
+                                <select datatype="*" name="install_type" size="1" class="select">
                                      <option value ="">空</option>
                                     {% for obj in install_type %}
-                                        <option value ="{{ forloop.counter }}">{{ obj.content }}</option>
+                                        <option value ="{{ obj.content }}">{{ obj.content }}</option>
                                     {% endfor %}
                                 </select>
                             </span></td>
                                 <td><span class="select-box size-MINI">
-                                <select nullmsg="" datatype="*" name="" size="1" class="select">
+                                <select datatype="*" name="outlook" size="1" class="select">
                                      <option value ="">空</option>
                                     {% for obj in out_look %}
-                                        <option value ="{{ forloop.counter }}">{{ obj.content }}</option>
+                                        <option value ="{{ obj.content }}">{{ obj.content }}</option>
                                     {% endfor %}
                                  </select>
-                                    </select>
                             </span></td>
                                 <td><span class="select-box size-MINI">
-                                <select id="matchedCable" nullmsg="" datatype="*" name="" size="1" class="select">
+                                <input class="input-text" id="filter_cable_outer_diam" name="cable_outer_diam"/>
+                            </span></td>
+                                <td><span class="select-box size-MINI">
+                                <input class="input-text" id="filter_cable_inner_diam" name="cable_inner_diam"/>
+                            </span></td>
+                                <td><span class="select-box size-MINI">
+                                <input class="input-text" id="filter_cable_type" name="cable_type" />
+                            </span></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <input id="admin_filter_connector_cable" class="btn btn-primary radius mt-10" type="submit" value="查询" >
+                    </form>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-header" id="connector_cable_filter_results">产品列表</div>
+            </div>
+
+        </div>
+        <div class="tabCon">
+            <div class="panel panel-default">
+                <div class="panel-header">查询条件</div>
+                <div class="panel-body">
+                    <form id="connector_pcb_form_filter" name="connector_pcb_form" method="post"
+                          enctype="multipart/form-data"
+                          action="">
+                        {% csrf_token %}
+                        <table class="table table-border table-bordered table-bg">
+                            <thead>
+                            <tr>
+                                <th>类型</th>
+                                <th>极性</th>
+                                <th>安装类型</th>
+                                <th>外形</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><span class="select-box size-MINI">
+                                <select datatype="*" name="category" size="1"
+                                        class="select">
                                      <option value ="">空</option>
-                                    <option value="1">无</option>
-                                    <option value="2">直option>
+                                    {% for obj in category %}
+                                        <option value ="{{ obj.content }}">{{ obj.content }}</option>
+                                    {% endfor %}
                                 </select>
+                            </span></td>
+                                <td><span class="select-box size-MINI">
+                                <select datatype="*" name="polar" size="1" class="select">
+                                    <option value ="">空</option>
+                                    {% for obj in polar %}
+                                        <option value ="{{ obj.content }}">{{ obj.content }}</option>
+                                    {% endfor %}
+                                </select>
+                            </span></td>
+                                <td><span class="select-box size-MINI">
+                                <select datatype="*" name="install_type" size="1" class="select">
+                                     <option value ="">空</option>
+                                    {% for obj in install_type %}
+                                        <option value ="{{ obj.contentr }}">{{ obj.content }}</option>
+                                    {% endfor %}
+                                </select>
+                            </span></td>
+                                <td><span class="select-box size-MINI">
+                                <select datatype="*" name="outlook" size="1" class="select">
+                                     <option value ="">空</option>
+                                    {% for obj in out_look %}
+                                        <option value ="{{ obj.content }}">{{ obj.content }}</option>
+                                    {% endfor %}
+                                 </select>
                             </span></td>
                             </tr>
 
                             </tbody>
                         </table>
-
-                        <input id="admin_start_query" class="btn btn-primary radius mt-10" type="button" value="查询" >
-                    </div>
-                </div>
-
-                <div class="panel panel-default">
-                    <div id='admin_result' class="panel-header">产品列表</div>
-                    <table class="table table-border table-bordered table-striped">
-                        <thead>
-                        <tr>
-                            <th width="10%">序号</th>
-                            <th width="10">缩略图</th>
-                            <th width="10%">产品概况</th>
-                            <th width="20%">产品属性</th>
-                            <th width="20%">WITC编号，规格书</th>
-                            <th width="20%">操作</th>
-                        </tr>
-                        </thead>
-                        <tbody id="filter_results">
-                        {% include 'admin_pages/connector_table.html' %}
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-
-    <div id="modal-demo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content radius">
-                <div class="modal-header">
-                    <h3 class="modal-title">注意</h3>
-                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
-                </div>
-                <div class="modal-body">
-                    <p>确认删除产品</p>
-                    <p id="delete_witc"></p>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" onclick="do_delete()" aria-hidden="true">确定</button>
-                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modify_connector_cable" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content radius">
-                <div class="modal-header">
-                    <h3 class="modal-title">修改产品</h3>
-                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
-                </div>
-                <div class="modal-body">
-                    <form id="modify_connector_cable_form" name="modify_connector_cable_form" method="post"
-                          enctype="multipart/form-data"
-                          action="">
-                        {% csrf_token %}
-                        <div id="replace_part_cable">
-                        {% include 'admin_pages/connector_cable_form_tbl.html' %}
-                            </div>
-                        <input id="modify_add_connector_cable" class="btn btn-primary radius mt-10" type="submit" value="修改产品" >
+                        <input id="admin_filter_connector_pcb" class="btn btn-primary radius mt-10" type="submit" value="过滤" >
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" onclick="do_modify_cable()" aria-hidden="true">确定</button>
-                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
-                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div id='admin_result' class="panel-header">产品列表</div>
+                <table class="table table-border table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th width="10%">序号</th>
+                        <th width="10">缩略图</th>
+                        <th width="10%">产品概况</th>
+                        <th width="20%">产品属性</th>
+                        <th width="20%">WITC编号，规格书</th>
+                        <th width="20%">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="filter_pcb_results">
+                    {% include 'admin_pages/connector_pcb_table.html' %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div id="delete_cable_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content radius">
+            <div class="modal-header">
+                <h3 class="modal-title">注意</h3>
+                <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+            </div>
+            <div class="modal-body">
+                <p>确认删除产品</p>
+                <p id="delete_cable_witc"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="do_delete_cable()" aria-hidden="true">确定</button>
+                <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
             </div>
         </div>
     </div>
+</div>
 
-    <div id="modify_connector_pcb" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content radius">
-                <div class="modal-header">
-                    <h3 class="modal-title" >修改产品</h3>
-                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
-                </div>
-                <div class="modal-body">
-                    <form id="modify_connector_pcb_form" name="uploadForm" method="post"
-                          enctype="multipart/form-data"
-                          action="">
-                        {% csrf_token %}
-                        <h5 id="modify_pcb_witc"></h5>
-                        <div id="replace_part_pcb">
+<div id="delete_pcb_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content radius">
+            <div class="modal-header">
+                <h3 class="modal-title">注意</h3>
+                <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+            </div>
+            <div class="modal-body">
+                <p>确认删除产品</p>
+                {% csrf_token %}
+                <p id="delete_pcb_witc"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="do_delete_pcb()" aria-hidden="true">确定</button>
+                <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modify_connector_cable" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content radius">
+            <div class="modal-header">
+                <h3 class="modal-title">修改产品</h3>
+                <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+            </div>
+            <div class="modal-body">
+                <form id="modify_connector_cable_form" name="modify_connector_cable_form" method="post"
+                      enctype="multipart/form-data"
+                      action="">
+                    {% csrf_token %}
+                    <h5 id="modify_cable_witc"></h5>
+                    <div id="replace_part_cable">
+                        {% include 'admin_pages/connector_cable_form_tbl.html' %}
+                    </div>
+                    <input id="modify_add_connector_cable" class="btn btn-primary radius mt-10" type="submit" value="修改产品" >
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modify_connector_pcb" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content radius">
+            <div class="modal-header">
+                <h3 class="modal-title" >修改产品</h3>
+                <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+            </div>
+            <div class="modal-body">
+                <form id="modify_connector_pcb_form" name="uploadForm" method="post"
+                      enctype="multipart/form-data"
+                      action="">
+                    {% csrf_token %}
+                    <h5 id="modify_pcb_witc"></h5>
+                    <div id="replace_part_pcb">
 
                         {% include 'admin_pages/connector_pcb_form_tbl.html' %}
-                            </div>
-                        <input id="modify_add_connector" class="btn btn-primary radius mt-10" type="submit" value="修改产品" >
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <!--<button class="btn btn-primary" onclick="do_modify_pcb()" aria-hidden="true">确定</button>-->
-                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
-                </div>
+                    </div>
+                    <input id="modify_add_connector" class="btn btn-primary radius mt-10" type="submit" value="修改产品" >
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
             </div>
         </div>
     </div>
+</div>
 
 {% endblock %}
 
 {% block private-script %}
-    <script>
+<script>
         $("#tab_demo").Huitab({
             index:0
         });
-
-        function goto_modify(obj){
-            var row = obj.parentNode.parentNode;
-            var td = $(row).find("td");
-            var witc = td.eq(0).text();
-            var data = {witc: witc};
-            $.ajaxSetup({
-                data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
-            });
-
-            $.ajax({
-                type:"POST",
-                url: "{% url 'admin_filter_connector' %}",
-                data: data,
-                cache:false,
-                success: function(data) {
-                    if(data == -1 ){
-                        alert("该记录已经存在");
-                    }
-                    document.getElementById("modify_pcb_witc").innerHTML=witc
-                    $('#replace_part_pcb').html(data);
-                    $("#modify_connector_pcb").modal("show");
-
-                },
-                error: function() {
-                    $('.loginError').html('请求失败，请刷新页面后重试').show();
-                }
-            });
-            return false;
-
-        }
-
-        function goto_delete(obj){
-            var row = obj.parentNode.parentNode;
-            var td = $(row).find("td");
-            var witc = td.eq(4).text();
-            document.getElementById("delete_witc").innerHTML=witc;
-            $("#modal-demo").modal("show");
-        }
-
-        function do_delete(){
-            var witc = document.getElementById("delete_witc").innerHTML;
-            $("#modal-demo").modal("hide");
-        }
-
-        function do_modify_pcb(){
-            var loss_ratio = document.getElementById("lossratio").value
-            alert(loss_ratio)
-            $("#modify_connector_pcb").modal("hide");
-        }
-
-        function do_modify_cable(){
-            var loss_ratio = document.getElementById("m_connector_cable_lossratio").value;
-            alert(loss_ratio)
-            $("#modify_connector_cable").modal("hide");
-        }
 
         function ljqTypeChange(obj){
             var currObj = obj;
@@ -324,6 +351,77 @@
             });
         });
 
+
+        function goto_modify_pcb(obj){
+            var row = obj.parentNode.parentNode;
+            var td = $(row).find("td");
+            var witc = td.eq(0).text();
+            var data = {witc: witc};
+            $.ajaxSetup({
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
+
+            $.ajax({
+                type:"POST",
+                url: "{% url 'admin_load_connector_pcb_form' %}",
+                data: data,
+                cache:false,
+                success: function(data) {
+                    if(data == -1 ){
+                        alert("该记录已经存在");
+                    }
+                    document.getElementById("modify_pcb_witc").innerHTML=witc
+                    $('#replace_part_pcb').html(data);
+                    $("#modify_connector_pcb").modal("show");
+
+                },
+                error: function() {
+                    $('.loginError').html('请求失败，请刷新页面后重试').show();
+                }
+            });
+            return false;
+
+        }
+
+        function goto_delete_pcb(obj){
+            var row = obj.parentNode.parentNode;
+            var td = $(row).find("td");
+            var witc = td.eq(0).text();
+            document.getElementById("delete_pcb_witc").innerHTML=witc;
+            $("#delete_pcb_modal").modal("show");
+        }
+
+        function do_delete_pcb(){
+            var witc = document.getElementById("delete_pcb_witc").innerHTML;
+            var dataForm = new FormData();
+            dataForm.append("witc", witc);
+            alert(witc)
+            $.ajaxSetup({
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
+
+            $.ajax({
+                type:"POST",
+                url: "{% url 'admin_delete_pcb_connector' %}",
+                data: dataForm,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    if(data == -1 ){
+                        alert("该记录已经存在");
+                        return;
+                    }
+                    $("#delete_pcb_modal").modal("hide");
+                    freshPcbRecords();
+                },
+                error: function() {
+                    $('.loginError').html('请求失败，请刷新页面后重试').show();
+                }
+            });
+            return false;
+        }
+
+
         $('#connector_pcb_form').submit(function(){
             var formData = new FormData(document.getElementById("connector_pcb_form"));
             $.ajaxSetup({
@@ -332,7 +430,7 @@
 
             $.ajax({
                 type:"POST",
-                url: "{% url 'admin_add_connector' %}",
+                url: "{% url 'admin_add_pcb_connector' %}",
                 data: formData,
                 cache:false,
                 contentType: false,
@@ -341,6 +439,7 @@
                     if(data == -1 ){
                         alert("该记录已经存在");
                     }
+                    $('#connector_pcb_form_reset').trigger("click");
                     $('#result_display').html(data);
                 },
                 error: function() {
@@ -371,8 +470,7 @@
                         return;
                     }
                     $("#modify_connector_pcb").modal("hide");
-                    freshRecords();
-
+                    freshPcbRecords();
                 },
                 error: function() {
                     $('.loginError').html('请求失败，请刷新页面后重试').show();
@@ -381,25 +479,65 @@
             return false;
         });
 
-
-        function freshRecords(){
-
+        $('#connector_pcb_form_filter').submit(function(){
+            var formData = new FormData(document.getElementById("connector_pcb_form_filter"));
             $.ajaxSetup({
                 data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
             });
 
             $.ajax({
                 type:"POST",
-                url: "{% url 'admin_filter_connector' %}",
-                data: {},
+                url: "{% url 'admin_filter_connector_pcb' %}",
+                data: formData,
                 cache:false,
                 contentType: false,
                 processData: false,
                 success: function(data) {
                     if(data == -1 ){
                         alert("该记录已经存在");
+                        return;
                     }
-                    $('#filter_results').html(data);
+                    $('#filter_pcb_results').html(data);
+                },
+                error: function() {
+                    $('.loginError').html('请求失败，请刷新页面后重试').show();
+                }
+            });
+            return false;
+        });
+
+        function freshPcbRecords(){
+            $('#connector_pcb_form_filter').submit();
+        }
+
+
+        function freshCableRecords(){
+            $('#connector_cable_form_filter').submit();
+        }
+
+
+        function goto_modify_cable(obj){
+            var row = obj.parentNode.parentNode;
+            var td = $(row).find("td");
+            var witc = td.eq(0).text();
+            var data = {witc: witc};
+            $.ajaxSetup({
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
+
+            $.ajax({
+                type:"POST",
+                url: "{% url 'admin_load_connector_cable_form' %}",
+                data: data,
+                cache:false,
+                success: function(data) {
+                    if(data == -1 ){
+                        alert("该记录已经存在");
+                        return;
+                    }
+                    document.getElementById("modify_cable_witc").innerHTML=witc
+                    $('#replace_part_cable').html(data);
+                    $("#modify_connector_cable").modal("show");
 
                 },
                 error: function() {
@@ -410,174 +548,127 @@
 
         }
 
-        $('#admin_start_query').click(function(){
+        function goto_delete_cable(obj){
+            var row = obj.parentNode.parentNode;
+            var td = $(row).find("td");
+            var witc = td.eq(0).text();
+            document.getElementById("delete_cable_witc").innerHTML=witc;
+            $("#delete_cable_modal").modal("show");
+        }
+
+        function do_delete_cable(){
+            var witc = document.getElementById("delete_cable_witc").innerHTML;
+            var dataForm = new FormData();
+            dataForm.append("witc", witc);
             $.ajaxSetup({
                 data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
             });
-            var con = {'a': 'b'};
+
             $.ajax({
                 type:"POST",
-                url: "{% url 'admin_filter_connector' %}",
-                data: con,
+                url: "{% url 'admin_delete_cable_connector' %}",
+                data: dataForm,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    if(data == -1 ){
+                        alert("该记录已经存在");
+                        return;
+                    }
+                    $("#delete_cable_modal").modal("hide");
+                    freshCableRecords();
+                },
+                error: function() {
+                    $('.loginError').html('请求失败，请刷新页面后重试').show();
+                }
+            });
+            return false;
+        }
+
+        $('#connector_cable_form').submit(function(){
+            var formData = new FormData(document.getElementById("connector_cable_form"));
+            $.ajaxSetup({
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
+
+            $.ajax({
+                type:"POST",
+                url: "{% url 'admin_add_cable_connector' %}",
+                data: formData,
                 cache:false,
+                contentType: false,
+                processData: false,
                 success: function(data) {
                     if(data == -1 ){
                         alert("该记录已经存在");
                     }
-                    $('#filter_results').html(data);
+
+                    $('#result_display').html(data);
+                    alert("rest")
+                    $('#connector_cable_form_reset').trigger("click");
                 },
                 error: function() {
                     $('.loginError').html('请求失败，请刷新页面后重试').show();
-                    alter("err")
                 }
             });
             return false;
         });
 
-        {#        $('#add_connector').click(function(){#}
-        {#            var type = $("input[name='type-radio']:checked()").val();#}
-        {##}
-        {#            if ("for_cable" == type){#}
-        {#                var category = $('#connector_cable_type option:selected').text();#}
-        {#                var polar = $('#connector_cable_polar option:selected').text();#}
-        {#                var install_type = $('connector_cable_install option:selected').text();#}
-        {##}
-        {#                var reg = /^\d+(\.\d+)?$/;#}
-        {#                var loss_ratio = $('#connector_cable_lossratio').val();#}
-        {#                if (reg.test(loss_ratio) == false){#}
-        {#                    alert("差损系数：请输入正确数字");#}
-        {#                    return;#}
-        {#                }#}
-        {##}
-        {#                var inner_diam = $('#connector_cable_inner_diameter').val();#}
-        {##}
-        {#                if (reg.test(loss_ratio) == false){#}
-        {#                    alert("电缆内导体直径：请输入正确数字");#}
-        {#                    return;#}
-        {#                }#}
-        {#                var outer_diam = $('#connector_cable_outer_diameter').val();#}
-        {##}
-        {#                if (reg.test(loss_ratio) == false){#}
-        {#                    alert("电缆外导体直径：请输入正确数字");#}
-        {#                    return;#}
-        {#                }#}
-        {##}
-        {##}
-        {#                var matched_cable = $('#matched_cable_type').val();#}
-        {#                var upper_freq = $('#connector_cable_upper_freq').val();#}
-        {##}
-        {#                if (reg.test(loss_ratio) == false){#}
-        {#                    alert("截止频率：请输入正确数字");#}
-        {#                    return;#}
-        {#                }#}
-        {##}
-        {#                var out_look = $('#connector_cable_outlook option:selected').text();#}
-        {#                var property = $('#connector_cable_property option:selected').text();#}
-        {#                var combo_type = $('#connector_cable_combo_type option:selected').text();#}
-        {#                if("" == combo_type ){#}
-        {#                    alert("请选择特性");#}
-        {#                    return;#}
-        {#                }#}
-        {##}
-        {#                var witc_code = $('#connector_cable_witc_no').text();#}
-        {#                var witc_code_in_combo = $('#connector_cable_combo_witc_no').text();#}
-        {##}
-        {#                var data_context = {#}
-        {#                    category: category,#}
-        {#                    polar: polar,#}
-        {#                    install_type: install_type,#}
-        {#                    loss_ratio: loss_ratio,#}
-        {#                    inner_dim: inner_diam,#}
-        {#                    outer_dim: outer_diam,#}
-        {#                    matched_cable: matched_cable,#}
-        {#                    upper_freq: upper_freq,#}
-        {#                    out_look: out_look,#}
-        {#                    property: property,#}
-        {#                    combo_type: combo_type,#}
-        {#                    witc_code: witc_code,#}
-        {#                    witc_code_in_combo: witc_code_in_combo#}
-        {#                };#}
-        {##}
-        {#            }#}
-        {#            else{#}
-        {#                var category = $('#connector_pcb_type option:selected').text();#}
-        {#                var polar = $('#connector_pcb_polar option:selected').text();#}
-        {#                var install_type = $('#connector_pcb_install option:selected').text();#}
-        {#                var stand_wave = $('#connector_pcb_stand_wave').val();#}
-        {##}
-        {#                if (reg.test(loss_ratio) == false){#}
-        {#                    alert("驻波：请输入正确数字");#}
-        {#                    return;#}
-        {#                }#}
-        {##}
-        {#                var upper_freq = $('#connector_pcb_upper_freq').val();#}
-        {##}
-        {#                if (reg.test(loss_ratio) == false){#}
-        {#                    alert("截止频率：请输入正确数字");#}
-        {#                    return;#}
-        {#                }#}
-        {#                var out_look = $('#connector_pcb_outlook option:selected').text();#}
-        {#                var property = $('#connector_pcb_property option:selected').text();#}
-        {#                var witc_code = $('#connector_pcb_witc_no').val();#}
-        {#                var witc_code_in_combo = $('#connector_pcb_combo_witc').val();#}
-        {##}
-        {##}
-        {#                var data_context = {#}
-        {#                    category: category,#}
-        {#                    polar: polar,#}
-        {#                    install_type: install_type,#}
-        {#                    stand_wave: stand_wave,#}
-        {#                    upper_freq: upper_freq,#}
-        {#                    out_look: out_look,#}
-        {#                    property: property,#}
-        {#                    combo_type: combo_type,#}
-        {#                    witc_code: witc_code,#}
-        {#                    witc_code_in_combo: witc_code_in_combo#}
-        {#                };#}
-        {#            }#}
-        {#            if("空" == category){#}
-        {#                alert("请选择类型");#}
-        {#                return;#}
-        {#            }#}
-        {#            if("空" == polar){#}
-        {#                alert("请选择极性");#}
-        {#                return;#}
-        {#            }#}
-        {#            if("空" == out_look){#}
-        {#                alert("请选择外形");#}
-        {#                return;#}
-        {#            }#}
-        {##}
-        {#            if("空" == property){#}
-        {#                alert("请选择特性");#}
-        {#                return;#}
-        {#            }#}
-        {##}
-        {#            $.ajaxSetup({#}
-        {#                data: {csrfmiddlewaretoken: '{{ csrf_token }}' },#}
-        {#            });#}
-        {##}
-        {#            $.ajax({#}
-        {#                type:"POST",#}
-        {#                url: "{% url 'admin_add_connector' %}",#}
-        {#                data: data_context,#}
-        {#                dataType:'json',#}
-        {#                cache:false,#}
-        {#                success: function(data) {#}
-        {#                    if(data == 1 ){#}
-        {#                        alert("insert");#}
-        {#                        window.location.href="{% url 'admin_others_out_look' %}";#}
-        {#                    }#}
-        {#                    if(data == -1 ){#}
-        {#                        alert("该记录已经存在");#}
-        {#                    }#}
-        {#                },#}
-        {#                error: function() {#}
-        {#                    $('.loginError').html('请求失败，请刷新页面后重试').show();#}
-        {#                }#}
-        {#            });#}
-        {##}
-        {#        });#}
+        $('#modify_connector_cable_form').submit(function(){
+            var formData = new FormData(document.getElementById("modify_connector_cable_form"));
+            var raw_witc = document.getElementById("modify_cable_witc").innerHTML;
+            formData.append('raw_witc', raw_witc);
+            $.ajaxSetup({
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
 
+            $.ajax({
+                type:"POST",
+                url: "{% url 'admin_modify_connector_cable' %}",
+                data: formData,
+                cache:false,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    if(data == -1 ){
+                        alert("该记录已经存在");
+                        return;
+                    }
+                    $("#modify_connector_cable").modal("hide");
+                    freshCableRecords();
+                },
+                error: function() {
+                    $('.loginError').html('请求失败，请刷新页面后重试').show();
+                }
+            });
+            return false;
+        });
+
+        $('#connector_cable_form_filter').submit(function(){
+            var formData = new FormData(document.getElementById("connector_cable_form_filter"));
+            $.ajaxSetup({
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
+
+            $.ajax({
+                type:"POST",
+                url: "{% url 'admin_filter_connector_cable' %}",
+                data: formData,
+                cache:false,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    if(data == -1 ){
+                        alert("该记录已经存在");
+                        return;
+                    }
+                    $('#connector_cable_filter_results').html(data);
+                },
+                error: function() {
+                    $('.loginError').html('请求失败，请刷新页面后重试').show();
+                }
+            });
+            return false;
+        })
     </script>
 {% endblock %}

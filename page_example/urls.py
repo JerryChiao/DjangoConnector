@@ -1,4 +1,6 @@
 from django.conf.urls import url
+
+import page_example.connector_views
 from . import views
 import admin_user_login
 
@@ -17,8 +19,7 @@ urlpatterns = [
     url(r'^try_to_login/', admin_user_login.user_login, name='try_login'),
     url(r'^try_to_logout/', admin_user_login.user_logout, name='try_logout'),
     url(r'^admin/home/', views.admin_home, name="admin_home"),
-    url(r'^admin/connector_product/', views.admin_connector_product, name='admin_connector'),
-    url(r'^goto_modify_connector/', views.admin_modify_connector_pcb, name='admin_modify_connector_pcb'),
+    url(r'^admin/connector_product/', page_example.connector_views.admin_connector_product, name='admin_connector'),
     url(r'^admin/converter_product/', views.admin_converter_product, name='admin_converter'),
     url(r'^admin/cable_product/', views.admin_cable_product, name="admin_cable"),
     url(r'^admin/cable_combo_product_vna/', views.admin_cable_combo_product_vna, name="admin_cable_combo_vna"),
@@ -42,6 +43,14 @@ urlpatterns = [
     url(r'^admin/add_combo_type/', views.admin_add_combo_type, name="admin_add_combo_type"),
     url('^admin/mod_combo_type/', views.admin_modify_combo_type, name='admin_modify_combo_type'),
     url('^admin/delete_combo_type/', views.admin_delete_combo_type, name='admin_delete_combo_type'),
-    url('^admin/add_connector/', views.admin_add_connector, name='admin_add_connector'),
-    url('^admin/admin_filter_connector', views.admin_filter_connector, name="admin_filter_connector")
+    url('^admin/add_pcb_connector/', page_example.connector_views.admin_add_pcb_connector, name='admin_add_pcb_connector'),
+    url('^admin/add_cable_connector/', page_example.connector_views.admin_add_cable_connector, name='admin_add_cable_connector'),
+    url('^admin/admin_filter_pcb_connector', page_example.connector_views.admin_filter_connector_pcb, name="admin_filter_connector_pcb"),
+    url('^admin/admin_filter_cable_connector', page_example.connector_views.admin_filter_connector_cable, name="admin_filter_connector_cable"),
+    url('^admin/admin_load_pcb_connector', page_example.connector_views.admin_load_connector_pcb_mod_form, name="admin_load_connector_pcb_form"),
+    url('^admin/admin_load_cable_connector', page_example.connector_views.admin_load_connector_cable_mod_form, name="admin_load_connector_cable_form"),
+    url('^admin/admin_delete_pcb_connector', page_example.connector_views.admin_delete_pcb_connector, name="admin_delete_pcb_connector"),
+    url('^admin/admin_delete_cable_connector', page_example.connector_views.admin_delete_cable_connector, name="admin_delete_cable_connector"),
+    url(r'^goto_modify_pcb_connector/', page_example.connector_views.admin_modify_connector_pcb, name='admin_modify_connector_pcb'),
+    url(r'^goto_modify_cable_connector/', page_example.connector_views.admin_modify_connector_cable, name='admin_modify_connector_cable'),
 ]

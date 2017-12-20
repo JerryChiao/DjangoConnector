@@ -3,48 +3,48 @@
     <tr>
         <td>类型</td>
         <td><span class="select-box size-M">
-            {{ connector_pcb.content_type|addcls:"select" }}
+            {{ connector_pcb_form.content_type|addcls:"select" }}
         </span></td>
 
         <td>极性</td>
         <td><span class="select-box size-M">
-            {{ connector_pcb.polar_type|addcls:"select" }}
+            {{ connector_pcb_form.polar_type|addcls:"select" }}
         </span></td>
 
         <td>安装类型</td>
         <td><span class="select-box size-M">
-            {{ connector_pcb.install_type|addcls:"select"}}
+            {{ connector_pcb_form.install_type|addcls:"select"}}
         </span></td>
 
     <tr>
         <td>驻波</td>
         <td>
-            {{ connector_pcb.standing_wave }}
-{#            <input type="text" class="input-text" placeholder="" name="standing_wave" id="connector_pcb_stand_wave" autocomplete="off">#}
+            {{ connector_pcb_form.standing_wave }}
+{#            <input type="text" class="input-text" placeholder="" name="standing_wave" id="connector_pcb_form_stand_wave" autocomplete="off">#}
         </td>
         <td>截止频率(GHz）</td>
         <td>
-            {{ connector_pcb.upper_frequency|addcls:"input-text" }}
+            {{ connector_pcb_form.upper_frequency|addcls:"input-text" }}
 {#            <input type="text" class="input-text" placeholder="" name="upper_frequency" id="connector_pcb_upper_freq" autocomplete="off">#}
         </td>
         <td>外形</td>
         <td><span class="select-box size-M">
-            {{ connector_pcb.outlook_type|addcls:"select"}}
+            {{ connector_pcb_form.outlook_type|addcls:"select"}}
         </span></td>
     </tr>
     <tr>
         <td>特性</td>
         <td><span class="select-box size-M">
-            {{ connector_pcb.property|addcls:"select"}}
+            {{ connector_pcb_form.property|addcls:"select"}}
         </span></td>
         <td>WITC编号</td>
         <td>
-            {{ connector_pcb.full_witc|addcls:"input-text" }}
+            {{ connector_pcb_form.full_witc|addcls:"input-text" }}
 {#            <input type="text" class="input-text" placeholder="" name="full_witc" id="connector_pcb_witc_no" autocomplete="off">#}
         </td>
         <td>组件中WITC编号（GHz）</td>
         <td>
-            {{ connector_pcb.combo_short_witc|addcls:"input-text" }}
+            {{ connector_pcb_form.combo_short_witc|addcls:"input-text" }}
 {#            <input type="text" class="input-text" placeholder="" name="combo_short_witc" id="connector_pcb_combo_witc" autocomplete="off">#}
         </td>
     </tr>
@@ -52,12 +52,12 @@
 
 <div>
     <h5>规格书上传</h5>
-    {{ connector_pcb.document|addcls:"input-text upload-url" }}
+    {{ connector_pcb_form.document|addcls:"input-text upload-url" }}
 {#    <input  class="input-text upload-url" type="file" name="document" size="30"/>#}
 {#    <input class= "btn btn-primary upload-btn" type="reset" name="reset" value="重置">#}
 
     <h5>产品图片上传</h5>
-    {{ connector_pcb.image|addcls:"input-text upload-url" }}
+    {{ connector_pcb_form.image|addcls:"input-text upload-url" }}
 {#    <input  class="input-text upload-url" type="file" name="image" size="30"/>#}
 {#    <input class= "btn btn-primary upload-btn" type="reset" name="reset" value="重置">#}
 

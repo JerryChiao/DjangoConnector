@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+from django import forms
 from django.db import models
 from django.forms import ModelForm, ModelChoiceField
 
@@ -151,6 +151,17 @@ class ConnectorCableForm(ModelForm):
     class Meta:
         model = ConnectorCable
         exclude = ['comments', 'reserved1', 'reserved2', 'time']
+
+
+# class ConnectorFilterForm(forms.Form):
+#     category_choices = Category.objects.all()
+#     category = forms.ChoiceField(choices=category_choices)
+#     polar_choices = Polar.objects.all()
+#     polar = forms.ChoiceField(choices=polar_choices)
+#     install_choices = InstallType.objects.all()
+#     install_type = forms.ChoiceField(choices=install_choices)
+#     outlook_choices = OutLook.objects.all()
+#     outlook = forms.ChoiceField(choices=outlook_choices)
 
 
 

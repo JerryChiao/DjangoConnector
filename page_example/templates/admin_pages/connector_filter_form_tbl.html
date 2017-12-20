@@ -1,0 +1,58 @@
+<!--{% load form_extra %}-->
+<!--<table class="table table-border table-bordered">-->
+    <!--<tr>-->
+        <!--<td><span class="select-box size-M">-->
+            <!--{{ connector_pcb_filter_form.category|addcls:"select" }}-->
+        <!--</span></td>-->
+
+        <!--<td><span class="select-box size-M">-->
+            <!--{{ connector_pcb.polar|addcls:"select" }}-->
+        <!--</span></td>-->
+
+        <!--<td><span class="select-box size-M">-->
+            <!--{{ connector_pcb.install_type|addcls:"select"}}-->
+        <!--</span></td>-->
+
+        <!--<td><span class="select-box size-M">-->
+            <!--{{ connector_pcb.outlook|addcls:"select"}}-->
+        <!--</span></td>-->
+<!--</table>-->
+
+
+<!--<tr>-->
+    <!--<td><span class="select-box size-MINI">-->
+    <!--<select  nullmsg="系列" datatype="*" name="" size="1"-->
+             <!--class="select">-->
+    <!--<option value ="">空</option>-->
+    <!--{% for obj in connector_pcb_filter_form.category %}-->
+    <!--<option value ="{{ forloop.counter }}">{{ obj.content }}</option>-->
+    <!--{% endfor %}-->
+    <!--</select>-->
+<!--</span></td>-->
+    <!--<td><span class="select-box size-MINI">-->
+    <!--<select nullmsg="极性" datatype="*" name="" size="1" class="select">-->
+    <!--<option value ="">空</option>-->
+    <!--{% for obj in connector_pcb.polar %}-->
+    <!--<option value ="{{ forloop.counter }}">{{ obj.content }}</option>-->
+    <!--{% endfor %}-->
+    <!--</select>-->
+<!--</span></td>-->
+    <!--<td><span class="select-box size-MINI">-->
+    <!--<select nullmsg="" datatype="*" name="" size="1" class="select">-->
+    <!--<option value ="">空</option>-->
+    <!--{% for obj in connector_pcb.install_type %}-->
+    <!--<option value ="{{ forloop.counter }}">{{ obj.content }}</option>-->
+    <!--{% endfor %}-->
+    <!--</select>-->
+<!--</span></td>-->
+
+    <!--<td><span class="select-box size-MINI">-->
+    <!--<select nullmsg="" datatype="*" name="" size="1" class="select">-->
+    <!--<option value ="">空</option>-->
+    <!--{% for obj in connector_pcb.outlook %}-->
+    <!--<option value ="{{ forloop.counter }}">{{ obj.content }}</option>-->
+    <!--{% endfor %}-->
+    <!--</select>-->
+<!--</span></td>-->
+
+<!--</tr>-->
