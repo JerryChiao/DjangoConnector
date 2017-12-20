@@ -141,3 +141,5 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = '.'
 MEDIA_URL = '/media/'
 
+RESULT_NUM_PER_PAGE = 5
+

@@ -32,15 +32,17 @@
 </table>
 
 {% if connector_cable_res.has_previous %}
-    <a href="?p={{ connector_cable_res.previous_page_number }}">上一页</a>
+    <a onclick="filter_connector_cable_with_page({{ connector_cable_res.previous_page_number }})" >上一页</a>
     {% else %}
-    <a href="#">上一页</a>
+
 {% endif %}
 
 {% if connector_cable_res.has_next %}
-    <a href="">下一页</a>
+    <a onclick="filter_connector_cable_with_page({{ connector_cable_res.next_page_number }} )">下一页</a>
 {% endif %}
 
+{% if connector_cable_res.next_page_number > 1 %}
 <span>
     {{ connector_cable_res.number }} / {{ connector_cable_res.paginator.num_pages }}
 </span>
+{% endif %}

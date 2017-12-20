@@ -6,6 +6,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from page_example.models import ConnectorPcbForm, ConnectorPcb, ConnectorCableForm, ConnectorCable, Polar, OutLook, \
     Category, InstallType, CombineType
 
+from front_display.settings import RESULT_NUM_PER_PAGE
+
 
 def admin_add_pcb_connector(request):
     """
@@ -58,12 +60,25 @@ def admin_filter_connector_pcb(request):
             connector_pcb_res = connector_pcb_res.filter(polar_type=polar)
 
         if request.POST['install_type']:
-            install_type = Polar.objects.get(content=request.POST['install_type'])
+            install_type = InstallType.objects.get(content=request.POST['install_type'])
             connector_pcb_res = connector_pcb_res.filter(install_type=install_type)
 
         if request.POST['outlook']:
             outlook = OutLook.objects.get(content=request.POST['outlook'])
             connector_pcb_res = connector_pcb_res.filter(outlook_type=outlook)
+
+        paginator = Paginator(connector_pcb_res, RESULT_NUM_PER_PAGE)
+        page = request.POST.get('page')
+
+        try:
+            connector_pcb_res = paginator.page(page)
+        except PageNotAnInteger:
+            connector_pcb_res = paginator.page(1)
+        except EmptyPage:
+            connector_pcb_res = paginator.page(paginator.num_pages)
+
+        print "current page"
+        print connector_pcb_res.number
 
         return render_to_response("admin_pages/connector_pcb_table.html", locals())
 
@@ -71,54 +86,48 @@ def admin_filter_connector_pcb(request):
         return render_to_response("admin_pages/connector_pcb_table.html")
 
 
-global connector_cable_cache
-global connector_pcb_cache
-
-
 def admin_filter_connector_cable(request):
     """
     :param request:
     :return:
     """
-    if request.method == 'POST':
-        connector_cable_res = ConnectorCable.objects.all()
-        print request.POST
+
+    connector_cable_res = ConnectorCable.objects.all()
+    print request.POST
+    try:
+        if request.POST['category']:
+            connector_cable_res = connector_cable_res.filter(content_type=request.POST['category'])
+
+        if request.POST['polar']:
+            polar = Polar.objects.get(content=request.POST['polar'])
+            connector_cable_res = connector_cable_res.filter(polar_type=polar)
+
+        if request.POST['install_type']:
+            install_type = InstallType.objects.get(content=request.POST['install_type'])
+            connector_cable_res = connector_cable_res.filter(install_type=install_type)
+
+        if request.POST['outlook']:
+            outlook = OutLook.objects.get(content=request.POST['outlook'])
+            connector_cable_res = connector_cable_res.filter(outlook_type=outlook)
+
+        paginator = Paginator(connector_cable_res, RESULT_NUM_PER_PAGE)
+
+        page = request.POST.get('page')
+
         try:
-            if request.POST['category']:
-                connector_cable_res = connector_cable_res.filter(content_type=request.POST['category'])
+            connector_cable_res = paginator.page(page)
+        except PageNotAnInteger:
+            connector_cable_res = paginator.page(1)
+        except EmptyPage:
+            connector_cable_res = paginator.page(paginator.num_pages)
 
-            if request.POST['polar']:
-                polar = Polar.objects.get(content=request.POST['polar'])
-                connector_cable_res = connector_cable_res.filter(polar_type=polar)
+        print "current page"
+        print connector_cable_res.number
+        return render_to_response("admin_pages/connector_cable_table.html", locals())
 
-            if request.POST['install_type']:
-                install_type = Polar.objects.get(content=request.POST['install_type'])
-                connector_cable_res = connector_cable_res.filter(install_type=install_type)
-
-            if request.POST['outlook']:
-                outlook = OutLook.objects.get(content=request.POST['outlook'])
-                connector_cable_res = connector_cable_res.filter(outlook_type=outlook)
-
-            paginator = Paginator(connector_cable_res, 3)
-
-            page = request.GET.get('page')
-
-            try:
-                connector_cable_res = paginator.page(page)
-            except PageNotAnInteger:
-                connector_cable_res = paginator.page(1)
-            except EmptyPage:
-                connector_cable_res = paginator.page(paginator.num_pages)
-
-            print connector_cable_res.has_next()
-            print connector_cable_res.has_previous()
-            print connector_cable_res.next_page_number()
-            print connector_cable_res.number
-            return render_to_response("admin_pages/connector_cable_table.html", locals())
-
-        except Exception,e:
-            print str(e)
-            return render_to_response("admin_pages/connector_cable_table.html")
+    except Exception,e:
+        print str(e)
+        return render_to_response("admin_pages/connector_cable_table.html")
 
 
 def admin_load_connector_pcb_mod_form(request):
