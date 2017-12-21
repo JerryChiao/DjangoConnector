@@ -1,0 +1,18 @@
+{% for obj in recent_converter %}
+
+<tr>
+    <td><code>{{ obj.full_witc }}</code></td>
+    <td><code>类型1：{{ obj.a_content_type.content }}， 极性1：{{ obj.a_polar_type }}<br>
+        类型2：{{ obj.b_content_type }}, 极性2：{{ obj.b_polar_type }}<br>
+        截止频率: {{obj.upper_frequency }}， 驻波：{{ obj.standing_wave}}<br>
+        材料：{{ obj.material }}
+    </code></td>
+
+    <td><code>{{obj.outlook_type }}</code></td>
+    <td><code><a href="{{ obj.image.url }}">图片链接</a></code></td>
+    <td><code><a href="{{ obj.document.url }}"> 规格书链接</a></code></td>
+    <td><a href="javascript:void(0)" onclick="goto_modify(this)">修改</a>
+        <a href="javascript:void(0)" onclick="goto_delete(this)">删除</a>
+    </td>
+</tr>
+{% endfor%}

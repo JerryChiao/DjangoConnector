@@ -1,0 +1,41 @@
+<div class="panel panel-default">
+    <div class="panel-header">查询条件</div>
+    <div class="panel-body">
+        <form id="cable_form_filter" name="cable_form" method="post"
+              enctype="multipart/form-data"
+              action="">
+            {% csrf_token %}
+            <table class="table table-border table-bordered table-bg">
+                <thead>
+                <tr>
+                    <th>类型</th>
+                    <th>最大使用频率</th>
+                    <th>外径小于</th>
+                    <th>阻抗特性</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><span class="select-box size-M">
+                                <select  datatype="*" name="category_type" size="1"
+                                         class="select" onchange="filter_cable_with_page()">
+                                     <option value ="">空</option>
+                                    {% for obj in category %}
+                                        <option value ="{{ obj.content }}">{{ obj.content }}</option>
+                                    {% endfor %}
+                                </select>
+                            </span></td>
+                    <td>
+                        <input class="input-text size-MINI" id="upper_frequency" name="upper_frequency"/>
+                    </td>
+                    <td><input class="input-text size-MINI" id="outer_diameter" name="outer_diameter"/>
+                    </td>
+                    <td><input class="input-text size-MINI" id="resistance" name="resistance"/></td>
+
+                </tr>
+                </tbody>
+            </table>
+            <input id="admin_cable_cable" class="btn btn-primary radius mt-10" type="submit" value="查询" >
+        </form>
+    </div>
+</div>

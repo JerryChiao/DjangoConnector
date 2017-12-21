@@ -8,189 +8,271 @@
 
 {% block product-private %}
 <div style="width: 100%" class="container ui-sortable">
+    <div id="tab_demo" class="HuiTab">
+        <div class="tabBar clearfix"><span>添加产品</span><span onclick="filter_converter_with_page()">管理转接器</span>
+        </div>
+        <div class="tabCon">
             <div class="panel panel-default">
-                <div class="panel-header">转接器查询</div>
-                <div class="panel-body">
-                    <table id="zjqSameTypeConvert" class="table table-border table-bordered table-bg">
-                        <thead>
-                        <tr>
-                            <th>类型</th>
-                            <th>系列</th>
-                            <th>极性</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td><span class="select-box size-MINI">
-                                <select  nullmsg="类型" datatype="*" name="" size="1" class="select"
-                                        onchange="ljqTypeChange(this)">
-                                    <option selected="" value="">同类互转</option>
-                                    <option value="2">异类互转</option>
-                                    </select>
-                            </span></td>
-                            <td><span class="select-box size-MINI">
-                                <select  nullmsg="请选择系列！" datatype="*" name="" size="1"
-                                        class="select"
-                                        onchange="ljqTypeChange(this)">
-                                    <option selected="" value="">系列</option>
-                                    <option value="1">2.4</option>
-                                    <option value="2">x.x</option>
-                                    <option value="3">y.x</option>
-                                    <option value="3">我会动态从数据库拿过来</option>
-                                </select>
-                            </span></td>
-                            <td><span class="select-box size-MINI">
-                                <select nullmsg="极性" datatype="*" name="" size="1" class="select">
-                                    <option selected="" value="">请选择极性</option>
-                                    <option value="1">公</option>
-                                    <option value="2">母</option>
-                                </select>
-                            </span></td>
-                            <!--<td><span class="select-box size-MINI">-->
-                                <!--<select nullmsg="安装类型" datatype="*" name="" size="1" class="select">-->
-                                    <!--<option selected="" value="">请选择安装类型</option>-->
-                                    <!--<option value="1">1</option>-->
-                                    <!--<option value="2">2</option>-->
-                                    <!--<option value="3">3</option>-->
-                                <!--</select>-->
-                            <!--</span></td>-->
-                            <!--<td><input type="text" value="" placeholder="" class="input-text size-MINI"></td>-->
-                            <!--<td><input type="text" value="" placeholder="" class="input-text size-MINI"></td>-->
-                        </tr>
+                <form id="converter_form" name="converter_form" method="post"
+                      enctype="multipart/form-data"
+                      action="">
+                    {% csrf_token %}
+                    {% include 'admin_pages/converter_pages/converter_form_tbl.html' %}
+                    <input id="add_connector_cable" class="btn btn-primary radius mt-10" type="submit" value="添加产品" >
+                    <input type="reset" id="converter_form_reset" style="display:none;" value="重置" >
+                </form>
+            </div>
 
-                        </tbody>
-                    </table>
-                    <table id="zjqDiffTypeConvert" style="display: none" class="table table-border table-bordered table-bg">
-                        <thead>
-                        <tr>
-                            <th>类型</th>
-                            <th>系列1</th>
-                            <th>极性1</th>
-                            <th>系列2</th>
-                            <th>极性2</th>
-                            <!--<th>安装类型</th>-->
-                            <!--<th>电缆外导体直径</th>-->
-                            <!--<th>电缆内导体直径</th>-->
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td><span class="select-box size-MINI">
-                                <select nullmsg="类型！" datatype="*" name="" size="1" class="select"
-                                        onchange="ljqTypeChange(this)">
-                                    <option selected="" value="">异类互转</option>
-                                    <option value="1">同类互转</option>
-                                </select>
-                            </span></td>
-                            <td><span class="select-box size-MINI">
-                                <select nullmsg="请选择系列1！" datatype="*" name="" size="1" class="select">
-                                    <option selected="" value="">系列1</option>
-                                    <option value="1">2.4</option>
-                                    <option value="2">x.x</option>
-                                    <option value="3">y.x</option>
-                                    <option value="3">我会动态从数据库拿过来</option>
-                                </select>
-                            </span></td>
+            <div class="panel panel-default">
+                <div id='result' class="panel-header">添加结果</div>
+                <table class="table table-border table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th width="5%">WITC编号</th>
+                        <th width="10%">描述</th>
+                        <th width="10%">外形</th>
+                        <th width="10%">图片</th>
+                        <th width="10%">规格书</th>
+                        <th width="10%">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="result_display">
+                    {% include 'admin_pages/converter_pages/converter_recent_table.html' %}
+                    </tbody>
+                </table>
+            </div>
 
-                            <td><span class="select-box size-MINI">
-                                <select nullmsg="极性" datatype="*" name="" size="1" class="select">
-                                    <option selected="" value="">请选择极性1</option>
-                                    <option value="1">公</option>
-                                    <option value="2">母</option>
-                                </select>
-                            </span></td>
-                            <td><span class="select-box size-MINI">
-                                <select nullmsg="请选择系列1！" datatype="*" name="" size="1" class="select">
-                                    <option selected="" value="">系列2</option>
-                                    <option value="1">2.4</option>
-                                    <option value="2">x.x</option>
-                                    <option value="3">y.x</option>
-                                    <option value="3">我会动态从数据库拿过来</option>
-                                </select>
-                            </span></td>
-                            <td><span class="select-box size-MINI">
-                                <select nullmsg="极性" datatype="*" name="" size="1" class="select">
-                                    <option selected="" value="">请选择极性2</option>
-                                    <option value="1">公</option>
-                                    <option value="2">母</option>
-                                </select>
-                            </span></td>
-                            <!--<td><span class="select-box size-MINI">-->
-                                <!--<select nullmsg="安装类型" datatype="*" name="" size="1" class="select">-->
-                                    <!--<option selected="" value="">请选择安装类型</option>-->
-                                    <!--<option value="1">1</option>-->
-                                    <!--<option value="2">2</option>-->
-                                    <!--<option value="3">3</option>-->
-                                <!--</select>-->
-                            <!--</span></td>-->
-                            <!--<td><input type="text" value="" placeholder="" class="input-text size-MINI"></td>-->
-                            <!--<td><input type="text" value="" placeholder="" class="input-text size-MINI"></td>-->
-                        </tr>
+        </div>
+        <div class="tabCon">
+            {% include 'admin_pages/converter_pages/converter_filter_form.html' %}
+            <div class="panel panel-default">
+                <div class="panel-header" >产品列表</div>
+                <div id="converter_filter_results">
 
-                        </tbody>
-                    </table>
-                    <input class="btn btn-primary radius mt-10" type="button" value="查询">
                 </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-header">查询结果</div>
-                <table class="table table-border table-bordered table-striped">
-                        <thead>
-                        <tr>
-                            <th width="5%">序号</th>
-                            <th width="10%">系列</th>
-                            <th width="10%">极性</th>
-                            <th width="10%">外形</th>
-                            <th width="10%">安装类型</th>
-                            <th width="10%">材料</th>
-                            <th width="10%">特性</th>
-                            <th width="10%">规格书</th>
-                            <th width="10%">WITC编号</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td><code>1</code></td>
-                            <td><code>系列</code></td>
-                            <td><code>display</code></td>
-                            <td><code>display</code></td>
-                            <td><code>display</code></td>
-                            <td><code>display</code></td>
-                            <td><code>display</code></td>
-                            <td><code>下载</code></td>
-                            <td><code>display</code></td>
-                        </tr>
-                        <tr>
-                            <td><code>2</code></td>
-                            <td><code>display</code></td>
-                            <td><code>display</code></td>
-                            <td><code>display</code></td>
-                            <td><code>display</code></td>
-                            <td><code>display</code></td>
-                            <td><code>display</code></td>
-                            <td><code>下载</code></td>
-                            <td><code>display</code></td>
-                        </tr>
-                        </tbody>
-                    </table>
+
+        </div>
+    </div>
+</div>
+
+<div id="delete_converter_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content radius">
+            <div class="modal-header">
+                <h3 class="modal-title">注意</h3>
+                <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+            </div>
+            <div class="modal-body">
+                <p>确认删除产品</p>
+                <p id="delete_converter_witc"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="do_delete()" aria-hidden="true">确定</button>
+                <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
             </div>
         </div>
+    </div>
+</div>
+
+<div id="modify_converter" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content radius">
+            <div class="modal-header">
+                <h3 class="modal-title">修改产品</h3>
+                <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+            </div>
+            <div class="modal-body">
+                <form id="modify_converter_form" name="modify_converter_form" method="post"
+                      enctype="multipart/form-data"
+                      action="">
+                    {% csrf_token %}
+                    <h5 id="modify_converter_witc"></h5>
+                    <div id="replace_part_converter">
+                        {% include 'admin_pages/converter_pages/converter_form_tbl.html' %}
+                    </div>
+                    <input id="modify_add_converter" class="btn btn-primary radius mt-10" type="submit" value="修改产品" >
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
 
 {% block private-script %}
 <script>
-function ljqTypeChange(obj){
-    var currObj = obj;
-    if (currObj.options[currObj.selectedIndex].value == 1){
-        document.getElementById("zjqDiffTypeConvert").style.display="none";
-        document.getElementById("zjqSameTypeConvert").style.display="table";
-    }else{
-        document.getElementById("zjqSameTypeConvert").style.display="none";
-        document.getElementById("zjqDiffTypeConvert").style.display="table";
-    }
-}
+
+$("#tab_demo").Huitab({
+    index:0
+});
+
 $(function(){
 	$('#nav-product').addClass("current")
 });
+
+
+function goto_modify(obj){
+    var row = obj.parentNode.parentNode;
+    var td = $(row).find("td");
+    var witc = td.eq(0).text();
+    var data = {witc: witc};
+    $.ajaxSetup({
+        data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+    });
+
+    $.ajax({
+        type:"POST",
+        url: "{% url 'admin_load_converter_form' %}",
+        data: data,
+        cache:false,
+        success: function(data) {
+            if(data == -1 ){
+                alert("该记录已经存在");
+            }
+            document.getElementById("modify_converter_witc").innerHTML=witc
+            $('#replace_part_converter').html(data);
+            $("#modify_converter").modal("show");
+
+        },
+        error: function() {
+            $('.loginError').html('请求失败，请刷新页面后重试').show();
+        }
+    });
+    return false;
+
+}
+
+function goto_delete(obj){
+    var row = obj.parentNode.parentNode;
+    var td = $(row).find("td");
+    var witc = td.eq(0).text();
+    document.getElementById("delete_converter_witc").innerHTML=witc;
+    $("#delete_converter_modal").modal("show");
+}
+
+function do_delete(){
+    var witc = document.getElementById("delete_converter_witc").innerHTML;
+    var dataForm = new FormData();
+    dataForm.append("witc", witc);
+    $.ajaxSetup({
+        data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+    });
+
+    $.ajax({
+        type:"POST",
+        url: "{% url 'admin_delete_converter' %}",
+        data: dataForm,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+            if(data == -1 ){
+                alert("该记录已经存在");
+                return;
+            }
+            $("#delete_converter_modal").modal("hide");
+            filter_converter_with_page();
+        },
+        error: function() {
+            $('.loginError').html('请求失败，请刷新页面后重试').show();
+        }
+    });
+    return false;
+}
+
+function filter_converter_with_page(page){
+    var formData = new FormData(document.getElementById("converter_form_filter"));
+
+    if(typeof(page) != 'undefined'){
+        formData.append('page', page)
+    }
+
+    $.ajaxSetup({
+        data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+    });
+
+    $.ajax({
+        type:"POST",
+        url: "{% url 'admin_filter_converter' %}",
+        data: formData,
+        cache:false,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+            if(data == -1 ){
+                alert("该记录已经存在");
+                return;
+            }
+            $('#filter_converter_results').html(data);
+        },
+        error: function() {
+            $('.loginError').html('请求失败，请刷新页面后重试').show();
+        }
+    });
+    return false;
+}
+
+$('#converter_form').submit(function(){
+    var formData = new FormData(document.getElementById("converter_form"));
+    $.ajaxSetup({
+        data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+    });
+
+    $.ajax({
+        type:"POST",
+        url: "{% url 'admin_add_converter' %}",
+        data: formData,
+        cache:false,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+            if(data == -1 ){
+                alert("该记录已经存在");
+            }
+            $('#converter_form_reset').trigger("click");
+            $('#result_display').html(data);
+        },
+        error: function() {
+            $('.loginError').html('请求失败，请刷新页面后重试').show();
+        }
+    });
+    return false;
+});
+
+$('#modify_converter_form').submit(function(){
+    var formData = new FormData(document.getElementById("modify_converter_form"));
+    var raw_witc = document.getElementById("modify_converter_witc").innerHTML;
+    formData.append('raw_witc', raw_witc);
+    $.ajaxSetup({
+        data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+    });
+
+    $.ajax({
+        type:"POST",
+        url: "{% url 'admin_modify_converter' %}",
+        data: formData,
+        cache:false,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+            if(data == -1 ){
+                alert("该记录已经存在");
+                return;
+            }
+            $("#modify_converter").modal("hide");
+            filter_converter_with_page();
+        },
+        error: function() {
+            $('.loginError').html('请求失败，请刷新页面后重试').show();
+        }
+    });
+    return false;
+});
+
+$('#converter_form_filter').submit(filter_converter_with_page);
+
 </script>
 {% endblock %}

@@ -1,0 +1,77 @@
+{% load form_extra %}
+<table class="table table-border table-bordered">
+    <tr>
+        <td>类型1</td>
+        <td><span class="select-box size-S">
+            {{ converter_form.a_content_type|addcls:"select" }}
+        </span></td>
+
+        <td>极性1</td>
+        <td><span class="select-box size-S">
+            {{ converter_form.a_polar_type|addcls:"select" }}
+        </span></td>
+
+    <tr>
+        <td>类型2</td>
+        <td><span class="select-box size-S">
+            {{ converter_form.b_content_type|addcls:"select" }}
+        </span></td>
+
+        <td>极性2</td>
+        <td><span class="select-box size-S">
+            {{ converter_form.b_polar_type|addcls:"select" }}
+        </span></td>
+    </tr>
+
+    <tr>
+        <td>截止频率</td>
+        <td><span class="size-S">
+            {{ converter_form.upper_frequency }}
+            </span>
+        </td>
+        <td>驻波</td>
+        <td><span class="size-S">
+            {{ converter_form.standing_wave }}
+            </span>
+        </td>
+        <td>外形</td>
+        <td><span class="select-box size-S">
+            {{ converter_form.outlook_type|addcls:"select" }}
+            </span>
+        </td>
+
+    </tr>
+    <tr>
+        <td>安装类型</td>
+        <td><span class="size-M">
+            {{ converter_form.install_type|addcls:"select"}}
+        </span></td>
+        <td>材料</td>
+        <td><span class="size-M">
+            {{ converter_form.material }}
+            </span>
+        </td>
+        <td>特性</td>
+        <td><span class="select-box size-S">
+            {{ converter_form.property|addcls:"select" }}
+            </span>
+        </td>
+
+    </tr>
+    <tr>
+        <td>WITC编号</td>
+        <td><span class="size-S">
+            {{ converter_form.full_witc }}
+            </span>
+        </td>
+    </tr>
+
+</table>
+<div>
+    <h5>规格书上传</h5>
+    {{ converter_form.document|addcls:"input-text upload-url" }}
+
+    <h5>产品图片上传</h5>
+    {{ converter_form.image|addcls:"input-text upload-url" }}
+
+</div>

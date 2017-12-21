@@ -1,0 +1,49 @@
+<table class="table table-border table-bordered table-striped">
+    <thead>
+    <tr>
+        <th width="10%">序号</th>
+        <th width="10">缩略图</th>
+        <th width="15%">产品概况</th>
+        <th width="20%">产品属性</th>
+        <th width="20%">WITC编号，规格书</th>
+        <th width="20%">操作</th>
+    </tr>
+    </thead>
+    <tbody >
+    {% for obj in cable_res %}
+    <tr>
+        <td><code>{{ obj.full_witc}}</code></td>
+        <td>
+            <img src='{{ obj.image.url }}' width="80" height="80"/>
+        </td>
+        <td>系列：{{ obj.category_type.content }}</td>
+        <td>截止频率：{{ obj.upper_frequency}}<br>
+            电缆外径：{{ obj.outer_diameter}},
+            属性：{{ obj.property}}<br>
+            阻抗特性：{{ obj.resistance}}<br>
+        </td>
+        <td>WITC编号：{{ obj.full_witc}}<br>
+            <a href="{{ obj.document.url }}">规格书链接</a></td>
+        <td><a href="javascript:void(0)" onclick="goto_modify(this)">修改</a>
+            <a href="javascript:void(0)" onclick="goto_delete(this)">删除</a>
+        </td>
+    </tr>
+    {% endfor%}
+    </tbody>
+</table>
+
+{% if cable_res.has_previous %}
+    <a onclick="filter_cable_with_page({{ cable_res.previous_page_number }})" >上一页</a>
+    {% else %}
+
+{% endif %}
+
+{% if cable_res.has_next %}
+    <a onclick="filter_cable_with_page({{ cable_res.next_page_number }} )">下一页</a>
+{% endif %}
+
+{% if cable_res.next_page_number > 1 %}
+<span>
+    {{ cable_res.number }} / {{ converter_res.paginator.num_pages }}
+</span>
+{% endif %}

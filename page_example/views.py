@@ -17,10 +17,6 @@ def index(request):
     return render(request, 'page_example/new_home.html')
 
 
-def converter_product(request):
-    return render(request, 'page_example/product_converter.html')
-
-
 def cable_product(request):
     return render(request, 'page_example/product_cable.html')
     
@@ -56,11 +52,6 @@ def notify_test(request):
 @login_required(login_url="page_example/admin_login")
 def admin_home(request):
     return render(request, 'admin_pages/new_home.html', {'user': request.user})
-
-
-@login_required(login_url="page_example/admin_login")
-def admin_converter_product(request):
-    return render(request, 'admin_pages/product_converter.html')
 
 
 @login_required(login_url="page_example/admin_login")

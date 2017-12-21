@@ -1,0 +1,60 @@
+<div class="panel panel-default">
+    <div class="panel-header">查询条件</div>
+    <div class="panel-body">
+        <form id="converter_form_filter" name="converter_form" method="post"
+              enctype="multipart/form-data"
+              action="">
+            {% csrf_token %}
+            <table class="table table-border table-bordered table-bg">
+                <thead>
+                <tr>
+                    <th>类型1</th>
+                    <th>极性1</th>
+                    <th>类型2</th>
+                    <th>极性2</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><span class="select-box size-M">
+                                <select  datatype="*" name="a_category" size="1"
+                                         class="select" onchange="filter_converter_with_page()">
+                                     <option value ="">空</option>
+                                    {% for obj in category %}
+                                        <option value ="{{ obj.content }}">{{ obj.content }}</option>
+                                    {% endfor %}
+                                </select>
+                            </span></td>
+                    <td><span class="select-box size-M">
+                                <select datatype="*" name="a_polar" size="1" class="select" onchange="filter_converter_with_page()">
+                                    <option value ="">空</option>
+                                    {% for obj in polar %}
+                                        <option value ="{{ obj.content }}">{{ obj.content }}</option>
+                                    {% endfor %}
+                                </select>
+                            </span></td>
+                    <td><span class="select-box size-M">
+                                <select  datatype="*" name="b_category" size="1"
+                                         class="select" onchange="filter_converter_with_page()">
+                                     <option value ="">空</option>
+                                    {% for obj in category %}
+                                        <option value ="{{ obj.content }}">{{ obj.content }}</option>
+                                    {% endfor %}
+                                </select>
+                            </span></td>
+                    <td><span class="select-box size-M">
+                                <select datatype="*" name="b_polar" size="1" class="select" onchange="filter_converter_with_page()">
+                                    <option value ="">空</option>
+                                    {% for obj in polar %}
+                                        <option value ="{{ obj.content }}">{{ obj.content }}</option>
+                                    {% endfor %}
+                                </select>
+                            </span></td>
+
+                </tr>
+                </tbody>
+            </table>
+            <input id="admin_filter_converter" class="btn btn-primary radius mt-10" type="submit" value="查询" >
+        </form>
+    </div>
+</div>

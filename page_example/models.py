@@ -138,6 +138,58 @@ class ConnectorPcb(models.Model):
     time = models.DateTimeField(auto_now_add=True)
 
 
+class Converter(models.Model):
+    a_content_type = models.ForeignKey(Category, related_name="a_category")
+    a_polar_type = models.ForeignKey(Polar, related_name="a_polar")
+    b_content_type = models.ForeignKey(Category, related_name="b_category")
+    b_polar_type = models.ForeignKey(Polar, related_name="b_polar")
+    standing_wave = models.FloatField()
+    upper_frequency = models.FloatField()
+    outlook_type = models.ForeignKey(OutLook)
+    install_type = models.ForeignKey(InstallType)
+    material = models.CharField(max_length=40)
+    property = models.ForeignKey(Property)
+    full_witc = models.CharField(max_length=30)
+    document = models.FileField(upload_to="converter/")
+    image = models.ImageField(upload_to="converter/")
+    comments = models.CharField(max_length=100)
+    reserved1 = models.CharField(max_length=100)
+    reserved2 = models.CharField(max_length=100)
+    time = models.DateTimeField(auto_now_add=True)
+
+
+class CableCategory(models.Model):
+    content = models.CharField(max_length=30)
+    code = models.CharField(max_length=10)
+
+    def __unicode__(self):
+        return self.content
+
+
+class Cable(models.Model):
+    category_type = models.ForeignKey(CableCategory)
+    upper_frequency = models.FloatField()
+    outer_diameter = models.FloatField()
+    resistance = models.FloatField()
+    loss_coef_k1 = models.FloatField()
+    loss_coef_k2 = models.FloatField()
+    property = models.ForeignKey(Property)
+    full_witc = models.CharField(max_length=30)
+    document = models.FileField(upload_to="cable/")
+    image = models.ImageField(upload_to="cable/")
+    comments = models.CharField(max_length=100)
+    reserved1 = models.CharField(max_length=100)
+    reserved2 = models.CharField(max_length=100)
+    time = models.DateTimeField(auto_now_add=True)
+
+
+
+class ConverterForm(ModelForm):
+    class Meta:
+        model = Converter
+        exclude = ['comments', 'reserved1', 'reserved2', 'time']
+
+
 class ConnectorPcbForm(ModelForm):
     class Meta:
         model = ConnectorPcb
@@ -153,16 +205,10 @@ class ConnectorCableForm(ModelForm):
         exclude = ['comments', 'reserved1', 'reserved2', 'time']
 
 
-# class ConnectorFilterForm(forms.Form):
-#     category_choices = Category.objects.all()
-#     category = forms.ChoiceField(choices=category_choices)
-#     polar_choices = Polar.objects.all()
-#     polar = forms.ChoiceField(choices=polar_choices)
-#     install_choices = InstallType.objects.all()
-#     install_type = forms.ChoiceField(choices=install_choices)
-#     outlook_choices = OutLook.objects.all()
-#     outlook = forms.ChoiceField(choices=outlook_choices)
-
+class CableForm(ModelForm):
+    class Meta:
+        model = Cable
+        exclude = ['comments', 'reserved1', 'reserved2', 'time']
 
 
 
