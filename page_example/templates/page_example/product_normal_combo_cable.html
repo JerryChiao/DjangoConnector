@@ -1,0 +1,79 @@
+{% extends "page_example/product_base.html" %}
+{% load static %}
+{% block page-title %}
+    <title>定制电缆组件</title>
+    <meta name="keywords" content="定制电缆组">
+    <meta name="description" content="定制电缆组">
+{% endblock %}
+
+{% block product-private %}
+    <div style="width: 100%" class="container ui-sortable">
+        <div class="panel panel-default">
+            <div class="panel-header">定制电缆组</div>
+            {%  include 'admin_pages/normal_combo_cable_pages/normal_combo_cable_filter_form.html'%}
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-header">查询结果</div>
+            <div id="normal_combo_cable_filter_result">
+                {% include 'admin_pages/normal_combo_cable_pages/normal_combo_cable_table_readonly.html' %}
+            </div>
+        </div>
+        <input id="start-order" class="btn btn-primary radius mt-10 ml-15 mb-10" type="button" value="定制" >
+        <div id="order_res">
+            {% include 'admin_pages/normal_combo_cable_pages/normal_combo_cable_table_readonly.html' %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block private-script %}
+    <script>
+        $(document).ready(function(){
+            $('#nav-product').addClass("current")
+            $('#start-query').click(function(){
+                alert('query');
+                $.get("{% url 'notify' %}", function(data){
+                    alert("get " + data.result);
+                });
+            });
+        });
+
+
+        function filter_normal_combo_cable_with_page(page){
+
+            var formData = new FormData(document.getElementById("normal_combo_cable_form_filter"));
+            formData.append('readonly', 'yes')
+            if (typeof(page) == 'undefined'){
+
+            }else{
+                formData.append('page', page);
+            }
+
+            $.ajaxSetup({
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
+
+            $.ajax({
+                type:"POST",
+                url: "{% url 'admin_filter_normal_combo_cable' %}",
+                data: formData,
+                cache:false,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    if(data == -1 ){
+                        alert("该记录已经存在");
+                        return;
+                    }
+                    $('#normal_combo_cable_filter_result').html(data);
+                },
+                error: function() {
+                    $('.loginError').html('请求失败，请刷新页面后重试').show();
+                }
+            });
+            return false;
+        };
+
+        $('#cable_form_filter').submit(filter_cable_with_page);
+
+    </script>
+{% endblock %}

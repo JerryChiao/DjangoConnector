@@ -1,0 +1,86 @@
+{% load form_extra %}
+<div class="panel panel-default">
+    <form id="normal_combo_cable_form_filter" name="normal_combo_cable_form" method="post"
+          enctype="multipart/form-data"
+          action="">
+        {% csrf_token %}
+        <div class="panel-body">
+            <table class="table table-border table-bordered table-bg">
+                <h5>连接器1</h5>
+                <thead>
+                <tr>
+                    <th>系列</th>
+                    <th>极性</th>
+                    <th>安装类型</th>
+                    <th>外形</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><span class="select-box size-MINI">
+                            {{ normal_combo_cable_filter_form.a_category_type|addcls:"select" }}
+                            </span></td>
+                    <td><span class="select-box size-MINI">
+                            {{ normal_combo_cable_filter_form.a_polar_type|addcls:"select" }}
+                            </span></td>
+                    <td><span class="select-box size-MINI">
+                              {{ normal_combo_cable_filter_form.a_install_type|addcls:"select"}}
+                            </span></td>
+                    <td><span class="select-box size-MINI">
+                            {{ normal_combo_cable_filter_form.a_outlook_type|addcls:"select" }}
+                            </span></td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="table table-border table-bordered table-bg">
+                <h5>连接器2</h5>
+                <thead>
+                <tr>
+                    <th>系列</th>
+                    <th>极性</th>
+                    <th>安装类型</th>
+                    <th>外形</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><span class="select-box size-MINI">
+                            {{ normal_combo_cable_filter_form.b_category_type|addcls:"select" }}
+                            </span></td>
+                    <td><span class="select-box size-MINI">
+                            {{ normal_combo_cable_filter_form.b_polar_type|addcls:"select"}}
+                            </span></td>
+                    <td><span class="select-box size-MINI">
+                              {{ normal_combo_cable_filter_form.b_install_type|addcls:"select"}}
+                            </span></td>
+                    <td><span class="select-box size-MINI">
+                            {{ normal_combo_cable_filter_form.b_outlook_type|addcls:"select" }}
+                            </span></td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="table table-border table-bordered table-bg">
+                <h5>电缆</h5>
+                <thead>
+                <tr>
+                    <th>电缆长度</th>
+                    <th>最大使用频率</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        {{ normal_combo_cable_filter_form.cable_length }}
+                    </td>
+                    <td>
+                        {{ normal_combo_cable_filter_form.frequency }}
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+            <input id="admin_filter_normal_combo_cable" class="btn btn-primary radius mt-10" type="submit" value="查询" >
+            <input id="admin_reset_normal_combo_cable" style="display: none" type="reset" value="查询" >
+        </div>
+    </form>
+</div>

@@ -35,7 +35,7 @@ def admin_add_converter(request):
     converter_form = ConverterForm(request.POST, request.FILES)
     if converter_form.is_valid():
         new_converter = converter_form.save()
-        recent_converter = Converter.objects.all().order_by("-time")[0:3]
+        recent_converter = Converter.objects.all().order_by("-time")[0:1]
 
         return render_to_response("admin_pages/converter_pages/converter_recent_table.html", locals())
     else:
@@ -98,7 +98,7 @@ def admin_load_converter_mod_form(request):
         try:
             converter_obj = Converter.objects.filter(full_witc=witc).first()
             converter_form = ConverterForm(instance=converter_obj)
-            return render_to_response("admin_pages/converter_pages/converter_form_tbl.html", locals())
+            return render_to_response("admin_pages/converter_pages/vna_combo_cable_form_tbl.html", locals())
 
         except Exception, e:
             print str(e)

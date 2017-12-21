@@ -18,7 +18,7 @@ def admin_add_pcb_connector(request):
     connector_form = ConnectorPcbForm(request.POST, request.FILES)
     if connector_form.is_valid():
         new_pcb = connector_form.save()
-        recent_connector_pcb = ConnectorPcb.objects.all().order_by("-time")[0:3]
+        recent_connector_pcb = ConnectorPcb.objects.all().order_by("-time")[0:1]
 
         return render_to_response("admin_pages/connector_pages/connector_recent_table.html", locals())
     else:
@@ -36,7 +36,7 @@ def admin_add_cable_connector(request):
     connector_form = ConnectorCableForm(request.POST, request.FILES)
     if connector_form.is_valid():
         new_pcb = connector_form.save()
-        recent_connector_pcb = ConnectorCable.objects.all().order_by("-time")[0:3]
+        recent_connector_pcb = ConnectorCable.objects.all().order_by("-time")[0:1]
 
         return render_to_response("admin_pages/connector_pages/connector_recent_table.html", locals())
     else:

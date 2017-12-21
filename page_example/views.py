@@ -19,10 +19,6 @@ def index(request):
 
 def cable_product(request):
     return render(request, 'page_example/product_cable.html')
-    
-
-def cable_combo_product_vna(request):
-    return render(request, 'page_example/product_cable_combo_vna.html')
 
 
 def cable_combo_product_normal(request):

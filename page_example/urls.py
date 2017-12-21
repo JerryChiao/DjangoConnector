@@ -3,6 +3,8 @@ from django.conf.urls import url
 import converter_views
 import connector_views
 import cable_views
+import vna_combo_cable_views
+import normal_combo_cable_views
 from . import views
 import admin_user_login
 
@@ -11,8 +13,8 @@ urlpatterns = [
     url(r'^connector_product/', connector_views.connector_product, name='connector'),
     url(r'^converter_product/', converter_views.converter_product, name='converter'),
     url(r'^cable_product/', cable_views.cable_product, name="cable"),
-    url(r'^cable_combo_product_vna/', views.cable_combo_product_vna, name="cable_combo_vna"),
-    url(r'^cable_combo_product_normal/', views.cable_combo_product_normal, name="cable_combo_normal"),
+    url(r'^cable_combo_product_vna/', vna_combo_cable_views.cable_combo_product_vna, name="cable_combo_vna"),
+    url(r'^cable_combo_product_normal/', normal_combo_cable_views.normal_combo_cable_product, name="cable_combo_normal"),
     url(r'^cable_combo_product_bg/', views.cable_combo_product_gb, name="cable_combo_bg"),
     url(r'^instrument_product/', views.instrument_product, name="instrument"),
     url(r'^tool_product/', views.tool_product, name='tool'),
@@ -23,10 +25,6 @@ urlpatterns = [
     url(r'^admin/home/', views.admin_home, name="admin_home"),
     url(r'^admin/connector_product/', connector_views.admin_connector_product, name='admin_connector'),
 
-
-    url(r'^admin/cable_combo_product_vna/', views.admin_cable_combo_product_vna, name="admin_cable_combo_vna"),
-    url(r'^admin/cable_combo_product_normal/', views.admin_cable_combo_product_normal, name="admin_cable_combo_normal"),
-    url(r'^admin/cable_combo_product_bg/', views.admin_cable_combo_product_gb, name="admin_cable_combo_bg"),
     url(r'^admin/instrument_product/', views.admin_instrument_product, name="admin_instrument"),
     url(r'^admin/tool_product/', views.admin_tool_product, name='admin_tool'),
     url(r'^admin/product_others_install_type/', views.admin_others_install_type, name='admin_others_install_type'),
@@ -70,5 +68,16 @@ urlpatterns = [
     url('^admin/admin_load_cable', cable_views.admin_load_cable_mod_form, name="admin_load_cable_form"),
     url('^admin/admin_delete_cable', cable_views.admin_delete_cable, name="admin_delete_cable"),
     url(r'^admin/modify_cable/', cable_views.admin_modify_cable, name='admin_modify_cable'),
+
+    url(r'^admin/vna_combo_cable_product/', vna_combo_cable_views.admin_vna_combo_cable_product, name='admin_vna_combo_cable'),
+    url('^admin/add_vna_combo_cable/', vna_combo_cable_views.admin_add_vna_combo_cable, name='admin_add_vna_combo_cable'),
+    url('^admin/admin_filter_vna_combo_cable', vna_combo_cable_views.admin_filter_vna_combo_cable, name="admin_filter_vna_combo_cable"),
+    url('^admin/admin_load_vna_combo_cable', vna_combo_cable_views.admin_load_vna_combo_cable_mod_form, name="admin_load_vna_combo_cable_form"),
+    url('^admin/admin_delete_vna_combo_cable', vna_combo_cable_views.admin_delete_vna_combo_cable, name="admin_delete_vna_combo_cable"),
+    url(r'^goto_modify_vna_combo_cable/', vna_combo_cable_views.admin_modify_vna_combo_cable, name='admin_modify_vna_combo_cable'),
+
+    url('^admin/admin_filter_vna_combo_cable', normal_combo_cable_views.admin_filter_normal_combo_cable, name="admin_filter_normal_combo_cable"),
+
+
 
 ]

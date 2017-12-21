@@ -1,0 +1,40 @@
+<table class="table table-border table-bordered table-striped">
+    <thead>
+    <tr>
+        <th width="20%">WITC编号</th>
+        <th width="20%">产品描述</th>
+    </tr>
+    </thead>
+    <tbody >
+    {% for obj in normal_combo_cable_res %}
+    <tr>
+        <td><code>{{ obj.full_witc}}</code></td>
+        <td>{{ obj.a_content_type }}-
+            {{obj.a_polar_type}}-
+            {{ obj.b_content_type }}-
+            {{obj.b_polar_type}}-
+            {{ obj.cable_length }}(米)<br>
+            DC-{{ obj.frequency }}<br>
+            IL < {{ obj.loss_value }} <br>
+            VSWR < {{ obj.standing_wave }}
+        </td>
+    </tr>
+    {% endfor%}
+    </tbody>
+</table>
+
+{% if normal_combo_cable_res.has_previous %}
+    <a onclick="filter_normal_combo_cable_with_page({{ normal_combo_cable_res.previous_page_number }})" >上一页</a>
+    {% else %}
+
+{% endif %}
+
+{% if normal_combo_cable_res.has_next %}
+    <a onclick="filter_normal_combo_cable_with_page({{ normal_combo_cable_res.next_page_number }} )">下一页</a>
+{% endif %}
+
+{% if normal_combo_cable_res.next_page_number > 1 %}
+<span>
+    {{ normal_combo_cable_res.number }} / {{ normal_combo_cable_res.paginator.num_pages }}
+</span>
+{% endif %}

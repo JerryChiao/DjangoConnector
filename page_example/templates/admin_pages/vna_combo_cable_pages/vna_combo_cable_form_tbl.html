@@ -1,0 +1,47 @@
+{% load form_extra %}
+<table class="table table-border table-bordered">
+    <tr>
+        <td>类型1</td>
+        <td><span class="size-S">
+            {{ vna_combo_cable_form.a_content_type}}
+        </span></td>
+
+        <td>极性1</td>
+        <td><span class="select-box size-S">
+            {{ vna_combo_cable_form.a_polar_type|addcls:"select" }}
+        </span></td>
+
+    <tr>
+        <td>类型2</td>
+        <td><span class="size-S">
+            {{ vna_combo_cable_form.b_content_type}}
+        </span></td>
+
+        <td>极性2</td>
+        <td><span class="select-box size-S">
+            {{ vna_combo_cable_form.b_polar_type|addcls:"select" }}
+        </span></td>
+    </tr>
+
+    <tr>
+        <td>电缆长度</td>
+        <td><span class="size-S">
+            {{ vna_combo_cable_form.cable_length }}
+            </span>
+        </td>
+       <td>WITC编号</td>
+        <td><span class="size-S">
+            {{ vna_combo_cable_form.full_witc }}
+            </span>
+        </td>
+    </tr>
+
+</table>
+<div>
+    <h5>规格书上传</h5>
+    {{ vna_combo_cable_form.document|addcls:"input-text upload-url" }}
+
+    <h5>产品图片上传</h5>
+    {{ vna_combo_cable_form.image|addcls:"input-text upload-url" }}
+
+</div>

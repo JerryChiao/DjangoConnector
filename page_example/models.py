@@ -199,6 +199,21 @@ class ConnectorPcbForm(ModelForm):
         super(ConnectorPcbForm, self).__init__(*args, **kwargs)
 
 
+class VNAComboCable(models.Model):
+    a_content_type = models.CharField(max_length=30)
+    a_polar_type = models.ForeignKey(Polar, related_name="vna_a_polar")
+    b_content_type = models.CharField(max_length=30)
+    b_polar_type = models.ForeignKey(Polar, related_name="vna_b_polar")
+    cable_length = models.FloatField()
+    full_witc = models.CharField(max_length=30)
+    document = models.FileField(upload_to="vna_combo_cable/")
+    image = models.ImageField(upload_to="vna_combo_cable/")
+    comments = models.CharField(max_length=100)
+    reserved1 = models.CharField(max_length=100)
+    reserved2 = models.CharField(max_length=100)
+    time = models.DateTimeField(auto_now_add=True)
+
+
 class ConnectorCableForm(ModelForm):
     class Meta:
         model = ConnectorCable
@@ -211,6 +226,22 @@ class CableForm(ModelForm):
         exclude = ['comments', 'reserved1', 'reserved2', 'time']
 
 
+class VNAComboCableForm(ModelForm):
+    class Meta:
+        model = VNAComboCable
+        exclude = ['comments', 'reserved1', 'reserved2', 'time']
 
 
+class NormalComboCableForm(forms.Form):
+    a_category_type = forms.ModelChoiceField(queryset=Category.objects.all())
+    a_polar_type = forms.ModelChoiceField(queryset=Polar.objects.all())
+    a_install_type = forms.ModelChoiceField(queryset=InstallType.objects.all())
+    a_outlook_type = forms.ModelChoiceField(queryset=OutLook.objects.all())
+    b_category_type = forms.ModelChoiceField(queryset=Category.objects.all())
+    b_polar_type = forms.ModelChoiceField(queryset=Polar.objects.all())
+    b_install_type = forms.ModelChoiceField(queryset=InstallType.objects.all())
+    b_outlook_type = forms.ModelChoiceField(queryset=OutLook.objects.all())
+
+    cable_length = forms.FloatField()
+    frequency = forms.FloatField()
 

@@ -1,0 +1,65 @@
+{% extends "page_example/product_base.html" %}
+{% load static %}
+{% block page-title %}
+<title>产品查询-VNA测试电缆组件</title>
+<meta name="keywords" content="电缆组件">
+<meta name="description" content="电缆组件">
+{% endblock %}
+
+{% block product-private %}
+<div style="width: 100%" class="container ui-sortable">
+    {% include 'admin_pages/vna_combo_cable_pages/vna_combo_cable_filter_form.html'%}
+
+    <div class="panel panel-default">
+        <div class="panel-header" >产品列表</div>
+        <div id="vna_combo_cable_filter_results"></div>
+    </div>
+        </div>
+{% endblock %}
+
+{% block private-script %}
+<script>
+
+$(document).ready(function(){
+	$('#nav-product').addClass("current")
+	filter_vna_combo_cable_with_page();
+});
+function filter_vna_combo_cable_with_page(page){
+
+    var formData = new FormData(document.getElementById("vna_combo_cable_form_filter"));
+    formData.append('readonly', 'yes')
+    if (typeof(page) == 'undefined'){
+
+    }else{
+        formData.append('page', page);
+    }
+
+    $.ajaxSetup({
+        data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+    });
+
+    $.ajax({
+        type:"POST",
+        url: "{% url 'admin_filter_vna_combo_cable' %}",
+        data: formData,
+        cache:false,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+            if(data == -1 ){
+                alert("该记录已经存在");
+                return;
+            }
+            $('#vna_combo_cable_filter_results').html(data);
+        },
+        error: function() {
+            $('.loginError').html('请求失败，请刷新页面后重试').show();
+        }
+    });
+    return false;
+};
+
+$('#vna_combo_cable_form_filter').submit(filter_vna_combo_cable_with_page);
+
+</script>
+{% endblock %}
