@@ -29,7 +29,7 @@
                               enctype="multipart/form-data"
                               action="">
                             {% csrf_token %}
-                            {% include 'admin_pages/connector_cable_form_tbl.html' %}
+                            {% include 'admin_pages/connector_pages/connector_cable_form_tbl.html' %}
                             <input id="add_connector_cable" class="btn btn-primary radius mt-10" type="submit" value="添加产品" >
                             <input type="reset" id="connector_cable_form_reset" style="display:none;" value="重置" >
                         </form>
@@ -38,7 +38,7 @@
                               enctype="multipart/form-data"
                               action="" style="display: none">
                             {% csrf_token %}
-                            {% include 'admin_pages/connector_pcb_form_tbl.html' %}
+                            {% include 'admin_pages/connector_pages/connector_pcb_form_tbl.html' %}
                             <input id="add_connector" class="btn btn-primary radius mt-10" type="submit" value="添加产品" >
                             <input type="reset" id="connector_pcb_form_reset" style="display:none;" value="重置" >
                         </form>
@@ -61,83 +61,14 @@
                         </tr>
                         </thead>
                         <tbody id="result_display">
-                        {% include 'admin_pages/connector_recent_table.html' %}
+                        {% include 'admin_pages/connector_pages/connector_recent_table.html' %}
                         </tbody>
                     </table>
                 </div>
 
             </div>
             <div class="tabCon">
-                <div class="panel panel-default">
-                    <div class="panel-header">查询条件</div>
-                    <div class="panel-body">
-                        <form id="connector_cable_form_filter" name="connector_cable_form" method="post"
-                              enctype="multipart/form-data"
-                              action="">
-                            {% csrf_token %}
-                            <table class="table table-border table-bordered table-bg">
-                                <thead>
-                                <tr>
-                                    <th>类型</th>
-                                    <th>极性</th>
-                                    <th>安装类型</th>
-                                    <th>外形</th>
-                                    <th>电缆外径</th>
-                                    <th>电缆内径</th>
-                                    <th>电缆型号</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td><span class="select-box size-M">
-                                <select  datatype="*" name="category" size="1"
-                                         class="select" onchange="filter_connector_cable_with_page()">
-                                     <option value ="">空</option>
-                                    {% for obj in category %}
-                                        <option value ="{{ obj.content }}">{{ obj.content }}</option>
-                                    {% endfor %}
-                                </select>
-                            </span></td>
-                                    <td><span class="select-box size-M">
-                                <select datatype="*" name="polar" size="1" class="select" onchange="filter_connector_cable_with_page()">
-                                    <option value ="">空</option>
-                                    {% for obj in polar %}
-                                        <option value ="{{ obj.content }}">{{ obj.content }}</option>
-                                    {% endfor %}
-                                </select>
-                            </span></td>
-                                    <td><span class="select-box size-M">
-                                <select datatype="*" name="install_type" size="1" class="select" onchange="filter_connector_cable_with_page()">
-                                     <option value ="">空</option>
-                                    {% for obj in install_type %}
-                                        <option value ="{{ obj.content }}">{{ obj.content }}</option>
-                                    {% endfor %}
-                                </select>
-                            </span></td>
-                                    <td><span class="select-box size-M">
-                                <select datatype="*" name="outlook" size="1" class="select" onchange="filter_connector_cable_with_page()">
-                                     <option value ="">空</option>
-                                    {% for obj in out_look %}
-                                        <option value ="{{ obj.content }}">{{ obj.content }}</option>
-                                    {% endfor %}
-                                 </select>
-                            </span></td>
-                                    <td>
-                                        <input class="input-text size-MINI" id="filter_cable_outer_diam" name="cable_outer_diam"/>
-                                    </td>
-                                    <td>
-                                        <input class="input-text size-MINI" id="filter_cable_inner_diam" name="cable_inner_diam"/>
-                                    </td>
-                                    <td>
-                                        <input class="input-text size-MINI" id="filter_cable_type" name="cable_type" />
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <input id="admin_filter_connector_cable" class="btn btn-primary radius mt-10" type="submit" value="查询" >
-                        </form>
-                    </div>
-                </div>
+               {% include 'admin_pages/connector_pages/connector_cable_filter_form.html'%}
 
                 <div class="panel panel-default">
                     <div class="panel-header" id="connector_cable_filter_results">产品列表</div>
@@ -145,65 +76,7 @@
 
             </div>
             <div class="tabCon">
-                <div class="panel panel-default">
-                    <div class="panel-header">查询条件</div>
-                    <div class="panel-body">
-                        <form id="connector_pcb_form_filter" name="connector_pcb_form" method="post"
-                              enctype="multipart/form-data"
-                              action="">
-                            {% csrf_token %}
-                            <table class="table table-border table-bordered table-bg">
-                                <thead>
-                                <tr>
-                                    <th>类型</th>
-                                    <th>极性</th>
-                                    <th>安装类型</th>
-                                    <th>外形</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td><span class="select-box size-S">
-                                <select datatype="*" name="category" size="1"
-                                        class="select" onchange="filter_connector_pcb_with_page()">
-                                     <option value ="">空</option>
-                                    {% for obj in category %}
-                                        <option value ="{{ obj.content }}">{{ obj.content }}</option>
-                                    {% endfor %}
-                                </select>
-                            </span></td>
-                                    <td><span class="select-box size-S">
-                                <select datatype="*" name="polar" size="1" class="select" onchange="filter_connector_pcb_with_page()">
-                                    <option value ="">空</option>
-                                    {% for obj in polar %}
-                                        <option value ="{{ obj.content }}">{{ obj.content }}</option>
-                                    {% endfor %}
-                                </select>
-                            </span></td>
-                                    <td><span class="select-box size-S">
-                                <select datatype="*" name="install_type" size="1" class="select" onchange="filter_connector_pcb_with_page()">
-                                     <option value ="">空</option>
-                                    {% for obj in install_type %}
-                                        <option value ="{{ obj.contentr }}">{{ obj.content }}</option>
-                                    {% endfor %}
-                                </select>
-                            </span></td>
-                                    <td><span class="select-box size-S">
-                                <select datatype="*" name="outlook" size="1" class="select" onchange="filter_connector_pcb_with_page()">
-                                     <option value ="">空</option>
-                                    {% for obj in out_look %}
-                                        <option value ="{{ obj.content }}">{{ obj.content }}</option>
-                                    {% endfor %}
-                                 </select>
-                            </span></td>
-                                </tr>
-
-                                </tbody>
-                            </table>
-                            <input id="admin_filter_connector_pcb" class="btn btn-primary radius mt-10" type="submit" value="过滤" >
-                        </form>
-                    </div>
-                </div>
+                {% include 'admin_pages/connector_pages/connector_pcb_filter_form.html' %}
 
                 <div class="panel panel-default">
                     <div id='filter_pcb_results' class="panel-header" >产品列表</div>
@@ -266,7 +139,7 @@
                         {% csrf_token %}
                         <h5 id="modify_cable_witc"></h5>
                         <div id="replace_part_cable">
-                            {% include 'admin_pages/connector_cable_form_tbl.html' %}
+                            {% include 'admin_pages/connector_pages/connector_cable_form_tbl.html' %}
                         </div>
                         <input id="modify_add_connector_cable" class="btn btn-primary radius mt-10" type="submit" value="修改产品" >
                     </form>
@@ -293,7 +166,7 @@
                         <h5 id="modify_pcb_witc"></h5>
                         <div id="replace_part_pcb">
 
-                            {% include 'admin_pages/connector_pcb_form_tbl.html' %}
+                            {% include 'admin_pages/connector_pages/connector_pcb_form_tbl.html' %}
                         </div>
                         <input id="modify_add_connector" class="btn btn-primary radius mt-10" type="submit" value="修改产品" >
                     </form>
@@ -334,7 +207,6 @@
                 });
             });
         });
-
 
         function goto_modify_pcb(obj){
             var row = obj.parentNode.parentNode;
@@ -659,6 +531,7 @@
         });
 
         $('#connector_cable_form_filter').submit(filter_connector_cable_with_page)
-
     </script>
+
+
 {% endblock %}

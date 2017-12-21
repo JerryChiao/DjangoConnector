@@ -3,7 +3,7 @@ from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render_to_response, render
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from page_example.models import ConnectorPcbForm, ConnectorPcb, ConnectorCableForm, ConnectorCable, Polar, OutLook, \
+from models import ConnectorPcbForm, ConnectorPcb, ConnectorCableForm, ConnectorCable, Polar, OutLook, \
     Category, InstallType, CombineType
 
 from front_display.settings import RESULT_NUM_PER_PAGE
@@ -20,7 +20,7 @@ def admin_add_pcb_connector(request):
         new_pcb = connector_form.save()
         recent_connector_pcb = ConnectorPcb.objects.all().order_by("-time")[0:3]
 
-        return render_to_response("admin_pages/connector_recent_table.html", locals())
+        return render_to_response("admin_pages/connector_pages/connector_recent_table.html", locals())
     else:
         print connector_form.errors
 
@@ -38,7 +38,7 @@ def admin_add_cable_connector(request):
         new_pcb = connector_form.save()
         recent_connector_pcb = ConnectorCable.objects.all().order_by("-time")[0:3]
 
-        return render_to_response("admin_pages/connector_recent_table.html", locals())
+        return render_to_response("admin_pages/connector_pages/connector_recent_table.html", locals())
     else:
         print connector_form.errors
 
@@ -51,6 +51,7 @@ def admin_filter_connector_pcb(request):
     :return:
     """
     connector_pcb_res = ConnectorPcb.objects.all()
+    print request.POST
     try:
         if request.POST['category']:
             connector_pcb_res = connector_pcb_res.filter(content_type=request.POST['category'])
@@ -77,13 +78,14 @@ def admin_filter_connector_pcb(request):
         except EmptyPage:
             connector_pcb_res = paginator.page(paginator.num_pages)
 
-        print "current page"
-        print connector_pcb_res.number
+        read_only = request.POST.get('readonly')
+        if read_only:
+            return render_to_response('admin_pages/connector_pages/connector_pcb_table_readonly.html', locals())
 
-        return render_to_response("admin_pages/connector_pcb_table.html", locals())
+        return render_to_response("admin_pages/connector_pages/connector_pcb_table.html", locals())
 
     except Exception,e:
-        return render_to_response("admin_pages/connector_pcb_table.html")
+        return render_to_response("admin_pages/connector_pages/connector_pcb_table.html")
 
 
 def admin_filter_connector_cable(request):
@@ -121,13 +123,15 @@ def admin_filter_connector_cable(request):
         except EmptyPage:
             connector_cable_res = paginator.page(paginator.num_pages)
 
-        print "current page"
-        print connector_cable_res.number
-        return render_to_response("admin_pages/connector_cable_table.html", locals())
+        read_only = request.POST.get('readonly')
+        if read_only:
+            return render_to_response('admin_pages/connector_pages/connector_cable_table_readonly.html', locals())
+
+        return render_to_response("admin_pages/connector_pages/connector_cable_table.html", locals())
 
     except Exception,e:
         print str(e)
-        return render_to_response("admin_pages/connector_cable_table.html")
+        return render_to_response("admin_pages/connector_pages/connector_cable_table.html")
 
 
 def admin_load_connector_pcb_mod_form(request):
@@ -142,7 +146,7 @@ def admin_load_connector_pcb_mod_form(request):
         try:
             connector_pcb_obj = ConnectorPcb.objects.filter(full_witc=witc).first()
             connector_pcb_form = ConnectorPcbForm(instance=connector_pcb_obj)
-            return render_to_response("admin_pages/connector_pcb_form_tbl.html", locals())
+            return render_to_response("admin_pages/connector_pages/connector_pcb_form_tbl.html", locals())
 
         except Exception, e:
             print str(e)
@@ -163,7 +167,7 @@ def admin_load_connector_cable_mod_form(request):
         try:
             connector_cable_obj = ConnectorCable.objects.filter(full_witc=witc).first()
             connector_cable_form = ConnectorCableForm(instance=connector_cable_obj)
-            return render_to_response("admin_pages/connector_cable_form_tbl.html", locals())
+            return render_to_response("admin_pages/connector_pages/connector_cable_form_tbl.html", locals())
 
         except Exception, e:
             print str(e)
@@ -220,7 +224,7 @@ def admin_delete_pcb_connector(request):
         try:
             ConnectorPcb.objects.filter(full_witc=witc).delete()
             connector_pcb_res = ConnectorPcb.objects.all()
-            return render_to_response("admin_pages/connector_pcb_table.html", locals())
+            return render_to_response("admin_pages/connector_pages/connector_pcb_table.html", locals())
 
         except Exception, e:
             return HttpResponse(-1)
@@ -240,7 +244,7 @@ def admin_delete_cable_connector(request):
         try:
             ConnectorCable.objects.filter(full_witc=witc).delete()
             connector_cable_res = ConnectorCable.objects.all()
-            return render_to_response("admin_pages/connector_cable_table.html", locals())
+            return render_to_response("admin_pages/connector_pages/connector_cable_table.html", locals())
 
         except Exception, e:
             return HttpResponse(-1)
@@ -259,7 +263,6 @@ def admin_connector_product(request):
     connector_pcb_res = ConnectorPcb.objects.all()
     connector_pcb_form = ConnectorPcbForm()
     connector_cable_form = ConnectorCableForm()
-    # connector_pcb_filter_form = ConnectorFilterForm()
     context = {'polar': polar,
                'category': category,
                'install_type': install_type,
@@ -271,3 +274,21 @@ def admin_connector_product(request):
                }
 
     return render(request, 'admin_pages/product_connector.html', context)
+
+
+def connector_product(request):
+    """
+    """
+    category = Category.objects.all()
+    polar = Polar.objects.all()
+    install_type = InstallType.objects.all()
+    combine_type = CombineType.objects.all()
+    out_look = OutLook.objects.all()
+
+    context = {'polar': polar,
+               'category': category,
+               'install_type': install_type,
+               'combine_type': combine_type,
+               'out_look': out_look,
+               }
+    return render(request, 'page_example/product_connector.html', context)

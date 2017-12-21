@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
 from django.utils.translation import ugettext as _
-from django.views.decorators.csrf import csrf_exempt
 
 from models import *
 
@@ -16,12 +15,6 @@ def index(request):
     """
     print request.LANGUAGE_CODE
     return render(request, 'page_example/new_home.html')
-
-
-def connector_product(request):
-    """
-    """
-    return render(request, 'page_example/product_connector.html')
 
 
 def converter_product(request):
