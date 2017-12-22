@@ -9,6 +9,11 @@ from models import *
 
 # Create your views here.
 
+
+def test(request):
+
+    return render(request, 'page_example/test_page.html')
+
 def index(request):
     """
     main page

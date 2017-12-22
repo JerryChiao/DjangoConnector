@@ -1,11 +1,11 @@
 {% load form_extra %}
-<div class="panel panel-default">
+
     <form id="normal_combo_cable_form_filter" name="normal_combo_cable_form" method="post"
           enctype="multipart/form-data"
           action="">
         {% csrf_token %}
         <div class="panel-body">
-            <table class="table table-border table-bordered table-bg">
+            <table class="table table-border table-bordered ">
                 <h5>连接器1</h5>
                 <thead>
                 <tr>
@@ -83,4 +83,4 @@
             <input id="admin_reset_normal_combo_cable" style="display: none" type="reset" value="查询" >
         </div>
     </form>
-</div>
+

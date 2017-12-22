@@ -79,10 +79,10 @@
 
 $(function(){
 	$(".input-text,.textarea").Huifocusblur();
-	
+
 	//幻灯片
 	jQuery("#slider-3 .slider").slide({mainCell:".bd ul",titCell:".hd li",trigger:"click",effect:"leftLoop",autoPlay:true,delayTime:700,interTime:3000,pnLoop:false,titOnClassName:"active"});
-	
+
 	$(".panel").Huifold({
 		titCell:'.panel-header',
 		mainCell:'.panel-body',
@@ -91,10 +91,10 @@ $(function(){
 		className:"selected",
 		speed:"first",
 	});
-	
-	//邮箱提示	
+
+	//邮箱提示
 	$("#email").emailsuggest();
-	
+
 	//checkbox 美化
 	$('.skin-minimal input').iCheck({
 		checkboxClass: 'icheckbox-blue',
@@ -106,7 +106,7 @@ $(function(){
 		minlength:10,
 		maxlength:200.
 	});
-	
+
 	$("#demoform").validate({
 		rules:{
 			email:{
@@ -134,7 +134,7 @@ $(function(){
 				required:true,
 			},
 			datetimepicker:{
-				required:true,	
+				required:true,
 			},
 			checkbox2:{
 				required:true,
@@ -179,9 +179,9 @@ $(function(){
 		//distance: 15, //距离延迟
 		placeholder: "ui-state-highlight", //占位符样式
 		update: function(event, ui){
-			
+
 		}
-	}).disableSelection();
+	});
 
  	var _bodyHeight = $(window).height();
 	var _doch = $(document).height();

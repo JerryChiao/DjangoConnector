@@ -9,6 +9,7 @@ from . import views
 import admin_user_login
 
 urlpatterns = [
+    url('^test/', views.test, name='test'),
     url(r'^$', views.index, name='index'),
     url(r'^connector_product/', connector_views.connector_product, name='connector'),
     url(r'^converter_product/', converter_views.converter_product, name='converter'),
@@ -24,6 +25,7 @@ urlpatterns = [
     url(r'^try_to_logout/', admin_user_login.user_logout, name='try_logout'),
     url(r'^admin/home/', views.admin_home, name="admin_home"),
     url(r'^admin/connector_product/', connector_views.admin_connector_product, name='admin_connector'),
+    url(r'admin/admin_bg_combo_cable/', views.admin_cable_combo_product_gb, name='admin_cable_combo_bg'),
 
     url(r'^admin/instrument_product/', views.admin_instrument_product, name="admin_instrument"),
     url(r'^admin/tool_product/', views.admin_tool_product, name='admin_tool'),
@@ -76,7 +78,7 @@ urlpatterns = [
     url('^admin/admin_delete_vna_combo_cable', vna_combo_cable_views.admin_delete_vna_combo_cable, name="admin_delete_vna_combo_cable"),
     url(r'^goto_modify_vna_combo_cable/', vna_combo_cable_views.admin_modify_vna_combo_cable, name='admin_modify_vna_combo_cable'),
 
-    url('^admin/admin_filter_vna_combo_cable', normal_combo_cable_views.admin_filter_normal_combo_cable, name="admin_filter_normal_combo_cable"),
+    url('^admin/admin_filter_normal_combo_cable', normal_combo_cable_views.admin_filter_normal_combo_cable, name="admin_filter_normal_combo_cable"),
 
 
 

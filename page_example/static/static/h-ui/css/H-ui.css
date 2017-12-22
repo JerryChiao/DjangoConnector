@@ -1808,10 +1808,11 @@ squid.swing.jselect()
 .select-icon {position: absolute;height:8px;width:12px;right:10px;top:50%; margin-top:-4px;background: url(../images/jselect/iconpic-arrow-down2.png) no-repeat center}
 .unselectable {
 	-moz-user-select: none;
-	-khtml-user-select: none;
+	-khtml-user-selects: none;
 	-webkit-user-select: none;
 	-o-user-select: none;
-	user-select: none}
+	user-select: none
+	}
 	.select-list {position:absolute;left:0; right:0;top:100%;z-index:1;line-height:34px;max-height:320px; overflow:auto;background-color:#fff;background-clip: padding-box;
 	_height:expression(this.scrollHeight > 319 ? "320px" : "auto");
 	-moz-box-shadow:0 1px 2px rgba(0, 1, 1, 0.2);

@@ -1,13 +1,15 @@
 <table class="table table-border table-bordered table-striped">
     <thead>
     <tr>
-        <th width="20%">WITC编号</th>
-        <th width="20%">产品描述</th>
+        <th width="30%">WITC编号</th>
+        <th width="50%">产品描述</th>
+        <th width="20%">操作</th>
     </tr>
     </thead>
     <tbody >
     {% for obj in normal_combo_cable_res %}
     <tr>
+
         <td><code>{{ obj.full_witc}}</code></td>
         <td>{{ obj.a_content_type }}-
             {{obj.a_polar_type}}-
@@ -18,6 +20,7 @@
             IL < {{ obj.loss_value }} <br>
             VSWR < {{ obj.standing_wave }}
         </td>
+        <td> 数量  <input type="text" size="4" value=""><a onclick="do_select(this)"> 选择</a>  </td>
     </tr>
     {% endfor%}
     </tbody>
