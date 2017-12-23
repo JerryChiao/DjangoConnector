@@ -1,274 +1,264 @@
 {% extends "admin_pages/product_base.html" %}
 {% load static %}
 {% block page-title %}
-<title>产品查询-电缆</title>
-<meta name="keywords" content="电缆">
-<meta name="description" content="电缆">
+    <title>产品查询-电缆</title>
+    <meta name="keywords" content="电缆">
+    <meta name="description" content="电缆">
 {% endblock %}
 
 {% block product-private %}
-<div style="width: 100%" class="container ui-sortable">
-    <div id="tab_demo" class="HuiTab">
-        <div class="tabBar clearfix"><span>添加产品</span><span onclick="filter_cable_with_page()">管理电缆</span>
-        </div>
-        <div class="tabCon">
-            <div class="panel panel-default">
-                <form id="cable_form" name="cable_form" method="post"
-                      enctype="multipart/form-data"
-                      action="">
-                    {% csrf_token %}
-                    {% include 'admin_pages/cable_pages/cable_form_tbl.html' %}
-                    <input id="add_cable_cable" class="btn btn-primary radius mt-10" type="submit" value="添加产品" >
-                    <input type="reset" id="cable_form_reset" style="display:none;" value="重置" >
-                </form>
+    <div style="width: 100%" class="container ui-sortable">
+        <div id="tab_demo" class="HuiTab">
+            <div class="tabBar clearfix"><span>添加产品</span><span onclick="filter_cable_with_page()">管理电缆</span>
             </div>
+            <div class="tabCon">
+                <div class="panel panel-default">
+                    <div class="panel-header">电缆</div>
+                    <div class="panel-body">
+                        <form id="cable_form" name="cable_form" method="post"
+                              enctype="multipart/form-data"
+                              action="">
+                            {% csrf_token %}
+                            {% include 'admin_pages/cable_pages/cable_form_tbl.html' %}
+                            <input id="add_cable_cable" class="btn btn-primary radius mt-10" type="submit" value="添加产品" >
+                            <input type="reset" id="cable_form_reset" style="display:none;" value="重置" >
+                        </form>
+                    </div>
+                </div>
 
-            <div class="panel panel-default">
-                <div id='result' class="panel-header">添加结果</div>
-                <table class="table table-border table-bordered table-striped">
-                    <thead>
-                    <tr>
-                        <th width="5%">WITC编号</th>
-                        <th width="10%">描述</th>
-                        <th width="10%">外形</th>
-                        <th width="10%">图片</th>
-                        <th width="10%">规格书</th>
-                    </tr>
-                    </thead>
-                    <tbody id="result_display">
-                    {% include 'admin_pages/cable_pages/cable_recent_table.html' %}
-                    </tbody>
-                </table>
+                <div class="panel panel-default">
+                    <div id='result' class="panel-header">添加结果</div>
+                    <div id="result_display" class="panel-body"></div>
+                </div>
+
             </div>
+            <div class="tabCon">
+                {% include 'admin_pages/cable_pages/cable_filter_form.html' %}
+                <div class="panel panel-default">
+                    <div class="panel-header" >产品列表</div>
+                    <div id="filter_cable_results" class="panel-body">
 
+                    </div>
+                </div>
+
+            </div>
         </div>
-        <div class="tabCon">
-            {% include 'admin_pages/cable_pages/cable_filter_form.html' %}
-            <div class="panel panel-default">
-                <div class="panel-header" >产品列表</div>
-                <div id="filter_cable_results">
-
+    </div>
+    <div id="delete_cable_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content radius">
+                <div class="modal-header">
+                    <h3 class="modal-title">注意</h3>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+                </div>
+                <div class="modal-body">
+                    <p>确认删除产品</p>
+                    <p id="delete_cable_witc"></p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="do_delete()" aria-hidden="true">确定</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
                 </div>
             </div>
+        </div>
+    </div>
 
-        </div>
-    </div>
-</div>
-<div id="delete_cable_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content radius">
-            <div class="modal-header">
-                <h3 class="modal-title">注意</h3>
-                <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
-            </div>
-            <div class="modal-body">
-                <p>确认删除产品</p>
-                <p id="delete_cable_witc"></p>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" onclick="do_delete()" aria-hidden="true">确定</button>
-                <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="modify_cable" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content radius">
-            <div class="modal-header">
-                <h3 class="modal-title">修改产品</h3>
-                <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
-            </div>
-            <div class="modal-body">
-                <form id="modify_cable_form" name="modify_cable_form" method="post"
-                      enctype="multipart/form-data"
-                      action="">
-                    {% csrf_token %}
-                    <h5 id="modify_cable_witc"></h5>
-                    <div id="replace_part_cable">
-                        {% include 'admin_pages/cable_pages/cable_form_tbl.html' %}
-                    </div>
-                    <input id="modify_add_cable" class="btn btn-primary radius mt-10" type="submit" value="修改产品" >
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+    <div id="modify_cable" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content radius">
+                <div class="modal-header">
+                    <h3 class="modal-title">修改产品</h3>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+                </div>
+                <div class="modal-body">
+                    <form id="modify_cable_form" name="modify_cable_form" method="post"
+                          enctype="multipart/form-data"
+                          action="">
+                        {% csrf_token %}
+                        <h5 id="modify_cable_witc"></h5>
+                        <div id="replace_part_cable">
+                            {% include 'admin_pages/cable_pages/cable_form_tbl.html' %}
+                        </div>
+                        <input id="modify_add_cable" class="btn btn-primary radius mt-10" type="submit" value="修改产品" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 {% endblock %}
 
 {% block private-script %}
-<script>
-$("#tab_demo").Huitab({
-    index:0
-});
+    <script>
+        $("#tab_demo").Huitab({
+            index:0
+        });
 
-$(function(){
-	$('#nav-product').addClass("current")
-});
+        $(function(){
+            $('#nav-product').addClass("current")
+        });
 
 
-function goto_modify(obj){
-    var row = obj.parentNode.parentNode;
-    var td = $(row).find("td");
-    var witc = td.eq(0).text();
-    var data = {witc: witc};
-    $.ajaxSetup({
-        data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
-    });
+        function goto_modify(obj){
+            var row = obj.parentNode.parentNode;
+            var td = $(row).find("td");
+            var witc = td.eq(0).text();
+            var data = {witc: witc};
+            $.ajaxSetup({
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
 
-    $.ajax({
-        type:"POST",
-        url: "{% url 'admin_load_cable_form' %}",
-        data: data,
-        cache:false,
-        success: function(data) {
-            if(data == -1 ){
-                alert("该记录已经存在");
-            }
-            document.getElementById("modify_cable_witc").innerHTML=witc
-            $('#replace_part_cable').html(data);
-            $("#modify_cable").modal("show");
+            $.ajax({
+                type:"POST",
+                url: "{% url 'admin_load_cable_form' %}",
+                data: data,
+                cache:false,
+                success: function(data) {
+                    if(data == -1 ){
+                        alert("该记录已经存在");
+                    }
+                    document.getElementById("modify_cable_witc").innerHTML=witc
+                    $('#replace_part_cable').html(data);
+                    $("#modify_cable").modal("show");
 
-        },
-        error: function() {
-            $('.loginError').html('请求失败，请刷新页面后重试').show();
+                },
+                error: function() {
+                    $('.loginError').html('请求失败，请刷新页面后重试').show();
+                }
+            });
+            return false;
+
         }
-    });
-    return false;
 
-}
-
-function goto_delete(obj){
-    var row = obj.parentNode.parentNode;
-    var td = $(row).find("td");
-    var witc = td.eq(0).text();
-    document.getElementById("delete_cable_witc").innerHTML=witc;
-    $("#delete_cable_modal").modal("show");
-}
-
-function do_delete(){
-    var witc = document.getElementById("delete_cable_witc").innerHTML;
-    var dataForm = new FormData();
-    dataForm.append("witc", witc);
-    $.ajaxSetup({
-        data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
-    });
-
-    $.ajax({
-        type:"POST",
-        url: "{% url 'admin_delete_cable' %}",
-        data: dataForm,
-        contentType: false,
-        processData: false,
-        success: function(data) {
-            if(data == -1 ){
-                alert("该记录已经存在");
-                return;
-            }
-            $("#delete_cable_modal").modal("hide");
-            filter_cable_with_page();
-        },
-        error: function() {
-            $('.loginError').html('请求失败，请刷新页面后重试').show();
+        function goto_delete(obj){
+            var row = obj.parentNode.parentNode;
+            var td = $(row).find("td");
+            var witc = td.eq(0).text();
+            document.getElementById("delete_cable_witc").innerHTML=witc;
+            $("#delete_cable_modal").modal("show");
         }
-    });
-    return false;
-}
 
-function filter_cable_with_page(page){
-    var formData = new FormData(document.getElementById("cable_form_filter"));
+        function do_delete(){
+            var witc = document.getElementById("delete_cable_witc").innerHTML;
+            var dataForm = new FormData();
+            dataForm.append("witc", witc);
+            $.ajaxSetup({
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
 
-    if(typeof(page) != 'undefined'){
-        formData.append('page', page)
-    }
-
-    $.ajaxSetup({
-        data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
-    });
-
-    $.ajax({
-        type:"POST",
-        url: "{% url 'admin_filter_cable' %}",
-        data: formData,
-        cache:false,
-        contentType: false,
-        processData: false,
-        success: function(data) {
-            if(data == -1 ){
-                alert("该记录已经存在");
-                return;
-            }
-            $('#filter_cable_results').html(data);
-        },
-        error: function() {
-            $('.loginError').html('请求失败，请刷新页面后重试').show();
+            $.ajax({
+                type:"POST",
+                url: "{% url 'admin_delete_cable' %}",
+                data: dataForm,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    if(data == -1 ){
+                        alert("该记录已经存在");
+                        return;
+                    }
+                    $("#delete_cable_modal").modal("hide");
+                    filter_cable_with_page();
+                },
+                error: function() {
+                    $('.loginError').html('请求失败，请刷新页面后重试').show();
+                }
+            });
+            return false;
         }
-    });
-    return false;
-}
 
-$('#cable_form').submit(function(){
-    var formData = new FormData(document.getElementById("cable_form"));
-    $.ajaxSetup({
-        data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
-    });
+        function filter_cable_with_page(page){
+            var formData = new FormData(document.getElementById("cable_form_filter"));
 
-    $.ajax({
-        type:"POST",
-        url: "{% url 'admin_add_cable' %}",
-        data: formData,
-        cache:false,
-        contentType: false,
-        processData: false,
-        success: function(data) {
-            if(data == -1 ){
-                alert("该记录已经存在");
+            if(typeof(page) != 'undefined'){
+                formData.append('page', page)
             }
-            $('#cable_form_reset').trigger("click");
-            $('#result_display').html(data);
-        },
-        error: function() {
-            $('.loginError').html('请求失败，请刷新页面后重试').show();
+
+            $.ajaxSetup({
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
+
+            $.ajax({
+                type:"POST",
+                url: "{% url 'admin_filter_cable' %}",
+                data: formData,
+                cache:false,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    if(data == -1 ){
+                        alert("该记录已经存在");
+                        return;
+                    }
+                    $('#filter_cable_results').html(data);
+                },
+                error: function() {
+                    $('.loginError').html('请求失败，请刷新页面后重试').show();
+                }
+            });
+            return false;
         }
-    });
-    return false;
-});
 
-$('#modify_cable_form').submit(function(){
-    var formData = new FormData(document.getElementById("modify_cable_form"));
-    var raw_witc = document.getElementById("modify_cable_witc").innerHTML;
-    formData.append('raw_witc', raw_witc);
-    $.ajaxSetup({
-        data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
-    });
+        $('#cable_form').submit(function(){
+            var formData = new FormData(document.getElementById("cable_form"));
+            $.ajaxSetup({
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
 
-    $.ajax({
-        type:"POST",
-        url: "{% url 'admin_modify_cable' %}",
-        data: formData,
-        cache:false,
-        contentType: false,
-        processData: false,
-        success: function(data) {
-            if(data == -1 ){
-                alert("该记录已经存在");
-                return;
-            }
-            $("#modify_cable").modal("hide");
-            filter_cable_with_page();
-        },
-        error: function() {
-            $('.loginError').html('请求失败，请刷新页面后重试').show();
-        }
-    });
-    return false;
-});
+            $.ajax({
+                type:"POST",
+                url: "{% url 'admin_add_cable' %}",
+                data: formData,
+                cache:false,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    if(data == -1 ){
+                        alert("该记录已经存在");
+                    }
+                    $('#cable_form_reset').trigger("click");
+                    $('#result_display').html(data);
+                },
+                error: function() {
+                    $('.loginError').html('请求失败，请刷新页面后重试').show();
+                }
+            });
+            return false;
+        });
 
-$('#cable_form_filter').submit(filter_cable_with_page);
+        $('#modify_cable_form').submit(function(){
+            var formData = new FormData(document.getElementById("modify_cable_form"));
+            var raw_witc = document.getElementById("modify_cable_witc").innerHTML;
+            formData.append('raw_witc', raw_witc);
+            $.ajaxSetup({
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
 
-</script>
+            $.ajax({
+                type:"POST",
+                url: "{% url 'admin_modify_cable' %}",
+                data: formData,
+                cache:false,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    if(data == -1 ){
+                        alert("该记录已经存在");
+                        return;
+                    }
+                    $("#modify_cable").modal("hide");
+                    filter_cable_with_page();
+                },
+                error: function() {
+                    $('.loginError').html('请求失败，请刷新页面后重试').show();
+                }
+            });
+            return false;
+        });
+
+        $('#cable_form_filter').submit(filter_cable_with_page);
+
+    </script>
 {% endblock %}

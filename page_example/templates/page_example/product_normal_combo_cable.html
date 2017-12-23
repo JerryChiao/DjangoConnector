@@ -1,32 +1,43 @@
 {% extends "page_example/product_base.html" %}
 {% load static %}
 {% block page-title %}
-<title>定制电缆组件</title>
-<meta name="keywords" content="定制电缆组">
-<meta name="description" content="定制电缆组">
+    <title>定制电缆组件</title>
+    <meta name="keywords" content="定制电缆组">
+    <meta name="description" content="定制电缆组">
 {% endblock %}
 
 {% block product-private %}
-<div style="width: 100%" class="container ui-sortable">
-    <div class="panel panel-default">
-        <div class="panel-header">定制电缆组</div>
-        {%  include 'admin_pages/normal_combo_cable_pages/normal_combo_cable_filter_form.html'%}
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-header">查询结果</div>
-        <div id="normal_combo_cable_filter_result">
-            {% include 'admin_pages/normal_combo_cable_pages/normal_combo_cable_table_readonly.html' %}
+    <div style="width: 100%" class="container ui-sortable">
+        <div class="panel panel-default">
+            <div class="panel-header">定制电缆组</div>
+            {%  include 'admin_pages/normal_combo_cable_pages/normal_combo_cable_filter_form.html'%}
+        </div>
+        <br>
+        <div class="panel panel-default">
+            <div class="panel-header">查询结果</div>
+            <div class="panel-body" id="normal_combo_cable_filter_result">
+                {% include 'admin_pages/normal_combo_cable_pages/normal_combo_cable_table_readonly.html' %}
+            </div>
         </div>
     </div>
-    <input id="start-order" class="btn btn-primary radius mt-10 ml-15 mb-10" type="button" value="定制" >
-    <div id="order_res">
-        {% include 'admin_pages/normal_combo_cable_pages/normal_combo_cable_table_readonly.html' %}
+    <br>
+    <div style="width: 100%" class="container ui-sortable">
+        <div class="panel panel-default">
+            <div class="panel-header">已选择结果</div>
+            <div class="panel-body">
+            <div id="order_res">
+                {% include 'admin_pages/normal_combo_cable_pages/normal_combo_cable_table_order.html' %}
+            </div>
+        </div>
+        <input class="btn btn-primary radius mt-10" type="button" value="导出定制结果文件" >
+        <input class="btn btn-primary radius mt-10" type="button" value="联系厂家" >
+        </div>
     </div>
-</div>
+
 {% endblock %}
 
 {% block private-script %}
-<script>
+    <script>
         $(document).ready(function(){
             $('#nav-product').addClass("current")
             $('#start-query').click(function(){
@@ -45,6 +56,18 @@
             var number_obj = obj.previousSibling;
             var number = number_obj.value;
 
+            var order_res = document.getElementById("normal_combo_cable_order_buffer")
+
+            for (var i = 0; i < order_res.rows.length; i++){
+                var witc_in_row = order_res.rows[i].cells[0].innerHTML;
+                if( witc == witc_in_row){
+                    order_res.rows[i].cells[2].innerHTML = parseInt(order_res.rows[i].cells[2].innerHTML)
+                            + parseInt(number);
+                    return;
+                }
+
+            }
+
             var new_row = document.createElement('tr'); //创建行
             var witcCell = document.createElement('td'); //创建第一列id
             witcCell.innerHTML =witc; //填充数据
@@ -52,20 +75,23 @@
             var descCell = document.createElement('td');//desc
             descCell.innerHTML = description;
             new_row.appendChild(descCell);
+            var numCell = document.createElement('td');
+            numCell.innerHTML = number;
+            new_row.appendChild(numCell);
             var opsCell = document.createElement('td');
             new_row.append(opsCell);
             var btnDel = document.createElement('input');
             btnDel.setAttribute('type','button'); //type="button"
             btnDel.setAttribute('value','删除');
 
-           btnDel.onclick=function(){
-             if(confirm("确定删除这一行嘛？")){
-                this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);
-               }
-             }
+            btnDel.onclick=function(){
+                if(confirm("确定删除这一行嘛？")){
+                    this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);
+                }
+            }
             opsCell.appendChild(btnDel); //
-            var =
-            this.parentNode.parentNode.parentNode.append(new_row);
+            var order_res = document.getElementById("normal_combo_cable_order_buffer")
+            order_res.appendChild(new_row)
         };
 
 
@@ -95,7 +121,6 @@
                         alert("该记录已经存在");
                         return;
                     }
-                    alert("here");
                     $('#normal_combo_cable_filter_result').html(data);
                 },
                 error: function() {

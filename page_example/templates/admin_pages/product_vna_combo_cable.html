@@ -9,36 +9,29 @@
 {% block product-private %}
     <div style="width: 100%" class="container ui-sortable">
         <div id="tab_demo" class="HuiTab">
-            <div class="tabBar clearfix"><span>添加VNA测试电缆组件</span><span onclick="filter_vna_combo_cable_with_page()">管理VNA测试电缆组件</span>
+            <div class="tabBar clearfix"><span>添加产品</span><span onclick="filter_vna_combo_cable_with_page()">管理VNA测试电缆组件</span>
             </div>
             <div class="tabCon">
                 <div class="panel panel-default">
-                    <form id="vna_combo_cable_form" name="vna_combo_cable_form" method="post"
-                          enctype="multipart/form-data"
-                          action="">
-                        {% csrf_token %}
-                        {% include 'admin_pages/vna_combo_cable_pages/vna_combo_cable_form_tbl.html' %}
-                        <input id="add_connector_cable" class="btn btn-primary radius mt-10" type="submit" value="添加产品" >
-                        <input type="reset" id="vna_combo_cable_form_reset" style="display:none;" value="重置" >
-                    </form>
+                    <div class="panel-header">VNA测试电缆组件</div>
+                    <div class="panel-body">
+                        <form id="vna_combo_cable_form" name="vna_combo_cable_form" method="post"
+                              enctype="multipart/form-data"
+                              action="">
+                            {% csrf_token %}
+                            {% include 'admin_pages/vna_combo_cable_pages/vna_combo_cable_form_tbl.html' %}
+                            <input id="add_connector_cable" class="btn btn-primary radius mt-10" type="submit" value="添加产品" >
+                            <input type="reset" id="vna_combo_cable_form_reset" style="display:none;" value="重置" >
+                        </form>
+                    </div>
                 </div>
 
                 <div class="panel panel-default">
                     <div id='result' class="panel-header">添加结果</div>
-                    <table class="table table-border table-bordered table-striped">
-                        <thead>
-                        <tr>
-                            <th width="5%">WITC编号</th>
-                            <th width="10%">描述</th>
-                            <th width="10%">属性</th>
-                            <th width="10%">图片</th>
-                            <th width="10%">规格书</th>
-                        </tr>
-                        </thead>
-                        <tbody id="result_display">
+                    <div id="result_display" class="panel-body">
                         {% include 'admin_pages/vna_combo_cable_pages/vna_combo_cable_recent_table.html' %}
-                        </tbody>
-                    </table>
+                    </div>
+
                 </div>
 
             </div>
@@ -46,7 +39,7 @@
                 {% include 'admin_pages/vna_combo_cable_pages/vna_combo_cable_filter_form.html' %}
                 <div class="panel panel-default">
                     <div class="panel-header" >产品列表</div>
-                    <div id="vna_combo_cable_filter_results">
+                    <div id="vna_combo_cable_filter_results" class="panel-body">
 
                     </div>
                 </div>

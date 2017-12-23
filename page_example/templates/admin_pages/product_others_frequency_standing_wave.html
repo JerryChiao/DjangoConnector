@@ -1,0 +1,193 @@
+{% extends "admin_pages/product_base.html" %}
+{% load static %}
+{% block page-title %}
+    <title>其他属性编辑-频率驻波表</title>
+    <meta name="keywords" content="其他属性">
+    <meta name="description" content="其他属性">
+{% endblock %}
+
+{% block product-private %}
+    <div style="width: 50%" class="container ui-sortable ">
+
+    <div class="panel panel-default">
+        <div id='admin_result' class="panel-header">频率驻波表</div>
+        <div class="panel-body">
+            <form id="frequency_standing_wave_filter" name="frequency_standing_wave_" method="post"
+                  enctype="multipart/form-data"
+                  action="">
+                {% csrf_token %}
+                <table class="table table-border table-bordered table-bg">
+                    <thead>
+                    <tr>
+                        <th>类型</th>
+                        <th>极性</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><span class="select-box size-M">
+                                <select  datatype="*" name="category_type" size="1"
+                                         class="select" id="select_category">
+                                     <option value ="">空</option>
+                                    {% for obj in category %}
+                                        <option value ="{{ obj.content }}">{{ obj.content }}</option>
+                                    {% endfor %}
+                                </select>
+                            </span></td>
+                        <td><span class="select-box size-M">
+                                <select  datatype="*" name="polar_type" size="1"
+                                         class="select" id="select_polar">
+                                     <option value ="">空</option>
+                                    {% for obj in polar %}
+                                        <option value ="{{ obj.content }}">{{ obj.content }}</option>
+                                    {% endfor %}
+                                </select>
+                            </span></td>
+                        <td>
+                    </tr>
+                    </tbody>
+                </table>
+                <input class="btn btn-primary radius mt-10" type="submit" value="查询" >
+            </form>
+        </div>
+        <div class="panel-body" id="filter_frequency_standing_wave_res">
+            {% include 'admin_pages/frequency_standing_wave_pages/frequency_standing_wave_table.html' %}
+        </div>
+    </div>
+
+    <div id="modify_frequency_standing_wave" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content radius">
+                <div class="modal-header">
+                    <h3 class="modal-title">编辑</h3>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th id="mod_display_category" >类型</th>
+                            <th id="mod_display_polar"> 极性</th>
+                        </tr>
+                        </thead>
+                    </table>
+
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th >频率</th>
+                            <th>原驻波</th>
+                            <th>新驻波</th>
+                        </tr>
+                        <tr>
+                            <td id="raw_frequency"></td>
+                            <td id="raw_standing_wave"></td>
+                            <td><input class="text-input" id="new_standing_wave"> </td>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="do_modify()" aria-hidden="true">确定</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block private-script %}
+    <script>
+        function goto_modify(obj){
+            var row = obj.parentNode.parentNode;
+            var td = $(row).find("td");
+            var category = $('#select_category option:selected').val();
+            var polar = $('#select_polar option:selected').val();
+            var frequency = td.eq(0).text();
+            var raw_standing_wave = td.eq(1).text();
+            document.getElementById("mod_display_category").innerHTML = category;
+            document.getElementById('mod_display_polar').innerHTML = polar;
+            document.getElementById("raw_frequency").innerHTML=frequency;
+            document.getElementById("raw_standing_wave").innerHTML=raw_standing_wave;
+            $("#modify_frequency_standing_wave").modal("show");
+        }
+
+        function do_modify(){
+
+            var category = $('#select_category option:selected').val();
+            var polar = $('#select_polar option:selected').val();
+            var frequency = document.getElementById("raw_frequency").innerHTML;
+            var standing_wave = $('#new_standing_wave').val();
+
+            $.ajaxSetup({
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
+
+            data = {'polar': polar,
+                'category': category,
+                'frequency': frequency,
+                'standing_wave': standing_wave};
+
+            $.ajax({
+                type:"POST",
+                url: "{% url 'admin_insert_frequency_standing_wave' %}",
+                data: data,
+                dataType: 'json',
+                cache:false,
+                success: function(data) {
+                    if(data == 1 ){
+                        return;
+                    }
+                    $('#modify_frequency_standing_wave').modal("hide");
+                    $('#frequency_standing_wave_filter').submit();
+
+
+                    if(data == -1 ){
+                        alert("该记录已经存在");
+                    }
+                },
+                error: function() {
+                    $('.loginError').html('请求失败，请刷新页面后重试').show();
+                }
+            });
+            return false;
+        }
+
+
+        $('#frequency_standing_wave_filter').submit(
+                function(){
+                    var formData = new FormData(document.getElementById("frequency_standing_wave_filter"));
+
+                    $.ajaxSetup({
+                        data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+                    });
+
+                    $.ajax({
+                        type:"POST",
+                        url: "{% url 'admin_filter_frequency_standing_wave' %}",
+                        data: formData,
+                        cache:false,
+                        contentType: false,
+                        processData: false,
+                        success: function(data) {
+                            if(data == 1 ){
+                                return;
+                            }
+
+                            $('#filter_frequency_standing_wave_res').html(data);
+
+                            if(data == -1 ){
+                                alert("该记录已经存在");
+                            }
+                        },
+                        error: function() {
+                            $('.loginError').html('请求失败，请刷新页面后重试').show();
+                        }
+                    });
+                    return false;
+
+                }
+        )
+    </script>
+{% endblock %}

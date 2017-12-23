@@ -47,30 +47,17 @@
                 <br>
                 <div class="panel panel-default">
                     <div id='result' class="panel-header">添加结果</div>
-                    <table class="table table-border table-bordered table-striped">
-                        <thead>
-                        <tr>
-                            <th width="5%">序号</th>
-                            <th width="10%">WITC编号</th>
-                            <th width="10%">类型</th>
-                            <th width="10%">极性</th>
-                            <th width="10%">外形</th>
-                            <th width="10%">图片</th>
-                            <th width="10%">规格书</th>
-                        </tr>
-                        </thead>
-                        <tbody id="result_display">
-                        {% include 'admin_pages/connector_pages/connector_recent_table.html' %}
-                        </tbody>
-                    </table>
+                    <div id='result_display' class="panel-body">
+                    </div>
                 </div>
 
             </div>
             <div class="tabCon">
-               {% include 'admin_pages/connector_pages/connector_cable_filter_form.html'%}
+                {% include 'admin_pages/connector_pages/connector_cable_filter_form.html'%}
 
                 <div class="panel panel-default">
-                    <div class="panel-header" id="connector_cable_filter_results">产品列表</div>
+                    <div class="panel-header" >产品列表</div>
+                    <div class="panel-body" id="connector_cable_filter_results"></div>
                 </div>
 
             </div>
@@ -78,7 +65,8 @@
                 {% include 'admin_pages/connector_pages/connector_pcb_filter_form.html' %}
 
                 <div class="panel panel-default">
-                    <div id='filter_pcb_results' class="panel-header" >产品列表</div>
+                    <div class="panel-header" >产品列表</div>
+                    <div id='filter_pcb_results' class="panel-body"> </div>
                 </div>
             </div>
 

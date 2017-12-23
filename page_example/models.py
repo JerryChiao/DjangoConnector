@@ -245,3 +245,26 @@ class NormalComboCableForm(forms.Form):
     cable_length = forms.FloatField()
     frequency = forms.FloatField()
 
+
+class FrequencyPoint(models.Model):
+    frequency = models.FloatField()
+    comments = models.CharField(max_length=100, blank=True)
+    reserved1 = models.CharField(max_length=100, blank=True)
+    reserved2 = models.CharField(max_length=100, blank=True)
+    time = models.DateTimeField(auto_now_add=True)
+
+
+class FrequencyStandingWave(models.Model):
+    category_type = models.ForeignKey(Category)
+    polar_type = models.ForeignKey(Polar)
+    frequency = models.ForeignKey(FrequencyPoint)
+    standing_wave = models.FloatField()
+    time = models.DateTimeField(auto_now_add=True)
+
+
+
+
+
+
+
+

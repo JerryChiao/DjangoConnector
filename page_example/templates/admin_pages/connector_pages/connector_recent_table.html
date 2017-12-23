@@ -1,12 +1,28 @@
-{% for obj in recent_connector_pcb %}
+<table class="table table-border table-bordered table-striped">
+    <thead>
+    <tr>
+        <th width="5%">序号</th>
+        <th width="10%">WITC编号</th>
+        <th width="10%">类型</th>
+        <th width="10%">极性</th>
+        <th width="10%">外形</th>
+        <th width="10%">图片</th>
+        <th width="10%">规格书</th>
+    </tr>
+    </thead>
+    <tbody >
+    {% for obj in recent_connector_pcb %}
 
-<tr>
-    <td><code>{{ forloop.counter }}</code></td>
-    <td><code>{{ obj.full_witc }}</code></td>
-    <td><code>{{ obj.content_type.content }}</code></td>
-    <td><code>{{ obj.polar_type }}</code></td>
-    <td><code>{{obj.outlook_type }}</code></td>
-    <td><code><a href="{{ obj.image.url }}">图片链接</a></code></td>
-    <td><code><a href="{{ obj.document.url }}"> 规格书链接</a></code></td>
-</tr>
-{% endfor%}
+        <tr>
+            <td><code>{{ forloop.counter }}</code></td>
+            <td><code>{{ obj.full_witc }}</code></td>
+            <td><code>{{ obj.content_type.content }}</code></td>
+            <td><code>{{ obj.polar_type }}</code></td>
+            <td><code>{{obj.outlook_type }}</code></td>
+            <td><code><a href="{{ obj.image.url }}">图片链接</a></code></td>
+            <td><code><a href="{{ obj.document.url }}"> 规格书链接</a></code></td>
+        </tr>
+    {% endfor%}
+    </tbody>
+</table>
+

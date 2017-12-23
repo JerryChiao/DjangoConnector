@@ -1,0 +1,19 @@
+<table class="table table-border table-bordered table-striped">
+    <thead>
+    <tr>
+        <th width="30%">频率</th>
+        <th width="30">驻波</th>
+        <th width="40%">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for obj in frequency_standing_wave_res %}
+        <tr>
+            <td><code>{{ obj.frequency }}</code></td>
+            <td><code>{{ obj.standing_wave }}</code></td>
+            <td><a href="javascript:void(0)" onclick="goto_modify(this)">编辑</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

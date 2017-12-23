@@ -5,6 +5,8 @@ import connector_views
 import cable_views
 import vna_combo_cable_views
 import normal_combo_cable_views
+import frequency_standing_wave_views
+import frequency_views
 from . import views
 import admin_user_login
 
@@ -80,6 +82,30 @@ urlpatterns = [
 
     url('^admin/admin_filter_normal_combo_cable', normal_combo_cable_views.admin_filter_normal_combo_cable, name="admin_filter_normal_combo_cable"),
 
+    url('^admin/admin_frequency_standing_wave', frequency_standing_wave_views.admin_frequency_standing_wave,
+        name="admin_others_frequency_standing_wave"),
 
+    url('^admin/admin_filter_frequency_standing_wave', frequency_standing_wave_views.admin_filter_frequency_standing_wave,
+        name="admin_filter_frequency_standing_wave"),
+
+    url('^admin/admin_insert_frequency_standing_wave',
+        frequency_standing_wave_views.admin_insert_frequency_standing_wave,
+        name="admin_insert_frequency_standing_wave"),
+
+    url('^admin/admin_frequency',
+        frequency_views.admin_frequency,
+        name="admin_frequency"),
+
+    url('^admin/admin_modify_frequency',
+        frequency_views.admin_modify_frequency,
+        name="admin_modify_frequency"),
+
+    url('^admin/admin_add_frequency',
+        frequency_views.admin_add_frequency,
+        name="admin_add_frequency"),
+
+    url('^admin/admin_delete_frequency',
+        frequency_views.admin_delete_frequency,
+        name="admin_delete_frequency"),
 
 ]
