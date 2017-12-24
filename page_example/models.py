@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django import forms
 from django.db import models
 from django.forms import ModelForm, ModelChoiceField
+import math
 
 
 # Create your models here.
@@ -119,6 +120,31 @@ class ConnectorCable(models.Model):
     reserved2 = models.CharField(max_length=100)
     time = models.DateTimeField(auto_now_add=True)
 
+    def calculated_loss_value(self, user_frequency):
+        ret = self.loss_rate * math.sqrt(user_frequency)
+        return ret
+
+    def calculated_standing_wave(self, user_frequency):
+
+        frequency_objs = FrequencyPoint.objects.filter(frequency__gte=user_frequency).order_by("frequency")
+        standing_wave_obj = FrequencyStandingWave.objects.filter(category_type=self.content_type,
+                                                                 polar_type=self.polar_type)
+
+        if not standing_wave_obj:
+            return 0
+
+        try:
+            standing_wave_obj = standing_wave_obj.filter(frequency=frequency_objs)
+            # for i in standing_wave_obj:
+            #     print str(i.frequency.frequency) + " " + str(i.standing_wave)
+            res = standing_wave_obj.first().standing_wave
+        except Exception, e:
+            res = FrequencyStandingWave.objects.filter(category_type=self.content_type,
+                                                       polar_type=self.polar_type).order_by("standing_wave").last().standing_wave
+
+        # print "standing wave " + str(res)
+        return res
+
 
 class ConnectorPcb(models.Model):
     content_type = models.ForeignKey(Category)
@@ -182,6 +208,9 @@ class Cable(models.Model):
     reserved2 = models.CharField(max_length=100)
     time = models.DateTimeField(auto_now_add=True)
 
+    def calculated_loss_value(self, user_frequency):
+        ret = self.loss_coef_k1 * math.sqrt(user_frequency) + self.loss_coef_k2 * user_frequency
+        return ret
 
 
 class ConverterForm(ModelForm):
@@ -258,8 +287,35 @@ class FrequencyStandingWave(models.Model):
     category_type = models.ForeignKey(Category)
     polar_type = models.ForeignKey(Polar)
     frequency = models.ForeignKey(FrequencyPoint)
-    standing_wave = models.FloatField()
+    standing_wave = models.FloatField(default=0.0)
     time = models.DateTimeField(auto_now_add=True)
+
+
+class OtherProductType(models.Model):
+    content = models.CharField(max_length=30)
+    code=models.CharField(max_length=10)
+
+    def __unicode__(self):
+        return self.content
+
+
+class OtherProduct(models.Model):
+    product_type = models.ForeignKey(OtherProductType)
+    description = models.TextField()
+    full_witc = models.CharField(max_length=30)
+    document = models.FileField(upload_to="others/")
+    image = models.ImageField(upload_to="others/")
+    comments = models.CharField(max_length=100)
+    reserved1 = models.CharField(max_length=100)
+    reserved2 = models.CharField(max_length=100)
+    time = models.DateTimeField(auto_now_add=True)
+
+
+class OtherProductForm(ModelForm):
+    class Meta:
+        model = OtherProduct
+        exclude = ['comments', 'reserved1', 'reserved2', 'time']
+
 
 
 

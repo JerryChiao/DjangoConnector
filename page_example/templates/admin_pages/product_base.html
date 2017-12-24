@@ -13,31 +13,28 @@
                         <li><a href="#"><h5 class="text-c">电缆组件</h5><i class="arrow Hui-iconfont">></i></a>
                             <ul class="menu">
                                 <li class><a href="{% url 'admin_vna_combo_cable' %}">VNA电缆测试组件</a></li>
-                                <li class><a href="{% url 'admin_cable_combo_bg' %}">定制成型半刚电缆组件</a></li>
+
+                                <li class><a href="{% url 'admin_cable_combo_bg' %}">定制半钢组件</a></li>
                             </ul>
                         </li>
-                        <li><a href="{% url 'admin_instrument' %}"><h5 class="text-c">器件</h5></a></li>
-                        <li> <a href="{% url 'admin_tool'%}"><h5 class="text-c">工具设备</h5></a></li>
-                    </ul>
-                </div>
-            </li>
-        </ul>
-        <ul id="Huifold2" class="">
-            <li class="item">
-                <div class="info">
-                    <ul style="width:90%" class="dropDown-menu menu radius box-shadow text-c">
-                        <li><a href="{% url 'admin_others_install_type' %}"><h5 class="text-c">编辑安装类型</h5></a></li>
-                        <li><a href="{% url 'admin_others_out_look' %}"><h5 class="text-c">编辑外形</h5></a></li>
-                        <li><a href="{% url 'admin_others_category' %}"><h5 class="text-c">编辑系列</h5></a></li>
-                        <li><a href="{% url 'admin_others_combo_type' %}"><h5 class="text-c">编辑装配形式</h5></a></li>
-                        <li><a href="{% url 'admin_frequency' %}"><h5 class="text-c">编辑频率</h5></a></li>
-                        <li><a href="{% url 'admin_others_frequency_standing_wave' %}"><h5 class="text-c">编辑频率驻波表</h5></a></li>
+                        <li><a href="{% url 'admin_other_product' %}"><h5 class="text-c">其他产品</h5></a></li>
+                        <li><a href="#"><h5 class="text-c">参数管理</h5><i class="arrow Hui-iconfont">></i></a>
+                            <ul class="menu">
+                                <li><a href="{% url 'admin_others_install_type' %}"><h5 class="text-c">编辑安装类型</h5></a></li>
+                                <li><a href="{% url 'admin_others_out_look' %}"><h5 class="text-c">编辑外形</h5></a></li>
+                                <li><a href="{% url 'admin_others_category' %}"><h5 class="text-c">编辑系列</h5></a></li>
+                                <li><a href="{% url 'admin_others_combo_type' %}"><h5 class="text-c">编辑装配形式</h5></a></li>
+                                <li><a href="{% url 'admin_frequency' %}"><h5 class="text-c">编辑频率</h5></a></li>
+                                <li><a href="{% url 'admin_others_frequency_standing_wave' %}"><h5 class="text-c">编辑频率驻波表</h5></a></li>
+                            </ul>
+                        </li>
 
                     </ul>
                 </div>
             </li>
         </ul>
     </div>
+
 
     <div style="width: 75%;" class="f-l pd-10">
         {% block product-private %}

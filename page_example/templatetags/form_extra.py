@@ -7,3 +7,8 @@ register = template.Library()
 def addcls(field, css):
    return field.as_widget(attrs={"class":css})
 
+
+@register.filter(name='onchange')
+def onchange(field, func):
+   return field.as_widget(attrs={"onchange":func})
+

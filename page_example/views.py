@@ -34,13 +34,6 @@ def cable_combo_product_gb(request):
     return render(request, 'page_example/product_cable_combo_bg.html')
 
 
-def instrument_product(request):
-    return render(request, 'page_example/product_instrument.html')
-
-
-def tool_product(request):
-    return render(request, 'page_example/product_tool.html')
-
 def admin_login(request):
     return render(request, 'page_example/admin_login.html')
 

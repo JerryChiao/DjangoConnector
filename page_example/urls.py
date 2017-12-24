@@ -3,10 +3,12 @@ from django.conf.urls import url
 import converter_views
 import connector_views
 import cable_views
+import page_example.other_product_views
 import vna_combo_cable_views
 import normal_combo_cable_views
 import frequency_standing_wave_views
 import frequency_views
+import other_product_views
 from . import views
 import admin_user_login
 
@@ -19,8 +21,8 @@ urlpatterns = [
     url(r'^cable_combo_product_vna/', vna_combo_cable_views.cable_combo_product_vna, name="cable_combo_vna"),
     url(r'^cable_combo_product_normal/', normal_combo_cable_views.normal_combo_cable_product, name="cable_combo_normal"),
     url(r'^cable_combo_product_bg/', views.cable_combo_product_gb, name="cable_combo_bg"),
-    url(r'^instrument_product/', views.instrument_product, name="instrument"),
-    url(r'^tool_product/', views.tool_product, name='tool'),
+    url(r'^instrument_product/', page_example.other_product_views.instrument_product, name="instrument"),
+    url(r'^tool_product/', page_example.other_product_views.tool_product, name='tool'),
     url(r'^admin_login/', views.admin_login, name='admin_login'),
     url(r'^notifytest/', views.notify_test, name='notify'),
     url(r'^try_to_login/', admin_user_login.user_login, name='try_login'),
@@ -29,8 +31,7 @@ urlpatterns = [
     url(r'^admin/connector_product/', connector_views.admin_connector_product, name='admin_connector'),
     url(r'admin/admin_bg_combo_cable/', views.admin_cable_combo_product_gb, name='admin_cable_combo_bg'),
 
-    url(r'^admin/instrument_product/', views.admin_instrument_product, name="admin_instrument"),
-    url(r'^admin/tool_product/', views.admin_tool_product, name='admin_tool'),
+
     url(r'^admin/product_others_install_type/', views.admin_others_install_type, name='admin_others_install_type'),
     url(r'^admin/add_install_type/', views.admin_add_install_type, name="admin_add_install_type"),
     url('^admin/mod_install_type/', views.admin_modify_install_type, name='admin_modify_install_type'),
@@ -107,5 +108,12 @@ urlpatterns = [
     url('^admin/admin_delete_frequency',
         frequency_views.admin_delete_frequency,
         name="admin_delete_frequency"),
+
+    url(r'^admin/other_product/', other_product_views.admin_other_product_product, name="admin_other_product"),
+    url('^admin/add_other_product/', other_product_views.admin_add_other_product, name='admin_add_other_product'),
+    url('^admin/admin_filter_other_product', other_product_views.admin_filter_other_product, name="admin_filter_other_product"),
+    url('^admin/admin_load_other_product', other_product_views.admin_load_other_product_mod_form, name="admin_load_other_product_form"),
+    url('^admin/admin_delete_other_product', other_product_views.admin_delete_other_product, name="admin_delete_other_product"),
+    url(r'^admin/modify_other_product/', other_product_views.admin_modify_other_product, name='admin_modify_other_product'),
 
 ]

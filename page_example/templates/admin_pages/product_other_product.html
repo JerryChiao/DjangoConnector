@@ -1,0 +1,264 @@
+{% extends "admin_pages/product_base.html" %}
+{% load static %}
+{% block page-title %}
+    <title>产品查询-其他产品</title>
+    <meta name="keywords" content="电缆">
+    <meta name="description" content="电缆">
+{% endblock %}
+
+{% block product-private %}
+    <div style="width: 100%" class="container ui-sortable">
+        <div id="tab_demo" class="HuiTab">
+            <div class="tabBar clearfix"><span>添加产品</span><span onclick="filter_other_product_with_page()">管理其他</span>
+            </div>
+            <div class="tabCon">
+                <div class="panel panel-default">
+                    <div class="panel-header">其他产品</div>
+                    <div class="panel-body">
+                        <form id="other_product_form" name="other_product_form" method="post"
+                              enctype="multipart/form-data"
+                              action="">
+                            {% csrf_token %}
+                            {% include 'admin_pages/other_product_pages/other_product_form_tbl.html' %}
+                            <input id="add_other_product_other_product" class="btn btn-primary radius mt-10" type="submit" value="添加产品" >
+                            <input type="reset" id="other_product_form_reset" style="display:none;" value="重置" >
+                        </form>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div id='result' class="panel-header">添加结果</div>
+                    <div id="result_display" class="panel-body"></div>
+                </div>
+
+            </div>
+            <div class="tabCon">
+                {% include 'admin_pages/other_product_pages/other_product_filter_form.html' %}
+                <div class="panel panel-default">
+                    <div class="panel-header" >产品列表</div>
+                    <div id="filter_other_product_results" class="panel-body">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="delete_other_product_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content radius">
+                <div class="modal-header">
+                    <h3 class="modal-title">注意</h3>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+                </div>
+                <div class="modal-body">
+                    <p>确认删除产品</p>
+                    <p id="delete_other_product_witc"></p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="do_delete()" aria-hidden="true">确定</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modify_other_product" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content radius">
+                <div class="modal-header">
+                    <h3 class="modal-title">修改产品</h3>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+                </div>
+                <div class="modal-body">
+                    <form id="modify_other_product_form" name="modify_other_product_form" method="post"
+                          enctype="multipart/form-data"
+                          action="">
+                        {% csrf_token %}
+                        <h5 id="modify_other_product_witc"></h5>
+                        <div id="replace_part_other_product">
+                            {% include 'admin_pages/other_product_pages/other_product_form_tbl.html' %}
+                        </div>
+                        <input id="modify_add_other_product" class="btn btn-primary radius mt-10" type="submit" value="修改产品" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block private-script %}
+    <script>
+        $("#tab_demo").Huitab({
+            index:0
+        });
+
+        $(function(){
+            $('#nav-product').addClass("current")
+        });
+
+
+        function goto_modify(obj){
+            var row = obj.parentNode.parentNode;
+            var td = $(row).find("td");
+            var witc = td.eq(0).text();
+            var data = {witc: witc};
+            $.ajaxSetup({
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
+
+            $.ajax({
+                type:"POST",
+                url: "{% url 'admin_load_other_product_form' %}",
+                data: data,
+                cache:false,
+                success: function(data) {
+                    if(data == -1 ){
+                        alert("该记录已经存在");
+                    }
+                    document.getElementById("modify_other_product_witc").innerHTML=witc
+                    $('#replace_part_other_product').html(data);
+                    $("#modify_other_product").modal("show");
+
+                },
+                error: function() {
+                    $('.loginError').html('请求失败，请刷新页面后重试').show();
+                }
+            });
+            return false;
+
+        }
+
+        function goto_delete(obj){
+            var row = obj.parentNode.parentNode;
+            var td = $(row).find("td");
+            var witc = td.eq(0).text();
+            document.getElementById("delete_other_product_witc").innerHTML=witc;
+            $("#delete_other_product_modal").modal("show");
+        }
+
+        function do_delete(){
+            var witc = document.getElementById("delete_other_product_witc").innerHTML;
+            var dataForm = new FormData();
+            dataForm.append("witc", witc);
+            $.ajaxSetup({
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
+
+            $.ajax({
+                type:"POST",
+                url: "{% url 'admin_delete_other_product' %}",
+                data: dataForm,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    if(data == -1 ){
+                        alert("该记录已经存在");
+                        return;
+                    }
+                    $("#delete_other_product_modal").modal("hide");
+                    filter_other_product_with_page();
+                },
+                error: function() {
+                    $('.loginError').html('请求失败，请刷新页面后重试').show();
+                }
+            });
+            return false;
+        }
+
+        function filter_other_product_with_page(page){
+            var formData = new FormData(document.getElementById("other_product_form_filter"));
+
+            if(typeof(page) != 'undefined'){
+                formData.append('page', page)
+            }
+
+            $.ajaxSetup({
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
+
+            $.ajax({
+                type:"POST",
+                url: "{% url 'admin_filter_other_product' %}",
+                data: formData,
+                cache:false,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    if(data == -1 ){
+                        alert("该记录已经存在");
+                        return;
+                    }
+                    $('#filter_other_product_results').html(data);
+                },
+                error: function() {
+                    $('.loginError').html('请求失败，请刷新页面后重试').show();
+                }
+            });
+            return false;
+        }
+
+        $('#other_product_form').submit(function(){
+            var formData = new FormData(document.getElementById("other_product_form"));
+            $.ajaxSetup({
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
+
+            $.ajax({
+                type:"POST",
+                url: "{% url 'admin_add_other_product' %}",
+                data: formData,
+                cache:false,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    if(data == -1 ){
+                        alert("该记录已经存在");
+                    }
+                    $('#other_product_form_reset').trigger("click");
+                    $('#result_display').html(data);
+                },
+                error: function() {
+                    $('.loginError').html('请求失败，请刷新页面后重试').show();
+                }
+            });
+            return false;
+        });
+
+        $('#modify_other_product_form').submit(function(){
+            var formData = new FormData(document.getElementById("modify_other_product_form"));
+            var raw_witc = document.getElementById("modify_other_product_witc").innerHTML;
+            formData.append('raw_witc', raw_witc);
+            $.ajaxSetup({
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
+
+            $.ajax({
+                type:"POST",
+                url: "{% url 'admin_modify_other_product' %}",
+                data: formData,
+                cache:false,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    if(data == -1 ){
+                        alert("该记录已经存在");
+                        return;
+                    }
+                    $("#modify_other_product").modal("hide");
+                    filter_other_product_with_page();
+                },
+                error: function() {
+                    $('.loginError').html('请求失败，请刷新页面后重试').show();
+                }
+            });
+            return false;
+        });
+
+        $('#other_product_form_filter').submit(filter_other_product_with_page);
+
+    </script>
+{% endblock %}

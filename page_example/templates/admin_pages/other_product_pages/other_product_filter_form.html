@@ -1,0 +1,22 @@
+{% load form_extra %}
+<div class="panel panel-default">
+    <div class="panel-header">查询条件</div>
+    <div class="panel-body">
+        <form id="other_product_form_filter" name="other_product_form" method="post"
+              enctype="multipart/form-data"
+              action="">
+            {% csrf_token %}
+            <div class="row cl">
+                <label class="form-label col-xs-3">产品类型</label>
+                <div class="formControls col-xs-3">
+                    <span class="select-box  size-M">
+                    {{ other_product_form.product_type|addcls:"select"}}
+                        </span>
+                </div>
+
+            </div>
+            <input id="admin_other_product_other_product" class="btn btn-primary radius mt-10" type="submit" value="查询" >
+
+        </form>
+    </div>
+</div>

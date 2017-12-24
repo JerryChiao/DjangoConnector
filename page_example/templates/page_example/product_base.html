@@ -2,77 +2,77 @@
 {% load staticfiles %}
 
 {% block display-content %}
-<div style="width: 15%" class="f-l pd-20">
-                <ul id="Huifold1" class="Huifold">
-                    <li class="item">
-                        <h4>
-                            产品分类<b>+</b>
-                        </h4>
-                        <div class="info">
-                            <ul style="width:90%" class="dropDown-menu menu radius box-shadow text-c">
-                            <li><a href="{% url 'connector' %}"><h5 class="text-c">连接器</h5></a></li>
-                            <li><a href="{% url 'converter' %}"><h5 class="text-c">转接器</h5></a></li>
-                            <li><a href="{% url 'cable' %}"><h5 class="text-c">电缆</h5></a></li>
-                            <li><a href="#"><h5 class="text-c">电缆组件</h5><i class="arrow Hui-iconfont">></i></a>
-	                            <ul class="menu">
-	                                <li class><a href="{% url 'cable_combo_vna' %}">VNA电缆测试组件</a></li>
-	                                <li class><a href="{% url 'cable_combo_normal' %}">定制电缆组件</a></li>
-	                                <li class><a href="{% url 'cable_combo_bg' %}">定制成型半刚电缆组件</a></li>
-	                            </ul>
-                            </li>
-                            <li><a href="{% url 'instrument' %}"><h5 class="text-c">器件</h5></a></li>
-                            <li> <a href="{% url 'tool'%}"><h5 class="text-c">工具设备</h5></a></li>
+    <div style="width: 15%" class="f-l pd-20">
+        <ul id="Huifold1" class="Huifold">
+            <li class="item">
+                <h4>
+                    产品分类<b>+</b>
+                </h4>
+                <div class="info">
+                    <ul style="width:90%" class="dropDown-menu menu radius box-shadow text-c">
+                        <li><a href="{% url 'connector' %}"><h5 class="text-c">连接器</h5></a></li>
+                        <li><a href="{% url 'converter' %}"><h5 class="text-c">转接器</h5></a></li>
+                        <li><a href="{% url 'cable' %}"><h5 class="text-c">电缆</h5></a></li>
+                        <li><a href="#"><h5 class="text-c">电缆组件</h5><i class="arrow Hui-iconfont">></i></a>
+                            <ul class="menu">
+                                <li class><a href="{% url 'cable_combo_vna' %}">VNA电缆测试组件</a></li>
+                                <li class><a href="{% url 'cable_combo_normal' %}">定制电缆组件</a></li>
+                                {#	                                <li class><a href="{% url 'cable_combo_bg' %}">定制成型半刚电缆组件</a></li>#}
                             </ul>
-                        </div>
-                    </li>
-                    <li class="item">
-                        <h4>
-                            公司简介<b>+</b>
-                        </h4>
-                        <div class="info">
-                            <a href="#"><h5>公司地址</h5></a> <br> 北京市昌平区………<br> <a
-                                href="#"><h5>联系方式</h5></a><br> 联系电话<br> 传真<br>
-                            联系人<br>
-                        </div>
-                    </li>
-                    <li class="item">
-                        <h4>
-                            友情链接<b>+</b>
-                        </h4>
-                        <div class="info">
-                            <a href="#"><h5>客户1</h5></a><br> <a href="#"><h5>客户2</h5></a><br>
-                        </div>
-                    </li>
-                </ul>
+                        </li>
+                        <li><a href="{% url 'instrument' %}"><h5 class="text-c">器件</h5></a></li>
+                        <li> <a href="{% url 'tool'%}"><h5 class="text-c">工具设备</h5></a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="item">
+                <h4>
+                    公司简介<b>+</b>
+                </h4>
+                <div class="info">
+                    <a href="#"><h5>公司地址</h5></a> <br> 北京市昌平区………<br> <a
+                        href="#"><h5>联系方式</h5></a><br> 联系电话<br> 传真<br>
+                    联系人<br>
+                </div>
+            </li>
+            <li class="item">
+                <h4>
+                    友情链接<b>+</b>
+                </h4>
+                <div class="info">
+                    <a href="#"><h5>客户1</h5></a><br> <a href="#"><h5>客户2</h5></a><br>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div style="width: 75%;" class="f-l pd-10">
+        {% block product-private %}
+            <div class="codeView docs-example">
+                <h1>公司简介</h1>
             </div>
-
-<div style="width: 75%;" class="f-l pd-10">
-{% block product-private %}
-<div class="codeView docs-example">
-                    <h1>公司简介</h1>
-                </div>
-                <div id="slider-3">
-                    <div class="slider">
-                        <div class="bd">
-                            <ul>
-                                <li><a href="" target="_blank"><img
-                                        src="{% static 'temp/16.png' %}"></a></li>
-                                <li><a href="" target="_blank"><img
-                                        src="{% static 'temp/17.png' %}"></a></li>
-                                <li><a href="" target="_blank"><img
-                                        src="{% static 'temp/16.png' %}"></a></li>
-                            </ul>
-                        </div>
-                        <ol class="hd cl dots">
-                            <li>1</li>
-                            <li>2</li>
-                            <li>3</li>
-                        </ol>
+            <div id="slider-3">
+                <div class="slider">
+                    <div class="bd">
+                        <ul>
+                            <li><a href="" target="_blank"><img
+                                    src="{% static 'temp/16.png' %}"></a></li>
+                            <li><a href="" target="_blank"><img
+                                    src="{% static 'temp/17.png' %}"></a></li>
+                            <li><a href="" target="_blank"><img
+                                    src="{% static 'temp/16.png' %}"></a></li>
+                        </ul>
                     </div>
+                    <ol class="hd cl dots">
+                        <li>1</li>
+                        <li>2</li>
+                        <li>3</li>
+                    </ol>
                 </div>
-{% endblock %}
-</div>
+            </div>
+        {% endblock %}
+    </div>
 
-<div style="clear: both;"></div>
-<div style="height: 200px;"></div>
+    <div style="clear: both;"></div>
+    <div style="height: 200px;"></div>
 {% endblock %}

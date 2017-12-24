@@ -1,0 +1,39 @@
+{% load form_extra %}
+
+<div class="row cl">
+    <label class="form-label col-xs-3">产品类型</label>
+    <div class="formControls col-xs-3">
+        <span class="select-box  size-M">
+        {{ other_product_form.product_type|addcls:"select" }}
+            </span>
+    </div>
+</div>
+<br>
+<div class="row cl">
+    <label class="form-label col-xs-3">产品描述</label>
+    <div class="formControls col-xs-8">
+        {{ other_product_form.description}}
+    </div>
+</div>
+<br>
+
+<div class="row cl">
+    <label class="form-label col-xs-3">WITC编号</label>
+    <div class="formControls col-xs-3">
+        {{ other_product_form.full_witc|addcls:"input-text"}}
+    </div>
+</div>
+<br>
+<div class="row cl">
+    <label class="form-label col-xs-3">规格书上传</label>
+    <div class="formControls col-xs-3">
+        {{ other_product_form.document|addcls:"input-text upload-url"}}
+    </div>
+</div>
+<br>
+<div class="row cl">
+    <label class="form-label col-xs-3">图片上传</label>
+    <div class="formControls col-xs-3">
+        {{ other_product_form.image|addcls:"input-text upload-url"}}
+    </div>
+</div>
