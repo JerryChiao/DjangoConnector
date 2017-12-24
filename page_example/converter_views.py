@@ -8,6 +8,7 @@ from front_display.settings import RESULT_NUM_PER_PAGE
 from django.views.decorators.csrf import csrf_exempt
 
 
+@login_required
 def converter_product(request):
 
     category = Category.objects.all()
@@ -26,6 +27,7 @@ def converter_product(request):
     return render(request, 'page_example/product_converter.html', context)
 
 
+@login_required
 def admin_add_converter(request):
     """
 
@@ -44,6 +46,7 @@ def admin_add_converter(request):
         return JsonResponse(converter_form.errors)
 
 
+@login_required
 def admin_filter_converter(request):
     """
     :param request:
@@ -86,6 +89,7 @@ def admin_filter_converter(request):
         return render_to_response("admin_pages/converter_pages/converter_table.html")
 
 
+@login_required
 def admin_load_converter_mod_form(request):
     """
 
@@ -107,6 +111,7 @@ def admin_load_converter_mod_form(request):
     return HttpResponse(-1)
 
 
+@login_required
 def admin_modify_converter(request):
     """
 
@@ -145,7 +150,7 @@ def admin_delete_converter(request):
 
 
 
-@login_required(login_url="page_example/admin_login")
+@login_required
 def admin_converter_product(request):
 
     category = Category.objects.all()

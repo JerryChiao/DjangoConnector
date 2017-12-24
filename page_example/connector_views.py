@@ -9,6 +9,7 @@ from models import ConnectorPcbForm, ConnectorPcb, ConnectorCableForm, Connector
 from front_display.settings import RESULT_NUM_PER_PAGE
 
 
+@login_required
 def admin_add_pcb_connector(request):
     """
 
@@ -27,6 +28,7 @@ def admin_add_pcb_connector(request):
         return JsonResponse(connector_form.errors)
 
 
+@login_required
 def admin_add_cable_connector(request):
     """
 
@@ -45,6 +47,7 @@ def admin_add_cable_connector(request):
         return JsonResponse(connector_form.errors)
 
 
+@login_required
 def admin_filter_connector_pcb(request):
     """
     :param request:
@@ -88,6 +91,7 @@ def admin_filter_connector_pcb(request):
         return render_to_response("admin_pages/connector_pages/connector_pcb_table.html")
 
 
+@login_required
 def admin_filter_connector_cable(request):
     """
     :param request:
@@ -134,6 +138,7 @@ def admin_filter_connector_cable(request):
         return render_to_response("admin_pages/connector_pages/connector_cable_table.html")
 
 
+@login_required
 def admin_load_connector_pcb_mod_form(request):
     """
 
@@ -155,6 +160,7 @@ def admin_load_connector_pcb_mod_form(request):
     return HttpResponse(-1)
 
 
+@login_required
 def admin_load_connector_cable_mod_form(request):
     """
 
@@ -176,6 +182,7 @@ def admin_load_connector_cable_mod_form(request):
     return HttpResponse(-1)
 
 
+@login_required
 def admin_modify_connector_pcb(request):
     """
 
@@ -193,6 +200,7 @@ def admin_modify_connector_pcb(request):
         return HttpResponse(-1)
 
 
+@login_required
 def admin_modify_connector_cable(request):
     """
 
@@ -211,6 +219,7 @@ def admin_modify_connector_cable(request):
         return HttpResponse(-1)
 
 
+@login_required
 @csrf_exempt
 def admin_delete_pcb_connector(request):
     """
@@ -251,7 +260,7 @@ def admin_delete_cable_connector(request):
     return HttpResponse(-1)
 
 
-@login_required(login_url="page_example/admin_login")
+@login_required
 def admin_connector_product(request):
     """
     """

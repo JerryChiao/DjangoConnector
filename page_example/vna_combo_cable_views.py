@@ -17,6 +17,7 @@ def vna_combo_cable_product(request):
     return render(request, 'page_example/product_vna_combo_cable.html', context)
 
 
+@login_required
 def admin_add_vna_combo_cable(request):
     """
 
@@ -35,6 +36,7 @@ def admin_add_vna_combo_cable(request):
         return JsonResponse(vna_combo_cable_form.errors)
 
 
+@login_required
 def admin_filter_vna_combo_cable(request):
     """
     :param request:
@@ -78,6 +80,7 @@ def admin_filter_vna_combo_cable(request):
         return render_to_response("admin_pages/vna_combo_cable_pages/vna_combo_cable_table.html")
 
 
+@login_required
 def admin_load_vna_combo_cable_mod_form(request):
     """
 
@@ -99,6 +102,7 @@ def admin_load_vna_combo_cable_mod_form(request):
     return HttpResponse(-1)
 
 
+@login_required
 def admin_modify_vna_combo_cable(request):
     """
 
@@ -116,6 +120,7 @@ def admin_modify_vna_combo_cable(request):
         return HttpResponse(-1)
 
 
+@login_required
 @csrf_exempt
 def admin_delete_vna_combo_cable(request):
     """
@@ -136,7 +141,7 @@ def admin_delete_vna_combo_cable(request):
     return HttpResponse(-1)
 
 
-@login_required(login_url="page_example/admin_login")
+@login_required
 def admin_vna_combo_cable_product(request):
 
     polar = Polar.objects.all()

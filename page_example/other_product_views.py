@@ -8,6 +8,7 @@ from front_display.settings import RESULT_NUM_PER_PAGE
 from django.views.decorators.csrf import csrf_exempt
 
 
+@login_required
 def admin_add_other_product(request):
     """
 
@@ -26,6 +27,7 @@ def admin_add_other_product(request):
         return JsonResponse(other_product_form.errors)
 
 
+@login_required
 def admin_filter_other_product(request):
     """
     :param request:
@@ -59,6 +61,7 @@ def admin_filter_other_product(request):
         return render_to_response("admin_pages/other_product_pages/other_product_table.html")
 
 
+@login_required
 def admin_load_other_product_mod_form(request):
     """
 
@@ -80,6 +83,7 @@ def admin_load_other_product_mod_form(request):
     return HttpResponse(-1)
 
 
+@login_required
 def admin_modify_other_product(request):
     """
 
@@ -97,6 +101,7 @@ def admin_modify_other_product(request):
         return HttpResponse(-1)
 
 
+@login_required
 @csrf_exempt
 def admin_delete_other_product(request):
     """
@@ -117,7 +122,7 @@ def admin_delete_other_product(request):
     return HttpResponse(-1)
 
 
-@login_required(login_url="page_example/admin_login")
+@login_required
 def admin_other_product_product(request):
 
     category = OtherProductType.objects.all()

@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response, render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from models import ConnectorCable, Cable
 from front_display.settings import RESULT_NUM_PER_PAGE
-import math
+from django.contrib.auth.decorators import login_required
 
 
 def normal_combo_cable_product(request):
@@ -13,12 +13,14 @@ def normal_combo_cable_product(request):
 
     return render(request, 'page_example/product_normal_combo_cable.html', locals())
 
+
 def order_witc(witc1, witc2):
     if cmp(witc1, witc2) > 0:
         return witc1, witc2
     return witc2, witc1
 
 
+@login_required
 def admin_filter_normal_combo_cable(request):
     # try:
 

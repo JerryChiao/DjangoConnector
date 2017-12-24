@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.utils.translation import ugettext as _
+from log.connector_logging import log
 
 from models import *
 
@@ -13,6 +14,7 @@ from models import *
 def test(request):
 
     return render(request, 'page_example/test_page.html')
+
 
 def index(request):
     """
@@ -35,7 +37,12 @@ def cable_combo_product_gb(request):
 
 
 def admin_login(request):
+    next_url = request.POST.get('next')
+    if next_url:
+        return HttpResponseRedirect(next_url)
+
     return render(request, 'page_example/admin_login.html')
+
 
 def notify_test(request):
     print "get notification"
@@ -43,47 +50,50 @@ def notify_test(request):
             "aa": 'bb'}
     return JsonResponse(json)
 
-@login_required(login_url="page_example/admin_login")
+
+@login_required
 def admin_home(request):
     return render(request, 'admin_pages/new_home.html', {'user': request.user})
 
 
-@login_required(login_url="page_example/admin_login")
+@login_required
 def admin_cable_product(request):
     return render(request, 'admin_pages/product_cable.html')
 
 
-@login_required(login_url="page_example/admin_login")
+@login_required
 def admin_cable_combo_product_vna(request):
     return render(request, 'admin_pages/product_cable_combo_vna.html')
 
 
-@login_required(login_url="page_example/admin_login")
+@login_required
 def admin_cable_combo_product_normal(request):
     return render(request, 'admin_pages/product_cable_combo_normal.html')
 
 
-@login_required(login_url="page_example/admin_login")
+@login_required
 def admin_cable_combo_product_gb(request):
     return render(request, 'admin_pages/product_cable_combo_bg.html')
 
 
-@login_required(login_url="page_example/admin_login")
+@login_required
 def admin_instrument_product(request):
     return render(request, 'admin_pages/product_instrument.html')
 
 
-@login_required(login_url="page_example/admin_login")
+@login_required
 def admin_tool_product(request):
     return render(request, 'admin_pages/product_tool.html')
 
 
+@login_required
 def admin_others_install_type(request):
     install_type_res = InstallType.objects.all()
     content = {'install_types': install_type_res}
     return render(request, 'admin_pages/product_others_install_type.html', content)
 
 
+@login_required
 def admin_add_install_type(request):
     install_type = request.POST['content']
     install_code = request.POST['code']
@@ -95,6 +105,7 @@ def admin_add_install_type(request):
         return HttpResponse('1')
 
 
+@login_required
 def admin_modify_install_type(request):
     old_type = request.POST['old_content']
     old_code = request.POST['old_code']
@@ -112,6 +123,7 @@ def admin_modify_install_type(request):
         return HttpResponse('-1')
 
 
+@login_required
 def admin_delete_install_type(request):
 
     install_type = request.POST['content']
@@ -125,12 +137,14 @@ def admin_delete_install_type(request):
         return HttpResponse('-1')
 
 
+@login_required
 def admin_others_outlook(request):
     out_look_res = OutLook.objects.all()
     content = {'out_look': out_look_res}
     return render(request, 'admin_pages/product_others_outlook.html', content)
 
 
+@login_required
 def admin_add_outlook(request):
 
     outlook_type = request.POST['content']
@@ -143,6 +157,7 @@ def admin_add_outlook(request):
         return HttpResponse('1')
 
 
+@login_required
 def admin_modify_outlook(request):
 
     old_type = request.POST['old_content']
@@ -160,6 +175,7 @@ def admin_modify_outlook(request):
         return HttpResponse('-1')
 
 
+@login_required
 def admin_delete_outlook(request):
 
     outlook_type = request.POST['content']
@@ -173,12 +189,14 @@ def admin_delete_outlook(request):
         return HttpResponse('-1')
 
 
+@login_required
 def admin_others_category(request):
     category_res = Category.objects.all()
     content = {'category': category_res}
     return render(request, 'admin_pages/product_others_category.html', content)
 
 
+@login_required
 def admin_add_category(request):
 
     outlook_type = request.POST['content']
@@ -191,6 +209,7 @@ def admin_add_category(request):
         return HttpResponse('1')
 
 
+@login_required
 def admin_modify_category(request):
 
     old_type = request.POST['old_content']
@@ -208,6 +227,7 @@ def admin_modify_category(request):
         return HttpResponse('-1')
 
 
+@login_required
 def admin_delete_category(request):
 
     outlook_type = request.POST['content']
@@ -221,12 +241,14 @@ def admin_delete_category(request):
         return HttpResponse('-1')
 
 
+@login_required
 def admin_others_combo_type(request):
     install_type_res = CombineType.objects.all()
     content = {'combo_types': install_type_res}
     return render(request, 'admin_pages/product_others_combo_type.html', content)
 
 
+@login_required
 def admin_add_combo_type(request):
     install_type = request.POST['content']
     install_code = request.POST['code']
@@ -239,6 +261,7 @@ def admin_add_combo_type(request):
         return HttpResponse('1')
 
 
+@login_required
 def admin_modify_combo_type(request):
     old_type = request.POST['old_content']
     old_code = request.POST['old_code']
@@ -256,6 +279,7 @@ def admin_modify_combo_type(request):
         return HttpResponse('-1')
 
 
+@login_required
 def admin_delete_combo_type(request):
 
     install_type = request.POST['content']

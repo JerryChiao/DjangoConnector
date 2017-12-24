@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.utils.translation import ugettext as _
+from log.connector_logging import log
 
 def user_login(request):
     """
@@ -11,11 +11,11 @@ def user_login(request):
     """
     user_name = request.POST['username']
     passwd = request.POST['password']
-    print user_name, passwd
     user = authenticate(username=user_name, password=passwd)
     if user is not None:
         if user.is_active:
             login(request, user)
+            log.info("user " + user_name + "login")
             return HttpResponse('1')
         else:
             return HttpResponse('0')
@@ -30,8 +30,9 @@ def user_logout(request):
     :param request:
     :return:
     """
+    log.info("user " + request.user.username + " logout")
     logout(request)
-    print "logout"
+
     # redirect to another page
     return render(request, 'page_example/admin_login.html')
 

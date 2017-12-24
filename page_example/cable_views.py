@@ -5,8 +5,10 @@ from django.shortcuts import render_to_response, render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from front_display.settings import RESULT_NUM_PER_PAGE
 from django.views.decorators.csrf import csrf_exempt
+from log.connector_logging import log
 
 
+@login_required
 def admin_add_cable(request):
     """
 
@@ -20,18 +22,18 @@ def admin_add_cable(request):
 
         return render_to_response("admin_pages/cable_pages/cable_recent_table.html", locals())
     else:
-        print cable_form.errors
+        log.error("error happened in add cable")
 
         return JsonResponse(cable_form.errors)
 
 
+@login_required
 def admin_filter_cable(request):
     """
     :param request:
     :return:
     """
     cable_res = Cable.objects.all()
-    print request.POST
 
     try:
         if request.POST['category_type']:
@@ -55,9 +57,11 @@ def admin_filter_cable(request):
         return render_to_response("admin_pages/cable_pages/cable_table.html", locals())
 
     except Exception,e:
+        log.error(str(e))
         return render_to_response("admin_pages/cable_pages/cable_table.html")
 
 
+@login_required
 def admin_load_cable_mod_form(request):
     """
 
@@ -73,12 +77,13 @@ def admin_load_cable_mod_form(request):
             return render_to_response("admin_pages/cable_pages/cable_form_tbl.html", locals())
 
         except Exception, e:
-            print str(e)
+            log.error(str(e))
             return HttpResponse(-1)
 
     return HttpResponse(-1)
 
 
+@login_required
 def admin_modify_cable(request):
     """
 
@@ -96,6 +101,7 @@ def admin_modify_cable(request):
         return HttpResponse(-1)
 
 
+@login_required
 @csrf_exempt
 def admin_delete_cable(request):
     """
@@ -112,12 +118,12 @@ def admin_delete_cable(request):
             return render_to_response("admin_pages/cable_pages/cable_table.html", locals())
 
         except Exception, e:
+            log.error(str(e))
             return HttpResponse(-1)
     return HttpResponse(-1)
 
 
-
-@login_required(login_url="page_example/admin_login")
+@login_required
 def admin_cable_product(request):
 
     category = CableCategory.objects.all()

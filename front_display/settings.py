@@ -141,5 +141,7 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = '.'
 MEDIA_URL = '/media/'
 
+LOGIN_URL = 'admin_login'
+
 RESULT_NUM_PER_PAGE = 5
 

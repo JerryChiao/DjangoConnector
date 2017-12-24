@@ -5,8 +5,7 @@ from django.shortcuts import render_to_response, render
 from django.views.decorators.csrf import csrf_exempt
 
 
-
-@login_required(login_url="page_example/admin_login")
+@login_required
 def admin_frequency_standing_wave(request):
 
     category = Category.objects.all()
@@ -15,6 +14,7 @@ def admin_frequency_standing_wave(request):
     return render(request, 'admin_pages/product_others_frequency_standing_wave.html', locals())
 
 
+@login_required
 def admin_filter_frequency_standing_wave(request):
 
     request_form = request.POST
@@ -54,6 +54,7 @@ def admin_filter_frequency_standing_wave(request):
     return render(request, 'admin_pages/frequency_standing_wave_pages/frequency_standing_wave_table.html', locals())
 
 
+@login_required
 @csrf_exempt
 def admin_insert_frequency_standing_wave(request):
     """
