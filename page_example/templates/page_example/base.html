@@ -25,7 +25,12 @@
 <![endif]-->
 <style type="text/css">
 .ui-sortable .panel-header{ cursor:move}
+{#.newbg#}
+{#{#}
+{#        color:rgb(0,169,157);#}
+{#}#}
 </style>
+
 {% block page-title %}
 <title>{% trans 'Welcome to Website' %} LANGUAGE_CODE </title>
 <meta name="keywords" content="关键词,5个左右,单个8汉字以内">
@@ -36,18 +41,33 @@
 <body ontouchstart>
 <div class="containBox">
 	<header class="navbar-wrapper">
-		<div class="navbar navbar-black navbar-fixed-top">
-			<div class="container cl">
-				<a class="logo navbar-logo hidden-xs" href="#">{% trans '北京创维时通科技' %}</a>
-				<a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs JS-nav-toggle" href="javascript:;">&#xe667;</a>
+<div class="navbar navbar-black" style="background-color: rgb(0, 169,157); margin-left: auto" >
+			<div class="container cl " style="padding-left: 300px; padding-right: 300px" >
+{#				<a class="logo navbar-logo hidden-xs newbg" href="#">{% trans '北京创维时通科技' %}</a>#}
+				<a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs JS-nav-toggle" href=、"javascript:;">&#xe667;</a>
+                 <div style="margin-left: auto">
 				<nav class="nav navbar-nav nav-collapse" role="navigation" id="Hui-navbar">
-					<ul class="cl">
+
+					<ul class="cl"  >
 						<li id="nav-homepage">
 							<a href="{% url 'index' %}" target="_blank">{% trans '首页' %}</a>
 						</li>
-						<li id="nav-companty-introduction">
-							<a href="{% url 'index' %}" target="_blank">{% trans '公司简介' %}</a>
+                        <li id="nav-product-center">
+							<a href="{% url 'connector' %}" target="_blank">{% trans '产品中心' %}</a>
 						</li>
+						<li id="nav-companty-introduction">
+							<a href="{% url 'index' %}" target="_blank">{% trans '公司信息' %}</a>
+						</li>
+                        <li id="nav-companty-news">
+							<a href="{% url 'index' %}" target="_blank">{% trans '公司动态' %}</a>
+						</li>
+                        <li id="nav-companty-hr">
+							<a href="{% url 'index' %}" target="_blank">{% trans '招聘信息' %}</a>
+						</li>
+                        <li id="nav-companty-inv">
+							<a href="{% url 'index' %}" target="_blank">{% trans '投资合作' %}</a>
+						</li>
+
 						<li id="nav-product" class="dropDown dropDown_hover">
 							<a href="javascript:;" class="dropDown_A">{% trans '产品分类' %} <i class="Hui-iconfont">&#xe6d5;</i></a>
 							<ul class="dropDown-menu menu radius box-shadow">
@@ -86,10 +106,13 @@
 {#							<a href="{% url 'admin_login' %}" target="_blank">{% trans '管理员登录' %}</a>#}
 {#						</li>						#}
 					</ul>
+
 				</nav>
+</div>
 			</div>
 		</div>
 	</header>
+
 	<div class="wap-container">
 	{% block display-content %}
 	

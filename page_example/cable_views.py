@@ -133,7 +133,6 @@ def admin_cable_product(request):
     return render(request, 'admin_pages/product_cable.html', locals())
 
 
-
 def cable_product(request):
 
     category = CableCategory.objects.all()

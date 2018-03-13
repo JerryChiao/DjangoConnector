@@ -93,7 +93,10 @@ def admin_filter_normal_combo_cable(request):
         read_only = request.POST['readonly']
 
     if read_only:
-        return render_to_response('admin_pages/normal_combo_cable_pages/normal_combo_cable_table_readonly.html', locals())
+        if normal_combo_cable_res:
+            return render_to_response('admin_pages/normal_combo_cable_pages/normal_combo_cable_table_readonly.html', locals())
+        else:
+            return render_to_response('admin_pages/normal_combo_cable_pages/normal_combo_cable_table_readonly_empty.html', locals())
 
     return render_to_response("admin_pages/normal_combo_cable_pages/normal_combo_cable_table_readonly.html", locals())
 

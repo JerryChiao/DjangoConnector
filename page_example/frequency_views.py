@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from models import FrequencyPoint
+from models import FrequencyPoint, Polar, Category, FrequencyStandingWave
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render_to_response, render
 from django.views.decorators.csrf import csrf_exempt

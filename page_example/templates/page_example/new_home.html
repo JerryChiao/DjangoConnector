@@ -1,9 +1,314 @@
-{% extends "page_example/product_base.html" %}
-{% load staticfiles %}
-{% block private-script %}
+<!DOCTYPE HTML>
+{% load static %}
+{% load i18n %}
+
+<html>
+{% get_current_language as LANGUAGE_CODE %}
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="{% static 'lib/html5shiv.js' %}"></script>
+<script type="text/javascript" src="{% static 'lib/respond.min.js' %}"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="{% static 'static/h-ui/css/H-ui.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'lib/Hui-iconfont/1.0.8/iconfont.min.css' %}" />
+<!--[if lt IE 9]>
+<link href="{% static '/h-ui/css/H-ui.ie.css' %}" rel="stylesheet" type="text/css" />
+<![endif]-->
+<!--[if IE 6]>
+<script type="text/javascript" src="{% static 'lib/DD_belatedPNG_0.0.8a-min.js' %}" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<style type="text/css">
+.ui-sortable .panel-header{ cursor:move}
+{#.newbg#}
+{#{#}
+{#        color:rgb(0,169,157);#}
+{#}#}
+</style>
+
+{% block page-title %}
+<title>{% trans 'Welcome to Website' %} LANGUAGE_CODE </title>
+<meta name="keywords" content="关键词,5个左右,单个8汉字以内">
+<meta name="description" content="网站描述，字数尽量空制在80个汉字，160个字符以内！">
+{% endblock %}
+
+</head>
+
+<body ontouchstart>
+<div class="containBox">
+	<header class="navbar-wrapper">
+        <div class="navbar navbar-black" style="background-color: rgb(0, 169,157)" >
+			<div class="container cl " style="margin-left: auto">
+				<a class="logo navbar-logo hidden-xs newbg" href="#">{% trans '北京创维时通科技' %}</a>
+				<a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs JS-nav-toggle" href="javascript:;">&#xe667;</a>
+			</div>
+		</div>
+	</header>
+<div id="slider-3" style="">
+                <div class="slider">
+                    <div class="bd">
+                        <ul>
+                            <li><a href="" target="_blank"><img
+                                    src="{% static 'temp/16.png' %}"></a></li>
+                            <li><a href="" target="_blank"><img
+                                    src="{% static 'temp/17.png' %}"></a></li>
+                            <li><a href="" target="_blank"><img
+                                    src="{% static 'temp/16.png' %}"></a></li>
+                        </ul>
+                    </div>
+                    <ol class="hd cl dots">
+                        <li>1</li>
+                        <li>2</li>
+                        <li>3</li>
+                    </ol>
+                </div>
+            </div>
+<div class="navbar navbar-black" style="background-color: rgb(0, 169,157); margin-left: auto" >
+			<div class="container cl " style="padding-left: 300px; padding-right: 300px" >
+				<a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs JS-nav-toggle" href=、"javascript:;">&#xe667;</a>
+                 <div style="margin-left: auto">
+				<nav class="nav navbar-nav nav-collapse" role="navigation" id="Hui-navbar">
+
+					<ul class="cl"  >
+						<li id="nav-homepage">
+{#							<a href="{% url 'index' %}" target="_blank">{% trans '首页' %}</a>#}
+						</li>
+                        <li id="nav-product-center">
+							<a href="{% url 'connector' %}" target="_blank">{% trans '产品中心' %}</a>
+						</li>
+						<li id="nav-companty-introduction">
+							<a href="{% url 'index' %}" target="_blank">{% trans '公司信息' %}</a>
+						</li>
+                        <li id="nav-companty-news">
+							<a href="{% url 'index' %}" target="_blank">{% trans '公司动态' %}</a>
+						</li>
+                        <li id="nav-companty-hr">
+							<a href="{% url 'index' %}" target="_blank">{% trans '招聘信息' %}</a>
+						</li>
+                        <li id="nav-companty-inv">
+							<a href="{% url 'index' %}" target="_blank">{% trans '投资合作' %}</a>
+						</li>
+
+						<li id="nav-product" class="dropDown dropDown_hover">
+							<a href="javascript:;" class="dropDown_A">{% trans '产品分类' %} <i class="Hui-iconfont">&#xe6d5;</i></a>
+							<ul class="dropDown-menu menu radius box-shadow">
+								<li>
+									<a href="{% url 'connector' %}" target="_blank">{% trans '连接器' %}</a>
+								</li>
+								<li>
+									<a href="{% url 'converter' %}" target="_blank">{% trans '转接器' %}</a>
+								</li>
+								<li>
+									<a href="{% url 'cable' %}" target="_blank">{% trans '电缆' %}</a>
+								</li>
+								<li>
+									<a href="javascript:;" target="_blank">{% trans '电缆组件' %}<i class="arrow Hui-iconfont">&#xe6d7;</i></a>
+									<ul class="menu">
+										<li>
+											<a href="{% url 'cable_combo_vna' %}" target="_blank">{% trans 'VNA电缆测试组件' %}</a>
+										</li>
+										<li>
+											<a href="{% url 'cable_combo_normal' %}" target="_blank">{% trans '定制电缆组件' %}</a>
+										</li>
+										<li>
+											<a href="{% url 'cable_combo_bg' %}" target="_blank">{% trans '定制成型半钢电缆组件' %}</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a href="{% url 'instrument' %}" target="_blank">{% trans '器件' %}</a>
+								</li>
+								<li>
+									<a href="{% url 'tool' %}" target="_blank">{% trans '工具设备' %}</a>
+								</li>
+							</ul>
+						</li>
+{#						<li id="nav-admin-login">#}
+{#							<a href="{% url 'admin_login' %}" target="_blank">{% trans '管理员登录' %}</a>#}
+{#						</li>						#}
+					</ul>
+
+				</nav>
+</div>
+			</div>
+		</div>
+<br>
+    <div class="wap-container">
+        <div style="width: 75%" class="container ui-sortable">
+ <div class="panel panel-default" style="width: 100%;" >
+
+     <div class="panel-header">最新发布<a href="{% url 'index' %}" target="_blank"> <small style="font-weight: normal">更多>></small></a>
+      </div>
+     <div class="panel-body">
+         product
+     </div>
+          <br>
+      <div class="panel-header">公司展会</a>
+      </div>
+     <div class="panel-body">
+         product
+     </div>
+         <br>
+      <div class="panel-header">招聘信息></a>
+      </div>
+     <div class="panel-body">
+         product
+     </div>
+
+ </div>
+ </div>
+
+	</div>
+		<footer class="footer mt-20 f-l">
+			<div class="container">
+				<nav class="footer-nav">
+					<a target="_blank" href="#">{% trans '关于公司' %}</a>
+					<span class="pipe">|</span>
+					<a target="_blank" href="#">{% trans '软件著作权' %}</a>
+					<span class="pipe">|</span>
+				</nav>
+			</div>
+		</footer>
+</div>
+
+<!--普通弹出层-->
+<script type="text/javascript" src="{% static 'lib/jquery/1.9.1/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'lib/jquery-ui/1.9.1/jquery-ui.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'static/h-ui/js/H-ui.js' %}"></script>
+<script type="text/javascript" src="{% static 'lib/jquery.SuperSlide/2.1.1/jquery.SuperSlide.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'lib/jquery.validation/1.14.0/jquery.validate.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'lib/jquery.validation/1.14.0/validate-methods.js' %}"></script>
+<script type="text/javascript" src="{% static 'lib/jquery.validation/1.14.0/messages_zh.min.js' %}"></script>
+
 <script>
 $(function(){
 	$('#nav-homepage').addClass("current");
 });
+$(function(){
+	$(".input-text,.textarea").Huifocusblur();
+
+	//幻灯片
+	jQuery("#slider-3 .slider").slide({mainCell:".bd ul",titCell:".hd li",trigger:"click",effect:"leftLoop",autoPlay:true,delayTime:700,interTime:3000,pnLoop:false,titOnClassName:"active"});
+
+	$(".panel").Huifold({
+		titCell:'.panel-header',
+		mainCell:'.panel-body',
+		type:1,
+		trigger:'click',
+		className:"selected",
+		speed:"first",
+	});
+
+	//邮箱提示
+	$("#email").emailsuggest();
+
+	//checkbox 美化
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+
+	$(".textarea").Huitextarealength({
+		minlength:10,
+		maxlength:200.
+	});
+
+	$("#demoform").validate({
+		rules:{
+			email:{
+				required:true,
+				email:true,
+			},
+			username:{
+				required:true,
+				minlength:4,
+				maxlength:16
+			},
+			telephone:{
+				required:true,
+				isMobile:true,
+			},
+			password:{
+				required:true,
+				isPwd:true,
+			},
+			password2:{
+				required:true,
+				equalTo: "#password"
+			},
+			sex:{
+				required:true,
+			},
+			datetimepicker:{
+				required:true,
+			},
+			checkbox2:{
+				required:true,
+			},
+			city:{
+				required:true,
+			},
+			website:{
+				required:true,
+				url:true,
+			},
+			beizhu:{
+				maxlength:500,
+			}
+		},
+		onkeyup:false,
+		focusCleanup:true,
+		success:"valid",
+		submitHandler:function(form){
+			$("#modal-shenqing-success").modal("show");
+			$(form).ajaxSubmit();
+		}
+	});
+
+	//返回顶部
+	$.Huitotop();
+
+	$('.Huifold').Huifold({titCell:'.item h4',
+			mainCell:'.item .info',
+			type:1,
+			trigger:'click',
+			className:"selected",
+			speed:"first"});
+	//hover效果
+	$('.maskWraper').Huihover();
+
+	$( ".ui-sortable" ).sortable({
+		//connectWith: ".panel",
+		items:".panel",
+		handle: ".panel-header",
+		//delay: 300, //时间延迟
+		//distance: 15, //距离延迟
+		placeholder: "ui-state-highlight", //占位符样式
+		update: function(event, ui){
+
+		}
+	});
+
+ 	var _bodyHeight = $(window).height();
+	var _doch = $(document).height();
+	$(".containBox").height(_bodyHeight);
+
+	/*左右滑动菜单*/
+    $(".JS-nav-toggle").click(function() {
+		$("body").addClass('sideBox-open');
+        $(".containBox-bg").height(_bodyHeight).show();
+    });
+    $(".containBox-bg").click(function() {
+		$(this).hide();
+		$("body").removeClass('sideBox-open');
+    });
+});
 </script>
-{% endblock %}
+</body>
+</html>

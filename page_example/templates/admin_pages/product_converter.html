@@ -29,7 +29,7 @@
 
                 <div class="panel panel-default">
                     <div class="panel-header">添加结果</div>
-                    <div id='result' class="panel-body">
+                    <div id='result_display' class="panel-body">
                     </div>
                 </div>
 
@@ -220,7 +220,7 @@
                 contentType: false,
                 processData: false,
                 success: function(data) {
-                    if(data == -1 ){
+                    if(data == -1 ) {
                         alert("该记录已经存在");
                     }
                     $('#converter_form_reset').trigger("click");
