@@ -15,19 +15,20 @@
                {% include 'admin_pages/connector_pages/connector_cable_filter_form.html'%}
 
                 <div class="panel panel-default">
-                    <div class="panel-header" id="connector_cable_filter_results">产品列表</div>
+                    <div class="panel-header" >产品列表</div>
+                    <div id="connector_cable_filter_results"></div>
                 </div>
 
             </div>
             <div class="tabCon">
                 {% include 'admin_pages/connector_pages/connector_pcb_filter_form.html' %}
                 <div class="panel panel-default">
-                    <div id='filter_pcb_results' class="panel-header" >产品列表</div>
+                    <div class="panel-header" >产品列表</div>
+                    <div id='filter_pcb_results' ></div>
                 </div>
             </div>
-
         </div>
-        </div>
+</div>
 {% endblock %}
 
 {% block private-script %}
@@ -54,7 +55,7 @@ $(document).ready(function(){
 
             $.ajax({
                 type:"POST",
-                url: "{% url 'admin_filter_connector_pcb' %}",
+                url: "{% url 'load_filter_connector_pcb' %}",
                 data: formData,
                 cache:false,
                 contentType: false,
@@ -89,7 +90,7 @@ $(document).ready(function(){
 
             $.ajax({
                 type:"POST",
-                url: "{% url 'admin_filter_connector_cable' %}",
+                url: "{% url 'load_filter_connector_cable' %}",
                 data: formData,
                 cache:false,
                 contentType: false,

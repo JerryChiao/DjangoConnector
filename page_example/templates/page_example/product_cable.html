@@ -42,7 +42,7 @@ function filter_cable_with_page(page){
 
     $.ajax({
         type:"POST",
-        url: "{% url 'admin_filter_cable' %}",
+        url: "{% url 'load_filter_cable' %}",
         data: formData,
         cache:false,
         contentType: false,

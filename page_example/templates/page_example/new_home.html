@@ -16,6 +16,9 @@
 <![endif]-->
 <link rel="stylesheet" type="text/css" href="{% static 'static/h-ui/css/H-ui.min.css' %}" />
 <link rel="stylesheet" type="text/css" href="{% static 'lib/Hui-iconfont/1.0.8/iconfont.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'qqcss/iconfont.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'qqcss/waiter.css' %}">
+
 <!--[if lt IE 9]>
 <link href="{% static '/h-ui/css/H-ui.ie.css' %}" rel="stylesheet" type="text/css" />
 <![endif]-->
@@ -23,11 +26,13 @@
 <script type="text/javascript" src="{% static 'lib/DD_belatedPNG_0.0.8a-min.js' %}" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
+<link rel="shotcut icon" href="{%  static 'temp/logo.jpg' %}">
 <style type="text/css">
 .ui-sortable .panel-header{ cursor:move}
 {#.newbg#}
 {#{#}
-{#        color:rgb(0,169,157);#}
+{#      00a99d  color:rgb(0,169,157);#}
+
 {#}#}
 </style>
 
@@ -42,10 +47,35 @@
 <body ontouchstart>
 <div class="containBox">
 	<header class="navbar-wrapper">
-        <div class="navbar navbar-black" style="background-color: rgb(0, 169,157)" >
-			<div class="container cl " style="margin-left: auto">
-				<a class="logo navbar-logo hidden-xs newbg" href="#">{% trans '北京创维时通科技' %}</a>
-				<a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs JS-nav-toggle" href="javascript:;">&#xe667;</a>
+        <div class="navbar navbar-black navbar-fixed-top" style="background-color: rgb(255, 255,255)" >
+			<div class="container cl ">
+                <nav class="nav navbar-nav nav-collapse" role="navigation">
+                    <ul class="cl">
+                        <li>
+                            <img class="logo hidden-xs " href="#" src="{% static 'temp/logo.jpg' %}">
+                        </li>
+                        <li>
+                            <p class="logo navbar-logo hidden-xs newbg "> & nbsp& nbsp  & nbsp& nbsp& nbsp </p>
+                        </li>
+
+                        <li>
+                            <p class="logo navbar-logo hidden-xs newbg" href="#" style="color: rgb(0,169,157)">
+                                服务电话+86-10-86466523
+                            </p>
+                        </li>
+                        <li>
+                            <p class="logo navbar-logo hidden-xs newbg "> & nbsp& nbsp  & nbsp& nbsp& nbsp </p>
+                        </li>
+                        <li>
+                            <p class="logo navbar-logo hidden-xs newbg " style="color: rgb(0,169,157)" href="#"> English</p>
+                        </li>
+
+
+                    </ul>
+
+                </nav>
+
+                <a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs JS-nav-toggle" href="javascript:;">&#xe667;</a>
 			</div>
 		</div>
 	</header>
@@ -54,11 +84,11 @@
                     <div class="bd">
                         <ul>
                             <li><a href="" target="_blank"><img
-                                    src="{% static 'temp/16.png' %}"></a></li>
+                                    src="{% static 'temp/men-mei-1.jpg' %}"></a></li>
                             <li><a href="" target="_blank"><img
-                                    src="{% static 'temp/17.png' %}"></a></li>
+                                    src="{% static 'temp/men-mei-2.jpg' %}"></a></li>
                             <li><a href="" target="_blank"><img
-                                    src="{% static 'temp/16.png' %}"></a></li>
+                                    src="{% static 'temp/men-mei-3.jpg' %}"></a></li>
                         </ul>
                     </div>
                     <ol class="hd cl dots">
@@ -68,7 +98,7 @@
                     </ol>
                 </div>
             </div>
-<div class="navbar navbar-black" style="background-color: rgb(0, 169,157); margin-left: auto" >
+<div class="navbar navbar-black" style="background-color: rgb(0, 169,157); margin-left: auto; z-index: 100" >
 			<div class="container cl " style="padding-left: 300px; padding-right: 300px" >
 				<a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs JS-nav-toggle" href=、"javascript:;">&#xe667;</a>
                  <div style="margin-left: auto">
@@ -76,61 +106,25 @@
 
 					<ul class="cl"  >
 						<li id="nav-homepage">
-{#							<a href="{% url 'index' %}" target="_blank">{% trans '首页' %}</a>#}
 						</li>
+                        <li>
+
+                        </li>
                         <li id="nav-product-center">
 							<a href="{% url 'connector' %}" target="_blank">{% trans '产品中心' %}</a>
 						</li>
 						<li id="nav-companty-introduction">
-							<a href="{% url 'index' %}" target="_blank">{% trans '公司信息' %}</a>
+							<a href="{% url 'index' %}" >{% trans '公司信息' %}</a>
 						</li>
                         <li id="nav-companty-news">
-							<a href="{% url 'index' %}" target="_blank">{% trans '公司动态' %}</a>
+							<a href="{% url 'index' %}" >{% trans '公司动态' %}</a>
 						</li>
                         <li id="nav-companty-hr">
-							<a href="{% url 'index' %}" target="_blank">{% trans '招聘信息' %}</a>
+							<a href="{% url 'index' %}" >{% trans '招聘信息' %}</a>
 						</li>
                         <li id="nav-companty-inv">
-							<a href="{% url 'index' %}" target="_blank">{% trans '投资合作' %}</a>
+							<a href="{% url 'index' %}" >{% trans '投资合作' %}</a>
 						</li>
-
-						<li id="nav-product" class="dropDown dropDown_hover">
-							<a href="javascript:;" class="dropDown_A">{% trans '产品分类' %} <i class="Hui-iconfont">&#xe6d5;</i></a>
-							<ul class="dropDown-menu menu radius box-shadow">
-								<li>
-									<a href="{% url 'connector' %}" target="_blank">{% trans '连接器' %}</a>
-								</li>
-								<li>
-									<a href="{% url 'converter' %}" target="_blank">{% trans '转接器' %}</a>
-								</li>
-								<li>
-									<a href="{% url 'cable' %}" target="_blank">{% trans '电缆' %}</a>
-								</li>
-								<li>
-									<a href="javascript:;" target="_blank">{% trans '电缆组件' %}<i class="arrow Hui-iconfont">&#xe6d7;</i></a>
-									<ul class="menu">
-										<li>
-											<a href="{% url 'cable_combo_vna' %}" target="_blank">{% trans 'VNA电缆测试组件' %}</a>
-										</li>
-										<li>
-											<a href="{% url 'cable_combo_normal' %}" target="_blank">{% trans '定制电缆组件' %}</a>
-										</li>
-										<li>
-											<a href="{% url 'cable_combo_bg' %}" target="_blank">{% trans '定制成型半钢电缆组件' %}</a>
-										</li>
-									</ul>
-								</li>
-								<li>
-									<a href="{% url 'instrument' %}" target="_blank">{% trans '器件' %}</a>
-								</li>
-								<li>
-									<a href="{% url 'tool' %}" target="_blank">{% trans '工具设备' %}</a>
-								</li>
-							</ul>
-						</li>
-{#						<li id="nav-admin-login">#}
-{#							<a href="{% url 'admin_login' %}" target="_blank">{% trans '管理员登录' %}</a>#}
-{#						</li>						#}
 					</ul>
 
 				</nav>
@@ -142,10 +136,10 @@
         <div style="width: 75%" class="container ui-sortable">
  <div class="panel panel-default" style="width: 100%;" >
 
-     <div class="panel-header">最新发布<a href="{% url 'index' %}" target="_blank"> <small style="font-weight: normal">更多>></small></a>
+     <div class="panel-header">最新发布<a href="{% url 'connector' %}" target="_blank"> <small style="font-weight: normal">更多>></small></a>
       </div>
      <div class="panel-body">
-         product
+         <div id="recent_product"></div>
      </div>
           <br>
       <div class="panel-header">公司展会</a>
@@ -161,9 +155,21 @@
      </div>
 
  </div>
+
  </div>
 
 	</div>
+    	<div class="wuyou-waiter">
+		<ul class="waiter-ul">
+			<li class="wuyou-contact">
+				<a class="iconfont icon-QQ" href="http://wpa.qq.com/msgrd?v=3&uin=3780000515&site=qq&menu=yes" target="_black" ></a>
+				<div class="waiter-title">联系我们</div>
+			</li>
+
+		</ul>
+	</div>
+
+
 		<footer class="footer mt-20 f-l">
 			<div class="container">
 				<nav class="footer-nav">
@@ -185,10 +191,13 @@
 <script type="text/javascript" src="{% static 'lib/jquery.validation/1.14.0/validate-methods.js' %}"></script>
 <script type="text/javascript" src="{% static 'lib/jquery.validation/1.14.0/messages_zh.min.js' %}"></script>
 
+
 <script>
-$(function(){
-	$('#nav-homepage').addClass("current");
+$(document).ready(function(){
+    load_recent_product();
+	$('#nav-product').addClass("current")
 });
+
 $(function(){
 	$(".input-text,.textarea").Huifocusblur();
 
@@ -309,6 +318,34 @@ $(function(){
 		$("body").removeClass('sideBox-open');
     });
 });
+
+    function load_recent_product() {
+
+        $.ajaxSetup({
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+        });
+
+        $.ajax({
+            type:"POST",
+            url: "{% url 'load_recent_product' %}",
+            data: {},
+            cache:false,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                if(data == -1 ){
+                    alert("该记录已经存在");
+                    return;
+                }
+                $('#recent_product').html(data);
+            },
+            error: function() {
+                $('.loginError').html('请求失败，请刷新页面后重试').show();
+            }
+        });
+        return false;
+
+    }
 </script>
 </body>
 </html>

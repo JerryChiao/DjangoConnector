@@ -1,2 +1,5 @@
 [2018-03-07 14:36:25,973] [INFO   ] connectorLoggers admin_user_login.py    18 : user adminlogin
 [2018-03-07 15:09:36,645] [INFO   ] connectorLoggers admin_user_login.py    18 : user adminlogin
+[2018-03-24 08:42:54,466] [INFO   ] connectorLoggers admin_user_login.py    18 : user adminlogin
+[2018-03-24 08:49:34,743] [INFO   ] connectorLoggers admin_user_login.py    33 : user admin logout
+[2018-03-24 08:50:45,708] [INFO   ] connectorLoggers admin_user_login.py    18 : user adminlogin

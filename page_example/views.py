@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.utils.translation import ugettext as _
+from models import ConnectorPcb, Converter, Cable
 from log.connector_logging import log
+from django.views.decorators.csrf import csrf_exempt
 
 from models import *
 
@@ -291,3 +293,15 @@ def admin_delete_combo_type(request):
     except Exception, e:
         print str(e)
         return HttpResponse('-1')
+
+@csrf_exempt
+def load_recent_product(request):
+    try:
+        converter_res = Converter.objects.all().order_by('-time')[0:1]
+        recent_res = Cable.objects.all().order_by('-time')[0:1]
+
+        return render_to_response('page_example/recent_product_table_readonly.html', locals())
+    except Exception, e:
+        print(e)
+        return HttpResponse()
+

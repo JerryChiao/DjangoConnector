@@ -91,6 +91,45 @@ def admin_filter_connector_pcb(request):
         return render_to_response("admin_pages/connector_pages/connector_pcb_table.html")
 
 
+def load_filter_connector_pcb(request):
+    """
+    :param request:
+    :return:
+    """
+    connector_pcb_res = ConnectorPcb.objects.all()
+    print request.POST
+    try:
+        if request.POST['category']:
+            connector_pcb_res = connector_pcb_res.filter(content_type=request.POST['category'])
+
+        if request.POST['polar']:
+            polar = Polar.objects.get(content=request.POST['polar'])
+            connector_pcb_res = connector_pcb_res.filter(polar_type=polar)
+
+        if request.POST['install_type']:
+            install_type = InstallType.objects.get(content=request.POST['install_type'])
+            connector_pcb_res = connector_pcb_res.filter(install_type=install_type)
+
+        if request.POST['outlook']:
+            outlook = OutLook.objects.get(content=request.POST['outlook'])
+            connector_pcb_res = connector_pcb_res.filter(outlook_type=outlook)
+
+        paginator = Paginator(connector_pcb_res, RESULT_NUM_PER_PAGE)
+        page = request.POST.get('page')
+
+        try:
+            connector_pcb_res = paginator.page(page)
+        except PageNotAnInteger:
+            connector_pcb_res = paginator.page(1)
+        except EmptyPage:
+            connector_pcb_res = paginator.page(paginator.num_pages)
+
+        return render_to_response('admin_pages/connector_pages/connector_pcb_table_readonly.html', locals())
+
+    except Exception,e:
+        return render_to_response("admin_pages/connector_pages/connector_pcb_table.html")
+
+
 @login_required
 def admin_filter_connector_cable(request):
     """
@@ -128,10 +167,54 @@ def admin_filter_connector_cable(request):
             connector_cable_res = paginator.page(paginator.num_pages)
 
         read_only = request.POST.get('readonly')
+        print(read_only)
         if read_only:
             return render_to_response('admin_pages/connector_pages/connector_cable_table_readonly.html', locals())
 
         return render_to_response("admin_pages/connector_pages/connector_cable_table.html", locals())
+
+    except Exception,e:
+        print str(e)
+        return render_to_response("admin_pages/connector_pages/connector_cable_table.html")
+
+
+def load_filter_connector_cable(request):
+    """
+    :param request:
+    :return:
+    """
+
+    connector_cable_res = ConnectorCable.objects.all()
+    print request.POST
+    try:
+        if request.POST['category']:
+            connector_cable_res = connector_cable_res.filter(content_type=request.POST['category'])
+
+        if request.POST['polar']:
+            polar = Polar.objects.get(content=request.POST['polar'])
+            connector_cable_res = connector_cable_res.filter(polar_type=polar)
+
+        if request.POST['install_type']:
+            install_type = InstallType.objects.get(content=request.POST['install_type'])
+            connector_cable_res = connector_cable_res.filter(install_type=install_type)
+
+        if request.POST['outlook']:
+            outlook = OutLook.objects.get(content=request.POST['outlook'])
+            connector_cable_res = connector_cable_res.filter(outlook_type=outlook)
+
+        paginator = Paginator(connector_cable_res, RESULT_NUM_PER_PAGE)
+
+        page = request.POST.get('page')
+
+        try:
+            connector_cable_res = paginator.page(page)
+        except PageNotAnInteger:
+            connector_cable_res = paginator.page(1)
+        except EmptyPage:
+            connector_cable_res = paginator.page(paginator.num_pages)
+
+        read_only = request.POST.get('readonly')
+        return render_to_response('admin_pages/connector_pages/connector_cable_table_readonly.html', locals())
 
     except Exception,e:
         print str(e)

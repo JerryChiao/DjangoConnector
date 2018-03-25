@@ -41,7 +41,7 @@ function filter_converter_with_page(page){
 
     $.ajax({
         type:"POST",
-        url: "{% url 'admin_filter_converter' %}",
+        url: "{% url 'load_filter_converter' %}",
         data: formData,
         cache:false,
         contentType: false,

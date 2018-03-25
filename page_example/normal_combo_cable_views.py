@@ -20,7 +20,6 @@ def order_witc(witc1, witc2):
     return witc2, witc1
 
 
-@login_required
 def admin_filter_normal_combo_cable(request):
     # try:
 

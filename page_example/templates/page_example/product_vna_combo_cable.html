@@ -40,7 +40,7 @@ function filter_vna_combo_cable_with_page(page){
 
     $.ajax({
         type:"POST",
-        url: "{% url 'admin_filter_vna_combo_cable' %}",
+        url: "{% url 'load_filter_vna_combo_cable' %}",
         data: formData,
         cache:false,
         contentType: false,

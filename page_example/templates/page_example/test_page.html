@@ -26,6 +26,30 @@
     <style type="text/css">
 .ui-sortable .panel-header{ cursor:move}
 </style>
+
+<style>
+*{ margin:0; padding:0; list-style:none;}
+img{ border:0;}
+
+.rides-cs { font-size: 12px; background:#29a7e2; position: fixed; bottom: 50px; right: 0px; _position: absolute; z-index: 1500; border-radius:6px 0px 0 6px;}
+.rides-cs a { color: #00A0E9;}
+.rides-cs a:hover { color: #ff8100; text-decoration: none;}
+.rides-cs .floatL { width: 36px; float:left; position: relative; z-index:1;margin-top: 21px;height: 181px;}
+.rides-cs .floatL a { font-size:0; text-indent: -999em; display: block;}
+.rides-cs .floatR { width: 130px; float: left; padding: 5px; overflow:hidden;}
+.rides-cs .floatR .cn {background:#F7F7F7; border-radius:6px;margin-top:4px;}
+.rides-cs .cn .titZx{ font-size: 14px; color: #333;font-weight:600; line-height:24px;padding:5px;text-align:center;}
+.rides-cs .cn ul {padding:0px;}
+.rides-cs .cn ul li { line-height: 38px; height:38px;border-bottom: solid 1px #E6E4E4;overflow: hidden;text-align:center;}
+.rides-cs .cn ul li span { color: #777;}
+.rides-cs .cn ul li a{color: #777;}
+.rides-cs .cn ul li img { vertical-align: middle;}
+.rides-cs .btnOpen, .rides-cs .btnCtn { position: relative; z-index:9; top:25px; left: 0; background-image: url(http://demo.lanrenzhijia.com/2014/service1031/images/lanrenzhijia.png); background-repeat: no-repeat; display:block; height: 146px; padding: 8px;}
+.rides-cs .btnOpen { background-position: 0 0;}
+.rides-cs .btnCtn { background-position: -37px 0;}
+.rides-cs ul li.top { border-bottom: solid #ACE5F9 1px;}
+.rides-cs ul li.bot { border-bottom: none;}
+</style>
     {% block page-title %}
     <title>{% trans 'Welcome to Website' %} LANGUAGE_CODE </title>
     <meta name="keywords" content="关键词,5个左右,单个8汉字以内">
@@ -111,6 +135,29 @@
             </div>
 
         </div>
+
+        <div id="floatTools" class="rides-cs" style="height:400px;">
+ <div class="floatL">
+ <a id="aFloatTools_Show" class="btnOpen" title="查看在线客服" style="top:100px;display:block" href="javascript:void(0);">展开</a>
+ <a id="aFloatTools_Hide" class="btnCtn" title="关闭在线客服" style="top:100px;display:none" href="javascript:void(0);">收缩</a>
+ </div>
+ <div id="divFloatToolsView" class="floatR" style="display: none;height:388px;width: 140px;">
+ <div class="cn">
+ <h3 class="titZx">网络博客在线客服</h3>
+ <ul>
+ <li><span>网络博客</span> <a target="_blank" rel="nofollow" href="http://www.wuzuowei.net/link?url=aHR0cDovL3dwYS5xcS5jb20vbXNncmQ/dj0zJmFtcDt1aW49MTMyMzg3MTcmYW1wO3NpdGU9cXEmYW1wO21lbnU9eWVz"><img border="0" src="http://demo.lanrenzhijia.com/2014/service1031/images/online.png" alt="点击这里给我发消息" title="点击这里给我发消息"/></a> </li>
+ <li><span>网络博客</span> <a target="_blank" rel="nofollow" href="http://www.wuzuowei.net/link?url=aHR0cDovL3dwYS5xcS5jb20vbXNncmQ/dj0zJmFtcDt1aW49MTE4MzM4NzE3JmFtcDtzaXRlPXFxJmFtcDttZW51PXllcw=="><img border="0" src="http://demo.lanrenzhijia.com/2014/service1031/images/online.png" alt="点击这里给我发消息" title="点击这里给我发消息"/></a> </li>
+ <li><span>网络博客</span> <a target="_blank" rel="nofollow" href="http://www.wuzuowei.net/link?url=aHR0cDovL3dwYS5xcS5jb20vbXNncmQ/dj0zJmFtcDt1aW49MTE4MzM4NzE3JmFtcDtzaXRlPXFxJmFtcDttZW51PXllcw=="><img border="0" src="http://demo.lanrenzhijia.com/2014/service1031/images/online.png" alt="点击这里给我发消息" title="点击这里给我发消息"/></a> </li>
+ <li><span>网络博客</span> <a target="_blank" rel="nofollow" href="http://www.wuzuowei.net/link?url=aHR0cDovL3dwYS5xcS5jb20vbXNncmQ/dj0zJmFtcDt1aW49MTE4MzI4NzE3JmFtcDtzaXRlPXFxJmFtcDttZW51PXllcw=="><img border="0" src="http://demo.lanrenzhijia.com/2014/service1031/images/online.png" alt="点击这里给我发消息" title="点击这里给我发消息"/></a> </li>
+ <li><span>网络博客</span> <a target="_blank" rel="nofollow" href="http://www.wuzuowei.net/link?url=aHR0cDovL3dwYS5xcS5jb20vbXNncmQ/dj0zJmFtcDt1aW49MTE4MzIzNzE3JmFtcDtzaXRlPXFxJmFtcDttZW51PXllcw=="><img border="0" src="http://demo.lanrenzhijia.com/2014/service1031/images/online.png" alt="点击这里给我发消息" title="点击这里给我发消息"/></a> </li>
+ <li><span>网络博客</span> <a target="_blank" rel="nofollow" href="http://www.wuzuowei.net/link?url=aHR0cDovL3dwYS5xcS5jb20vbXNncmQ/dj0zJmFtcDt1aW49MTE4MzI4NzE3JmFtcDtzaXRlPXFxJmFtcDttZW51PXllcw=="><img border="0" src="http://demo.lanrenzhijia.com/2014/service1031/images/online.png" alt="点击这里给我发消息" title="点击这里给我发消息"/></a> </li>
+ <li><span>网络博客</span> <a target="_blank" rel="nofollow" href="http://www.wuzuowei.net/link?url=aHR0cDovL3dwYS5xcS5jb20vbXNncmQ/dj0zJmFtcDt1aW49MTE4Mjg3MTcmYW1wO3NpdGU9cXEmYW1wO21lbnU9eWVz"><img border="0" src="http://demo.lanrenzhijia.com/2014/service1031/images/online.png" alt="点击这里给我发消息" title="点击这里给我发消息"/></a> </li>
+ <li><span>网络博客</span> <a target="_blank" rel="nofollow" href="http://www.wuzuowei.net/link?url=aHR0cDovL3dwYS5xcS5jb20vbXNncmQ/dj0zJmFtcDt1aW49MTE4MjM4NzE3JmFtcDtzaXRlPXFxJmFtcDttZW51PXllcw=="><img border="0" src="http://demo.lanrenzhijia.com/2014/service1031/images/online.png" alt="点击这里给我发消息" title="点击这里给我发消息"/></a> </li>
+ <li style="border:none;"><span>来源：<a href="http://www.wuzuowei.net">无作为</a></span> </li>
+ </ul>
+ </div>
+ </div>
+</div>
         <footer class="footer mt-20 f-l">
             <div class="container">
                 <nav class="footer-nav">
@@ -131,6 +178,22 @@
 <script type="text/javascript" src="{% static 'lib/jquery.validation/1.14.0/jquery.validate.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'lib/jquery.validation/1.14.0/validate-methods.js' %}"></script>
 <script type="text/javascript" src="{% static 'lib/jquery.validation/1.14.0/messages_zh.min.js' %}"></script>
+
+<script src="http://wuover.qiniudn.com/jquery.js"></script>
+<script>
+ $(function(){
+ $("#aFloatTools_Show").click(function(){
+ $('#divFloatToolsView').animate({width:'show',opacity:'show'},100,function(){$('#divFloatToolsView').show();});
+ $('#aFloatTools_Show').hide();
+ $('#aFloatTools_Hide').show();
+ });
+ $("#aFloatTools_Hide").click(function(){
+ $('#divFloatToolsView').animate({width:'hide', opacity:'hide'},100,function(){$('#divFloatToolsView').hide();});
+ $('#aFloatTools_Show').show();
+ $('#aFloatTools_Hide').hide();
+ });
+ });
+</script>
 {% block private-script %}
 {% endblock %}
 <script>

@@ -61,6 +61,39 @@ def admin_filter_cable(request):
         return render_to_response("admin_pages/cable_pages/cable_table.html")
 
 
+def load_filter_cable(request):
+    """
+    :param request:
+    :return:
+    """
+    cable_res = Cable.objects.all()
+
+    try:
+        if request.POST['category_type']:
+            category = CableCategory.objects.get(content=request.POST['category_type'])
+            cable_res = cable_res.filter(category_type=category)
+
+        paginator = Paginator(cable_res, RESULT_NUM_PER_PAGE)
+        page = request.POST.get('page')
+
+        try:
+            cable_res = paginator.page(page)
+        except PageNotAnInteger:
+            cable_res = paginator.page(1)
+        except EmptyPage:
+            cable_res = paginator.page(paginator.num_pages)
+
+        read_only = request.POST.get('readonly')
+
+        if read_only:
+            return render_to_response('admin_pages/cable_pages/cable_table_readonly.html', locals())
+        return render_to_response("admin_pages/cable_pages/cable_table.html", locals())
+
+    except Exception,e:
+        log.error(str(e))
+        return render_to_response("admin_pages/cable_pages/cable_table.html")
+
+
 @login_required
 def admin_load_cable_mod_form(request):
     """

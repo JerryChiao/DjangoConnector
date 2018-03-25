@@ -80,6 +80,49 @@ def admin_filter_vna_combo_cable(request):
         return render_to_response("admin_pages/vna_combo_cable_pages/vna_combo_cable_table.html")
 
 
+def load_filter_vna_combo_cable(request):
+    """
+    :param request:
+    :return:
+    """
+    vna_combo_cable_res = VNAComboCable.objects.all()
+    print request.POST
+    try:
+        if request.POST['a_category']:
+            vna_combo_cable_res = vna_combo_cable_res.filter(a_content_type=request.POST['a_category'])
+
+        if request.POST['a_polar']:
+            polar = Polar.objects.get(content=request.POST['a_polar'])
+            vna_combo_cable_res = vna_combo_cable_res.filter(a_polar_type=polar)
+
+        if request.POST['b_category']:
+            vna_combo_cable_res = vna_combo_cable_res.filter(b_content_type=request.POST['b_category'])
+
+        if request.POST['b_polar']:
+            polar = Polar.objects.get(content=request.POST['b_polar'])
+            vna_combo_cable_res = vna_combo_cable_res.filter(b_polar_type=polar)
+
+        paginator = Paginator(vna_combo_cable_res, RESULT_NUM_PER_PAGE)
+        page = request.POST.get('page')
+
+        try:
+            vna_combo_cable_res = paginator.page(page)
+        except PageNotAnInteger:
+            vna_combo_cable_res = paginator.page(1)
+        except EmptyPage:
+            vna_combo_cable_res = paginator.page(paginator.num_pages)
+
+        read_only = request.POST.get('readonly')
+        if read_only:
+            return render_to_response('admin_pages/vna_combo_cable_pages/vna_combo_cable_table_readonly.html', locals())
+
+        print "here"
+        return render_to_response("admin_pages/vna_combo_cable_pages/vna_combo_cable_table.html", locals())
+
+    except Exception,e:
+        return render_to_response("admin_pages/vna_combo_cable_pages/vna_combo_cable_table.html")
+
+
 @login_required
 def admin_load_vna_combo_cable_mod_form(request):
     """
