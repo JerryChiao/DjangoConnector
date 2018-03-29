@@ -38,7 +38,7 @@
     <a onclick="filter_connector_pcb_with_page({{ connector_pcb_res.next_page_number }} )">下一页</a>
 {% endif %}
 
-{% if onnector_pcb_res.paginator.num_pages > 1 %}
+{% if connector_pcb_res.paginator.num_pages > 1 %}
 <span>
     {{ connector_pcb_res.number }} / {{ connector_pcb_res.paginator.num_pages }}
 </span>

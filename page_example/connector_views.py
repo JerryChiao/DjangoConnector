@@ -1,11 +1,12 @@
+# coding:utf8
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render_to_response, render
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from models import ConnectorPcbForm, ConnectorPcb, ConnectorCableForm, ConnectorCable, Polar, OutLook, \
-    Category, InstallType, CombineType
-
+    Category, InstallType, CombineType, RecentProduct
+from django.core.files import File
 from front_display.settings import RESULT_NUM_PER_PAGE
 
 
@@ -17,15 +18,29 @@ def admin_add_pcb_connector(request):
     :return:
     """
     connector_form = ConnectorPcbForm(request.POST, request.FILES)
+
     if connector_form.is_valid():
         new_pcb = connector_form.save()
+
+        description_str = new_pcb.content_type.content + u',' + new_pcb.polar_type.content
+        property_str = str(new_pcb.install_type) + ',' + str(new_pcb.outlook_type) + ',' + str(new_pcb.property)
+        uploaded_image = new_pcb.image
+        uploaded_document = new_pcb.document
+        recent_prod_obj = RecentProduct(
+            product_type="适配PCB连接器",
+            description=description_str,
+            property=property_str,
+            image=File(uploaded_image, uploaded_image.name),
+            full_witc=new_pcb.full_witc,
+            r_witc=new_pcb.full_witc + "_connector_pcb",
+            document=File(uploaded_document, uploaded_document.name)
+                                        )
+        recent_prod_obj.save()
         recent_connector_pcb = ConnectorPcb.objects.all().order_by("-time")[0:1]
 
         return render_to_response("admin_pages/connector_pages/connector_recent_table.html", locals())
     else:
-        print connector_form.errors
-
-        return JsonResponse(connector_form.errors)
+        return render_to_response("admin_pages/connector_pages/connector_errors.html", locals())
 
 
 @login_required
@@ -36,15 +51,33 @@ def admin_add_cable_connector(request):
     :return:
     """
     connector_form = ConnectorCableForm(request.POST, request.FILES)
-    if connector_form.is_valid():
-        new_pcb = connector_form.save()
-        recent_connector_pcb = ConnectorCable.objects.all().order_by("-time")[0:1]
+    try:
+        if connector_form.is_valid():
+            new_connector_cable = connector_form.save()
+            description_str = new_connector_cable.content_type.content + u',' + new_connector_cable.polar_type.content
+            property_str = str(new_connector_cable.install_type) + ',' + str(new_connector_cable.outlook_type) + ',' + \
+                           str(new_connector_cable.property)
+            uploaded_image = new_connector_cable.image
+            uploaded_document = new_connector_cable.document
+            recent_prod_obj = RecentProduct(
+                product_type='适配电缆连接器',
+                description=description_str,
+                property=property_str,
+                image=File(uploaded_image, uploaded_image.name),
+                full_witc=new_connector_cable.full_witc,
+                r_witc=new_connector_cable.full_witc + "_connector_cable",
+                document=File(uploaded_document, uploaded_document.name)
+            )
+            recent_prod_obj.save()
+            recent_connector_pcb = ConnectorCable.objects.all().order_by("-time")[0:1]
 
-        return render_to_response("admin_pages/connector_pages/connector_recent_table.html", locals())
-    else:
-        print connector_form.errors
+            return render_to_response("admin_pages/connector_pages/connector_recent_table.html", locals())
+        else:
+            return render_to_response("admin_pages/connector_pages/connector_errors.html", locals())
 
-        return JsonResponse(connector_form.errors)
+    except Exception, e:
+        print(e)
+        return HttpResponse(-1)
 
 
 @login_required
@@ -53,8 +86,7 @@ def admin_filter_connector_pcb(request):
     :param request:
     :return:
     """
-    connector_pcb_res = ConnectorPcb.objects.all()
-    print request.POST
+    connector_pcb_res = ConnectorPcb.objects.all().order_by('time')
     try:
         if request.POST['category']:
             connector_pcb_res = connector_pcb_res.filter(content_type=request.POST['category'])
@@ -73,18 +105,16 @@ def admin_filter_connector_pcb(request):
 
         paginator = Paginator(connector_pcb_res, RESULT_NUM_PER_PAGE)
         page = request.POST.get('page')
-
+        print(page)
         try:
             connector_pcb_res = paginator.page(page)
         except PageNotAnInteger:
             connector_pcb_res = paginator.page(1)
         except EmptyPage:
             connector_pcb_res = paginator.page(paginator.num_pages)
-
-        read_only = request.POST.get('readonly')
-        if read_only:
-            return render_to_response('admin_pages/connector_pages/connector_pcb_table_readonly.html', locals())
-
+        # read_only = request.POST.get('readonly')
+        # if read_only:
+        #     return render_to_response('admin_pages/connector_pages/connector_pcb_table_readonly.html', locals())
         return render_to_response("admin_pages/connector_pages/connector_pcb_table.html", locals())
 
     except Exception,e:
@@ -127,7 +157,7 @@ def load_filter_connector_pcb(request):
         return render_to_response('admin_pages/connector_pages/connector_pcb_table_readonly.html', locals())
 
     except Exception,e:
-        return render_to_response("admin_pages/connector_pages/connector_pcb_table.html")
+        return render_to_response("admin_pages/connector_pages/connector_pcb_table.html", locals())
 
 
 @login_required
@@ -154,6 +184,9 @@ def admin_filter_connector_cable(request):
         if request.POST['outlook']:
             outlook = OutLook.objects.get(content=request.POST['outlook'])
             connector_cable_res = connector_cable_res.filter(outlook_type=outlook)
+
+        if request.POST['cable_type']:
+            connector_cable_res = connector_cable_res.filter(cable_type=request.POST['cable_type'])
 
         paginator = Paginator(connector_cable_res, RESULT_NUM_PER_PAGE)
 
@@ -201,6 +234,9 @@ def load_filter_connector_cable(request):
         if request.POST['outlook']:
             outlook = OutLook.objects.get(content=request.POST['outlook'])
             connector_cable_res = connector_cable_res.filter(outlook_type=outlook)
+
+        if request.POST['cable_type']:
+            connector_cable_res = connector_cable_res.filter(cable_type=request.POST['cable_type'])
 
         paginator = Paginator(connector_cable_res, RESULT_NUM_PER_PAGE)
 
@@ -312,13 +348,16 @@ def admin_delete_pcb_connector(request):
     """
     if 'witc' in request.POST:
         witc = request.POST['witc']
-
+        r_witc = witc + "_connector_pcb"
         try:
             ConnectorPcb.objects.filter(full_witc=witc).delete()
+            RecentProduct.objects.filter(r_witc=r_witc).delete()
+
             connector_pcb_res = ConnectorPcb.objects.all()
             return render_to_response("admin_pages/connector_pages/connector_pcb_table.html", locals())
 
         except Exception, e:
+            print(e)
             return HttpResponse(-1)
     return HttpResponse(-1)
 
@@ -332,14 +371,15 @@ def admin_delete_cable_connector(request):
     """
     if 'witc' in request.POST:
         witc = request.POST['witc']
-
+        r_witc = witc + "_connector_cable"
         try:
             ConnectorCable.objects.filter(full_witc=witc).delete()
+            RecentProduct.objects.filter(r_witc=r_witc).delete()
             connector_cable_res = ConnectorCable.objects.all()
             return render_to_response("admin_pages/connector_pages/connector_cable_table.html", locals())
 
         except Exception, e:
-            return HttpResponse(-1)
+            return HttpResponse(e)
     return HttpResponse(-1)
 
 

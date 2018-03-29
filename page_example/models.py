@@ -154,7 +154,7 @@ class ConnectorPcb(models.Model):
     upper_frequency = models.FloatField()
     outlook_type = models.ForeignKey(OutLook)
     property = models.ForeignKey(Property)
-    full_witc = models.CharField(max_length=30)
+    full_witc = models.CharField(max_length=30, primary_key=True)
     combo_short_witc = models.CharField(max_length=10)
     document = models.FileField(upload_to="connectorCable/")
     image = models.ImageField(upload_to="connectorCable/")
@@ -175,7 +175,7 @@ class Converter(models.Model):
     install_type = models.ForeignKey(InstallType)
     material = models.CharField(max_length=40)
     property = models.ForeignKey(Property)
-    full_witc = models.CharField(max_length=30)
+    full_witc = models.CharField(max_length=30, primary_key=True)
     document = models.FileField(upload_to="converter/")
     image = models.ImageField(upload_to="converter/")
     comments = models.CharField(max_length=100)
@@ -200,7 +200,7 @@ class Cable(models.Model):
     loss_coef_k1 = models.FloatField()
     loss_coef_k2 = models.FloatField()
     property = models.ForeignKey(Property)
-    full_witc = models.CharField(max_length=30)
+    full_witc = models.CharField(max_length=30, primary_key=True)
     document = models.FileField(upload_to="cable/")
     image = models.ImageField(upload_to="cable/")
     comments = models.CharField(max_length=100)
@@ -234,7 +234,7 @@ class VNAComboCable(models.Model):
     b_content_type = models.CharField(max_length=30)
     b_polar_type = models.ForeignKey(Polar, related_name="vna_b_polar")
     cable_length = models.FloatField()
-    full_witc = models.CharField(max_length=30)
+    full_witc = models.CharField(max_length=30, primary_key=True)
     document = models.FileField(upload_to="vna_combo_cable/")
     image = models.ImageField(upload_to="vna_combo_cable/")
     comments = models.CharField(max_length=100)
@@ -247,6 +247,16 @@ class ConnectorCableForm(ModelForm):
     class Meta:
         model = ConnectorCable
         exclude = ['comments', 'reserved1', 'reserved2', 'time']
+
+    def clean(self):
+        cleaned_data = super(ConnectorCableForm, self).clean()
+        outer_diameter = cleaned_data.get("outer_diameter")
+        inner_diameter = cleaned_data.get("inner_diameter")
+
+        if inner_diameter > outer_diameter:
+            msg = "Inner diameter should small then outer diameter."
+            self.add_error('outer_diameter', msg)
+            self.add_error('inner_diameter', msg)
 
 
 class CableForm(ModelForm):
@@ -293,7 +303,7 @@ class FrequencyStandingWave(models.Model):
 
 class OtherProductType(models.Model):
     content = models.CharField(max_length=30)
-    code=models.CharField(max_length=10)
+    code = models.CharField(max_length=10)
 
     def __unicode__(self):
         return self.content
@@ -302,7 +312,7 @@ class OtherProductType(models.Model):
 class OtherProduct(models.Model):
     product_type = models.ForeignKey(OtherProductType)
     description = models.TextField()
-    full_witc = models.CharField(max_length=30)
+    full_witc = models.CharField(max_length=30, primary_key=True)
     document = models.FileField(upload_to="others/")
     image = models.ImageField(upload_to="others/")
     comments = models.CharField(max_length=100)
@@ -315,6 +325,22 @@ class OtherProductForm(ModelForm):
     class Meta:
         model = OtherProduct
         exclude = ['comments', 'reserved1', 'reserved2', 'time']
+
+
+class RecentProduct(models.Model):
+    product_type = models.CharField(max_length=30)
+    description = models.CharField(max_length=100)
+    property = models.CharField(max_length=100)
+    image = models.ImageField(upload_to="recent/")
+    full_witc = models.CharField(max_length=30)
+    r_witc = models.CharField(max_length=30,
+                              primary_key=True)
+    document = models.FileField(upload_to="recent/")
+    reserved1 = models.CharField(max_length=100)
+    reserved2 = models.CharField(max_length=100)
+    time = models.DateTimeField(auto_now_add=True)
+
+
 
 
 

@@ -1,11 +1,13 @@
+# coding:utf8
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from models import Category, Polar, InstallType, CombineType, OutLook, Converter, ConverterForm
+from models import Category, Polar, InstallType, CombineType, OutLook, Converter, ConverterForm, RecentProduct
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render_to_response, render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from front_display.settings import RESULT_NUM_PER_PAGE
 from django.views.decorators.csrf import csrf_exempt
+from django.core.files import File
 
 
 def converter_product(request):
@@ -36,13 +38,30 @@ def admin_add_converter(request):
     converter_form = ConverterForm(request.POST, request.FILES)
     if converter_form.is_valid():
         new_converter = converter_form.save()
+
+        description_str = new_converter.a_content_type.content + u',' + new_converter.a_polar_type.content + u'\n' + \
+                          new_converter.b_content_type.content + u',' + new_converter.b_polar_type.content
+
+        property_str = str(new_converter.install_type) + ',' + str(new_converter.outlook_type) + ',' + \
+                       str(new_converter.property) + ',驻波：' + str(new_converter.standing_wave)
+        uploaded_image = new_converter.image
+        uploaded_document = new_converter.document
+        recent_prod_obj = RecentProduct(
+            product_type="转接器",
+            description=description_str,
+            property=property_str,
+            image=File(uploaded_image, uploaded_image.name),
+            r_witc=new_converter.full_witc + "_converter",
+            full_witc=new_converter.full_witc,
+            document=File(uploaded_document, uploaded_document.name)
+        )
+
+        recent_prod_obj.save()
         recent_converter = Converter.objects.all().order_by("-time")[0:1]
 
         return render_to_response("admin_pages/converter_pages/converter_recent_table.html", locals())
     else:
-        print converter_form.errors
-
-        return JsonResponse(converter_form.errors)
+        return render_to_response("admin_pages/converter_pages/converter_errors.html", locals())
 
 
 @login_required
@@ -52,7 +71,7 @@ def admin_filter_converter(request):
     :return:
     """
     converter_res = Converter.objects.all()
-    print request.POST
+
     try:
         if request.POST['a_category']:
             converter_res = converter_res.filter(a_content_type=request.POST['a_category'])
@@ -94,7 +113,7 @@ def load_filter_converter(request):
     :return:
     """
     converter_res = Converter.objects.all()
-    print request.POST
+
     try:
         if request.POST['a_category']:
             converter_res = converter_res.filter(a_content_type=request.POST['a_category'])
@@ -137,11 +156,10 @@ def admin_load_converter_mod_form(request):
     """
     if 'witc' in request.POST:
         witc = request.POST['witc']
-
         try:
             converter_obj = Converter.objects.filter(full_witc=witc).first()
             converter_form = ConverterForm(instance=converter_obj)
-            return render_to_response("admin_pages/converter_pages/vna_combo_cable_form_tbl.html", locals())
+            return render_to_response("admin_pages/converter_pages/converter_form_tbl.html", locals())
 
         except Exception, e:
             print str(e)
@@ -158,6 +176,7 @@ def admin_modify_converter(request):
     :return:
     """
     witc = request.POST['raw_witc']
+
     raw_obj = Converter.objects.get(full_witc=str(witc))
     converter_form = ConverterForm(request.POST, request.FILES, instance=raw_obj)
     if converter_form.is_valid():
@@ -180,6 +199,8 @@ def admin_delete_converter(request):
 
         try:
             Converter.objects.filter(full_witc=witc).delete()
+            r_witc = witc + "_converter"
+            RecentProduct.objects.filter(r_witc=r_witc).delete()
             converter_res = Converter.objects.all()
             return render_to_response("admin_pages/converter_pages/converter_table.html", locals())
 

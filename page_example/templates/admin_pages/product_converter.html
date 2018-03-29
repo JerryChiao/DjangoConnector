@@ -55,7 +55,7 @@
                     <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
                 </div>
                 <div class="modal-body">
-                    <p>确认删除产品</p>
+                    <p>确认删除产品 WITC</p>
                     <p id="delete_converter_witc"></p>
                 </div>
                 <div class="modal-footer">
@@ -70,7 +70,7 @@
         <div class="modal-dialog">
             <div class="modal-content radius">
                 <div class="modal-header">
-                    <h3 class="modal-title">修改产品</h3>
+                    <h3 class="modal-title">修改产品 WITC</h3>
                     <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
                 </div>
                 <div class="modal-body">
@@ -124,7 +124,7 @@
                     if(data == -1 ){
                         alert("该记录已经存在");
                     }
-                    document.getElementById("modify_converter_witc").innerHTML=witc
+                    document.getElementById("modify_converter_witc").innerHTML= witc;
                     $('#replace_part_converter').html(data);
                     $("#modify_converter").modal("show");
 
@@ -223,7 +223,9 @@
                     if(data == -1 ) {
                         alert("该记录已经存在");
                     }
+                    if(data.indexOf("error") == -1 )
                     $('#converter_form_reset').trigger("click");
+
                     $('#result_display').html(data);
                 },
                 error: function() {

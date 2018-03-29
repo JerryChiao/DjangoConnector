@@ -42,6 +42,13 @@ urlpatterns = [
     url(r'^admin/add_out_look/', views.admin_add_outlook, name="admin_add_out_look"),
     url('^admin/mod_out_look/', views.admin_modify_outlook, name='admin_modify_out_look'),
     url('^admin/delete_out_look/', views.admin_delete_outlook, name='admin_delete_out_look'),
+
+    url('^admin/product_others_polar/', views.admin_others_polar, name='admin_others_polar'),
+    url(r'^admin/add_polar/', views.admin_add_polar, name="admin_add_polar"),
+    url('^admin/mod_polar', views.admin_modify_polar, name='admin_modify_polar'),
+    url('^admin/delete_polar/', views.admin_delete_polar, name='admin_delete_polar'),
+
+
     url('^admin/product_others_category/', views.admin_others_category, name='admin_others_category'),
     url(r'^admin/add_category/', views.admin_add_category, name="admin_add_category"),
     url('^admin/mod_category/', views.admin_modify_category, name='admin_modify_category'),

@@ -178,9 +178,11 @@
             if(currObj.id == "radio_cable") {
                 document.getElementById("connector_cable_form").style.display = "";
                 document.getElementById("connector_pcb_form").style.display="none"
+                $('#result_display').html("");
             }else{
                 document.getElementById("connector_cable_form").style.display = "none";
                 document.getElementById("connector_pcb_form").style.display=""
+                $('#result_display').html("");
             }
 
         }
@@ -312,8 +314,12 @@
                     if(data == -1 ){
                         alert("该记录已经存在");
                     }
-                    $('#connector_pcb_form_reset').trigger("click");
+                    alert(data)
                     $('#result_display').html(data);
+                    if (data.indexOf("error") != -1) ;
+                    else
+                    $('#connector_pcb_form_reset').trigger("click");
+
                 },
                 error: function() {
                     $('.loginError').html('请求失败，请刷新页面后重试').show();
@@ -381,6 +387,7 @@
                         return;
                     }
                     $('#connector_cable_filter_results').html(data);
+                    document.getElementById("filter_cable_type").value = "";
                 },
                 error: function() {
                     $('.loginError').html('请求失败，请刷新页面后重试').show();
@@ -474,10 +481,12 @@
                 processData: false,
                 success: function(data) {
                     if(data == -1 ){
-                        alert("该记录已经存在");
+                        alert("出现异常，请重试");
                     }
 
                     $('#result_display').html(data);
+                    if (data.indexOf("error") != -1) ;
+                    else
                     $('#connector_cable_form_reset').trigger("click");
                 },
                 error: function() {

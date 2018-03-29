@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 from django.utils.translation import ugettext as _
-from models import ConnectorPcb, Converter, Cable
+from models import ConnectorPcb, Converter, Cable, RecentProduct, Polar
 from log.connector_logging import log
 from django.views.decorators.csrf import csrf_exempt
 
@@ -192,6 +192,58 @@ def admin_delete_outlook(request):
 
 
 @login_required
+def admin_others_polar(request):
+    polar_res = Polar.objects.all()
+    content = {'polar': polar_res}
+    return render(request, 'admin_pages/product_others_polar.html', content)
+
+
+@login_required
+def admin_add_polar(request):
+
+    polar_type = request.POST['content']
+    polar_code = request.POST['code']
+    try:
+        Polar.objects.get(content=polar_type, code=polar_code)
+        return HttpResponse('-1')
+    except Exception, e:
+        Polar.objects.create(content=polar_type, code=polar_code)
+        return HttpResponse('1')
+
+
+@login_required
+def admin_modify_polar(request):
+
+    old_type = request.POST['old_content']
+    old_code = request.POST['old_code']
+    new_type = request.POST['new_content']
+    new_code = request.POST['new_code']
+    try:
+        obj = Polar.objects.get(content=old_type, code=old_code)
+        obj.content = new_type
+        obj.code = new_code
+        obj.save()
+        return HttpResponse('1')
+    except Exception, e:
+        print str(e)
+        return HttpResponse('-1')
+
+
+@login_required
+def admin_delete_polar(request):
+
+    polar_type = request.POST['content']
+    polar_code = request.POST['code']
+
+    try:
+        Polar.objects.filter(content=polar_type, code=polar_code).delete()
+        return HttpResponse('1')
+    except Exception, e:
+        print str(e)
+        return HttpResponse('-1')
+
+
+@login_required
 def admin_others_category(request):
     category_res = Category.objects.all()
     content = {'category': category_res}
@@ -297,8 +349,8 @@ def admin_delete_combo_type(request):
 @csrf_exempt
 def load_recent_product(request):
     try:
-        converter_res = Converter.objects.all().order_by('-time')[0:1]
-        recent_res = Cable.objects.all().order_by('-time')[0:1]
+        # RecentProduct.objects.all().delete()
+        recent_product_res = RecentProduct.objects.all().order_by('-time')[0:5]
 
         return render_to_response('page_example/recent_product_table_readonly.html', locals())
     except Exception, e:

@@ -19,7 +19,7 @@
                                     <td><span class="select-box size-S">
                                 <select datatype="*" name="category" size="1"
                                         class="select" onchange="filter_connector_pcb_with_page()">
-                                     <option value ="">空</option>
+                                     <option value ="">不限</option>
                                     {% for obj in category %}
                                         <option value ="{{ obj.content }}">{{ obj.content }}</option>
                                     {% endfor %}
@@ -27,7 +27,7 @@
                             </span></td>
                                     <td><span class="select-box size-S">
                                 <select datatype="*" name="polar" size="1" class="select" onchange="filter_connector_pcb_with_page()">
-                                    <option value ="">空</option>
+                                    <option value ="">不限</option>
                                     {% for obj in polar %}
                                         <option value ="{{ obj.content }}">{{ obj.content }}</option>
                                     {% endfor %}
@@ -35,7 +35,7 @@
                             </span></td>
                                     <td><span class="select-box size-S">
                                 <select datatype="*" name="install_type" size="1" class="select" onchange="filter_connector_pcb_with_page()">
-                                     <option value ="">空</option>
+                                     <option value ="">不限</option>
                                     {% for obj in install_type %}
                                         <option value ="{{ obj.content }}">{{ obj.content }}</option>
                                     {% endfor %}
@@ -43,7 +43,7 @@
                             </span></td>
                                     <td><span class="select-box size-S">
                                 <select datatype="*" name="outlook" size="1" class="select" onchange="filter_connector_pcb_with_page()">
-                                     <option value ="">空</option>
+                                     <option value ="">不限</option>
                                     {% for obj in out_look %}
                                         <option value ="{{ obj.content }}">{{ obj.content }}</option>
                                     {% endfor %}
@@ -53,7 +53,7 @@
 
                                 </tbody>
                             </table>
-                            <input id="admin_filter_connector_pcb" class="btn btn-primary radius mt-10" type="submit" value="过滤" >
+{#                            <input id="admin_filter_connector_pcb" class="btn btn-primary radius mt-10" type="submit" value="过滤" >#}
                         </form>
                     </div>
                 </div>

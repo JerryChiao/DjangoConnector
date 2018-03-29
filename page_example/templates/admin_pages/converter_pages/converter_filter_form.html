@@ -19,7 +19,7 @@
                     <td><span class="select-box size-M">
                                 <select  datatype="*" name="a_category" size="1"
                                          class="select" onchange="filter_converter_with_page()">
-                                     <option value ="">空</option>
+                                     <option value ="">不限</option>
                                     {% for obj in category %}
                                         <option value ="{{ obj.content }}">{{ obj.content }}</option>
                                     {% endfor %}
@@ -27,7 +27,7 @@
                             </span></td>
                     <td><span class="select-box size-M">
                                 <select datatype="*" name="a_polar" size="1" class="select" onchange="filter_converter_with_page()">
-                                    <option value ="">空</option>
+                                    <option value ="">不限</option>
                                     {% for obj in polar %}
                                         <option value ="{{ obj.content }}">{{ obj.content }}</option>
                                     {% endfor %}
@@ -36,7 +36,7 @@
                     <td><span class="select-box size-M">
                                 <select  datatype="*" name="b_category" size="1"
                                          class="select" onchange="filter_converter_with_page()">
-                                     <option value ="">空</option>
+                                     <option value ="">不限</option>
                                     {% for obj in category %}
                                         <option value ="{{ obj.content }}">{{ obj.content }}</option>
                                     {% endfor %}
@@ -44,7 +44,7 @@
                             </span></td>
                     <td><span class="select-box size-M">
                                 <select datatype="*" name="b_polar" size="1" class="select" onchange="filter_converter_with_page()">
-                                    <option value ="">空</option>
+                                    <option value ="">不限</option>
                                     {% for obj in polar %}
                                         <option value ="{{ obj.content }}">{{ obj.content }}</option>
                                     {% endfor %}
@@ -54,7 +54,7 @@
                 </tr>
                 </tbody>
             </table>
-            <input id="admin_filter_converter" class="btn btn-primary radius mt-10" type="submit" value="查询" >
+{#            <input id="admin_filter_converter" class="btn btn-primary radius mt-10" type="submit" value="查询" >#}
         </form>
     </div>
 </div>

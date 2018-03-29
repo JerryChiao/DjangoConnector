@@ -20,7 +20,10 @@
         <td>安装类型：{{ obj.install_type }}<br>
             截止频率：{{ obj.upper_frequency}}<br>
             外形：{{ obj.outlook_type}},
-            属性：{{ obj.property}}</td>
+            属性：{{ obj.property}}<br>
+        电缆型号：{{ obj.cable_type }}<br>
+        外径：{{ obj.outer_diameter }},
+        内径：{{ obj.inner_diameter }}</td>
         <td>WITC编号：{{ obj.full_witc}}<br>
             <a href="{{ obj.document.url }}">规格书链接</a></td>
         <td><a href="javascript:void(0)" onclick="goto_modify_cable(this)">修改</a>

@@ -23,7 +23,7 @@
                 外形：{{ obj.outlook_type}},
                 属性：{{ obj.property}}</td>
             <td>WITC编号：{{ obj.full_witc}}<br>
-                <a href="{{ obj.document.url }}">规格书链接</a></td>
+                <a href="{{ obj.document.url }}"></a></td>
             <td><a href="javascript:void(0)" onclick="goto_modify_pcb(this)">修改</a>
                 <a href="javascript:void(0)" onclick="goto_delete_pcb(this)">删除</a>
             </td>
@@ -42,7 +42,7 @@
     <a onclick="filter_connector_pcb_with_page({{ connector_pcb_res.next_page_number }} )">下一页</a>
 {% endif %}
 
-{% if onnector_pcb_res.paginator.num_pages > 1 %}
+{% if connector_pcb_res.paginator.num_pages > 1 %}
 <span>
     {{ connector_pcb_res.number }} / {{ connector_pcb_res.paginator.num_pages }}
 </span>

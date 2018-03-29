@@ -1,0 +1,267 @@
+{% extends "admin_pages/product_base.html" %}
+{% load static %}
+{% block page-title %}
+    <title>其他属性编辑-极性</title>
+    <meta name="keywords" content="其他属性-极性">
+    <meta name="description" content="其他属性-极性">
+{% endblock %}
+
+{% block product-private %}
+    <div style="width: 50%" class="container ui-sortable ">
+
+    <div class="panel panel-default">
+        <div id='admin_result' class="panel-header">极性</div>
+        <table class="table table-border table-bordered table-striped">
+            <thead>
+            <tr>
+                <th width="10%">序号</th>
+                <th width="40">极性</th>
+                <th width="30%">极性</th>
+                <th width="20">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for obj in polar %}
+                <tr>
+                    <td><code>{{ forloop.counter }}</code></td>
+                    <td><code>{{ obj.content }}</code></td>
+                    <td><code>{{ obj.code }}</code></td>
+                    <td><a href="javascript:void(0)" onclick="goto_modify(this)">修改</a>
+                        <a href="javascript:void(0)" onclick="goto_delete(this)">删除</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <input class="btn btn-primary radius" type="button" value="添加" onclick="goto_add(this)">
+
+    <div id="modify_polar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content radius">
+                <div class="modal-header">
+                    <h3 class="modal-title">修改</h3>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th >极性：</th>
+                            <th id="raw_content"></th>
+                            <th >编码：</th>
+                            <th id="raw_code"></th>
+                        </tr>
+                        </thead>
+                    </table>
+
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+                </div>
+                <div class="modal-body">
+                    <form method="post", action="" class="form form-horizontal responsive" id="mod_form">{%  csrf_token %}
+
+                        <div class="row cl">
+                            <label class="form-label col-xs-3">极性</label>
+                            <div class="formControls col-xs-8">
+                                <input type="text" class="input-text" id="new_content">
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <label class="form-label col-xs-3">编码</label>
+                            <div class="formControls col-xs-8">
+                                <input type="text" class="input-text" id="new_code">
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <div class="col-xs-8 col-xs-offset-3">
+                                <input id="modify" class="btn btn-primary" type="submit" value="&nbsp;&nbsp;修改&nbsp;&nbsp;">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="add_polar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content radius">
+                <div class="modal-header">
+                    <h3 class="modal-title">修改</h3>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+                </div>
+                <div class="modal-body">
+
+                    <form method="post", action="" class="form form-horizontal responsive" id="add_form">{%  csrf_token %}
+                        <div class="row cl">
+                            <label class="form-label col-xs-3">极性</label>
+                            <div class="formControls col-xs-8">
+                                <input type="text" class="input-text" id="content">
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <label class="form-label col-xs-3">编码</label>
+                            <div class="formControls col-xs-8">
+                                <input type="text" class="input-text" id="code">
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <div class="col-xs-8 col-xs-offset-3">
+                                <input id="login" class="btn btn-primary" type="submit" value="&nbsp;&nbsp;添加&nbsp;&nbsp;">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div id="delete_polar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content radius">
+                <div class="modal-header">
+                    <h3 class="modal-title">删除</h3>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+                </div>
+                <div class="modal-body">
+                    <p>确认删除</p>
+                    <p id="delete_content"> </p>
+                    <p id="delete_code"></p>
+
+                </div>
+                <div class="modal-footer">
+                     <button class="btn btn-primary" onclick="do_delete()" aria-hidden="true">确定</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block private-script %}
+    <script>
+        function goto_modify(obj){
+            var row = obj.parentNode.parentNode;
+            var td = $(row).find("td");
+            var content = td.eq(1).text();
+            var code = td.eq(2).text();
+            document.getElementById("raw_content").innerHTML=content;
+            document.getElementById("raw_code").innerHTML=code;
+            document.getElementById("new_content").value=content;
+            document.getElementById("new_code").value=code;
+            $("#modify_polar").modal("show");
+        }
+
+        function goto_add(obj){
+            $("#add_polar").modal("show");
+        }
+
+
+        function goto_delete(obj){
+            var row = obj.parentNode.parentNode;
+            var td = $(row).find("td");
+            var content = td.eq(1).text();
+            var code = td.eq(2).text();
+
+            document.getElementById("delete_content").innerHTML=content;
+            document.getElementById("delete_code").innerHTML=code;
+            $("#delete_polar").modal("show");
+        }
+
+        function do_delete(){
+            var content = document.getElementById("delete_content").innerHTML;
+            var code = document.getElementById("delete_code").innerHTML;
+             $.ajaxSetup({
+                        data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+                    });
+
+                    $.ajax({
+                        type:"POST",
+                        url: "{% url 'admin_delete_polar' %}",
+                        data: {content:content, code:code},
+                        dataType:'json',
+                        cache:false,
+                        success: function(data) {
+                            if(data == 1 ){
+                                window.location.href="{% url 'admin_others_polar' %}";
+                            }
+                            if(data == -1 ){
+                                alert("该记录不存在");
+                            }
+                        },
+                        error: function() {
+                            $('.loginError').html('请求失败，请刷新页面后重试').show();
+                        }
+                    });
+            $("#delete_polar").modal("hide");
+        }
+
+        $('#add_form').submit(
+                function(){
+                    var content = $('#content').val();
+                    var code = $('#code').val();
+                    if(!content){
+                        return false;
+                    }
+                    if(!code){
+                        return false;
+                    }
+
+                    $.ajaxSetup({
+                        data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+                    });
+
+                    $.ajax({
+                        type:"POST",
+                        url: "{% url 'admin_add_polar' %}",
+                        data: {content:content, code:code},
+                        dataType:'json',
+                        cache:false,
+                        success: function(data) {
+                            if(data == 1 ){
+                                window.location.href="{% url 'admin_others_polar' %}";
+                            }
+                            if(data == -1 ){
+                                alert("该记录已经存在");
+                            }
+                        },
+                        error: function() {
+                            $('.loginError').html('请求失败，请刷新页面后重试').show();
+                        }
+                    });
+                    return false;
+                });
+        $('#mod_form').submit(
+                function(){
+                    var new_content = $('#new_content').val();
+                    var new_code = $('#new_code').val();
+                    var old_content = $('#raw_content').text();
+                    var old_code = $('#raw_code').text();
+                    $.ajaxSetup({
+                        data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+                    });
+
+                    $.ajax({
+                        type:"POST",
+                        url: "{% url 'admin_modify_polar' %}",
+                        data: {new_content: new_content, new_code: new_code,
+                                old_content:old_content, old_code: old_code},
+                        dataType:'json',
+                        cache:false,
+                        success: function(data) {
+                            if(data == 1 ){
+                                window.location.href="{% url 'admin_others_polar' %}";
+                            }
+                            if(data == -1 ){
+                                alert("修改失败，该记录不存在");
+                            }
+                        },
+                        error: function() {
+                            $('.loginError').html('请求失败，请刷新页面后重试').show();
+                        }
+                    });
+                    return false;
+                });
+    </script>
+{% endblock %}

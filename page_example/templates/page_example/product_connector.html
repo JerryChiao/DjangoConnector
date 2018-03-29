@@ -101,6 +101,7 @@ $(document).ready(function(){
                         return;
                     }
                     $('#connector_cable_filter_results').html(data);
+                    document.getElementById("filter_cable_type").value = "";
                 },
                 error: function() {
                     $('.loginError').html('请求失败，请刷新页面后重试').show();
